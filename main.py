@@ -4,27 +4,11 @@ cwd = os.getcwd()
 # print(cwd)
 os.environ['KIVY_HOME'] = cwd + '/conf'
 
-from kivy.uix.label import Label
-import time
+
 # import sqlite3
-import requests
 
 from kivy.lang import Builder
-from kivy.clock import Clock
-from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.app import MDApp
-from kivy.properties import StringProperty, ListProperty, ObjectProperty, NumericProperty
-from kivymd.uix.list import OneLineIconListItem
-from kivymd.theming import ThemableBehavior
-from kivymd.uix.list import MDList
-from kivymd.uix.card import MDCard
-from kivy.uix.recycleview import RecycleView
-
-# from login import LogInCard
-# from clock import IncrediblyCrudeClock
-# from first_coffee import FirstCoffe
-
-
 
 class TestNavigationDrawer(MDApp):
 
