@@ -1,0 +1,145 @@
+# #:import login.kv
+#:set active_token ''
+
+# Menu item in the DrawerList list.
+
+<ItemDrawer>
+    id: it_draw
+    theme_text_color: "Custom"
+    on_release: self.parent.set_color_item(self)
+
+    IconLeftWidget:
+        id: icon
+        icon: root.icon
+        theme_text_color: "Custom"
+        text_color: root.text_color
+
+<ContentNavigationDrawer>
+    id: cont_Nav
+    # Let menu
+    orientation: "vertical"
+    padding: "8dp"
+    spacing: "8dp"
+
+    AnchorLayout:
+        anchor_x: "left"
+        size_hint_y: None
+        height: cup_img.height
+
+        Image:
+            id: cup_img
+            size_hint: None, None
+            size: "60dp", "60dp"
+            source: "image/coffe_icon1.png"
+
+    MDLabel:
+        text: "Jung Péter"
+        font_style: "Button"
+        size_hint_y: None
+        height: self.texture_size[1]
+
+    MDLabel:
+        text: "peterjung777@gmail.com"
+        font_style: "Caption"
+        size_hint_y: None
+        height: self.texture_size[1]
+
+    ScrollView:
+        id: scroller
+
+        DrawerList:
+            id: md_list
+
+
+MDScreen:   
+    # Bottom menu
+    id: mdscreen
+    md_bg_color: app.theme_cls.primary_light
+    FitImage:
+        id: coffee
+        size_hint: (1, 1)
+        padding: 4
+        # size: (root.width, root.height)
+        source: "image/bean_bg.jpg"
+
+    MDBottomNavigation:
+        id: nav_bottom
+        panel_color: app.theme_cls.primary_color
+        selected_color_background: "Custom"
+        text_color_active: 0, 0, 0, 1
+
+        MDBottomNavigationItem:
+            id: screen1
+            name: 'screen 1'
+            text: 'Home'
+            icon: 'home'
+            badge_icon: "numeric-10"
+
+        MDBottomNavigationItem:
+            id: screen2
+            name: 'screen 2'
+            text: 'Order'
+            icon: 'coffee'
+            badge_icon: "numeric-5"
+            
+            MDLabel:
+                text: 'Order Coffe'
+                halign: 'center'
+
+        MDBottomNavigationItem:
+            id: screen3
+            name: 'screen 3'
+            text: 'Make'
+            pos_hint: {"center_x": .5, "center_y": .5}
+            icon: 'coffee-maker'
+
+            MDLabel:
+                text: 'Make Coffee'
+                halign: 'center'
+
+        MDBottomNavigationItem:
+            id: screen4
+            name: 'screen 4'
+            text: 'Account'
+            icon: 'account-cancel'
+           
+    MDNavigationLayout:
+        id: nav_lay
+
+        ScreenManager:
+            id: sm_manager
+
+            MDScreen:
+                id: top_menu
+                
+                MDToolbar:
+                    id: mdtoolbar1
+                    title: "I-me Coffe Bar 'Ante Portas' "
+                    elevation: 10
+                    pos_hint: {"top": 1}
+                    md_bg_color: app.theme_cls.primary_color
+                    specific_text_color: "#000000"
+                    left_action_items:
+                        [['menu', lambda x: nav_drawer.set_state("open")]]
+                    elevation:10
+
+                    MDIconButton:         
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        icon: "image/coffe_bean_heart.png"
+
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            md_bg_color: app.theme_cls.primary_color
+            radius: (0, 16, 16, 0) if self.anchor == "left" else (16, 0, 0, 16)
+
+            ContentNavigationDrawer:
+                id: content_drawer
+                orientation: 'vertical'
+                padding: "8dp"
+                spacing: "8dp"
+
+
+    
+            
+                

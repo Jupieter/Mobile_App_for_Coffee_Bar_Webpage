@@ -1,0 +1,10 @@
+*.pyc
+*~
+__pycache__
+venv
+conf/logs
+conf/icon
+db.sqlite3
+/django
+.DS_Store
+*.bat
