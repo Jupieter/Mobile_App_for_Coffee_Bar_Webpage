@@ -8,6 +8,6 @@ class TestNavigationDrawer(MDApp):
         return Builder.load_file('kv/main.kv')
 
 if __name__ == '__main__':
-    # print('START MAIN')
+    print('START MAIN')
     TestNavigationDrawer().run()
 
