@@ -5,9 +5,9 @@ cwd = os.getcwd()
 os.environ['KIVY_HOME'] = cwd + '/conf'
 
 from kivy.uix.label import Label
-import time
+# import time
 import sqlite3
-import requests
+# import requests
 
 from kivy.lang import Builder
 from kivy.clock import Clock
@@ -58,7 +58,7 @@ class TestNavigationDrawer(MDApp):
         self.create_db()
 
         # self.theme_cls.theme_style = "Light"
-        # self.theme_cls.primary_palette = "Brown"  # "Purple", "Red"
+        self.theme_cls.primary_palette = "Brown"  # "Purple", "Red"
         return Builder.load_file('kv/main.kv')
     
     def create_db(self):
