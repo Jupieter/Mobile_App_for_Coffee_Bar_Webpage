@@ -110,10 +110,10 @@ class TestNavigationDrawer(MDApp):
         # self.root.ids.screen1.add_widget(FirstCoffe())
         self.root.ids.screen3.add_widget(IncrediblyCrudeClock())
         # self.root.ids.screen4.add_widget(LogInCard())
-        # self.id_scr_1 = self.root.ids.screen1
-        # self.id_scr_4 = self.root.ids.screen4
-        # main_rt = self.root
-        # print('main login', main_rt)
+        self.id_scr_1 = self.root.ids.screen1
+        self.id_scr_4 = self.root.ids.screen4
+        main_rt = self.root
+        print('main login', main_rt)
 
     
 
