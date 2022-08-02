@@ -1,8 +1,8 @@
-import os
-os.environ['KIVY_NO_CONSOLELOG'] = '1'
-cwd = os.getcwd()
-# print(cwd)
-os.environ['KIVY_HOME'] = cwd + '/conf'
+# import os
+# os.environ['KIVY_NO_CONSOLELOG'] = '1'
+# cwd = os.getcwd()
+# # print(cwd)
+# os.environ['KIVY_HOME'] = cwd + '/conf'
 
 from kivy.uix.label import Label
 import time
@@ -120,6 +120,6 @@ class TestNavigationDrawer(MDApp):
 
 
 if __name__ == '__main__':
-    # print('START MAIN')
+    print('START MAIN')
     TestNavigationDrawer().run()
 
