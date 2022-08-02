@@ -39,13 +39,13 @@ class DrawerList(ThemableBehavior, MDList):
     
     def set_color_item(self, instance_item):
         '''Called when tap on a menu item.'''
-    # 
-    #     # Set the color of the icon and text for the menu item.
-    #     for item in self.children:
-    #         if item.text_color == self.theme_cls.primary_color:
-    #             item.text_color = self.theme_cls.text_color
-    #             break
-    #     instance_item.text_color = self.theme_cls.primary_color
+    
+        # Set the color of the icon and text for the menu item.
+        for item in self.children:
+            if item.text_color == self.theme_cls.primary_color:
+                item.text_color = self.theme_cls.text_color
+                break
+        instance_item.text_color = self.theme_cls.primary_color
 
 
 class TestNavigationDrawer(MDApp):
@@ -57,7 +57,7 @@ class TestNavigationDrawer(MDApp):
         
         self.create_db()
 
-        # self.theme_cls.theme_style = "Light"
+        self.theme_cls.theme_style = "Light"
         self.theme_cls.primary_palette = "Brown"  # "Purple", "Red"
         return Builder.load_file('kv/main.kv')
     
