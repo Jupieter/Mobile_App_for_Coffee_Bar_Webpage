@@ -1,0 +1,33 @@
+<IncrediblyCrudeClock>
+    id: clock_card  
+    size_hint: None, None
+    size: 400, 500
+    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    elevation: 25
+    padding: 25
+    spacing: 35
+    radius: 20
+    orientation: 'vertical'
+    line_color: (0.2, 0.2, 0.2, 0.8)
+
+    MDLabel:
+        id: crude_clock
+        text: "TIME"
+        font_size: 30
+        halign: 'center'
+        size_hint_y: None
+        height: self.texture_size[1]
+        padding_y: 6
+
+    MDRoundFlatButton:
+        id: clock_btn 
+        text: "HH:MM"
+        font_size: 12
+        pos_hint: {"center_x": 0.5}
+        # on_press: root.log_in()
+        disabled: False
+    
+    
+    Widget:
+        size_hint_y: None
+        height: 20
