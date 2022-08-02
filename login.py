@@ -16,7 +16,7 @@ Builder.load_file('kv/login.kv')
 
 
 class LogInCard(MDCard): # the.boss@staff.com    Enter1
-	# print('LogInCard 0')
+	print('LogInCard 0')
 	def __init__(self, **kwargs):
 		super(LogInCard, self).__init__(**kwargs)
 		ld_user = self.load_user()
@@ -35,12 +35,12 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 
 	def log_out(self):
 		active_token = self.load_token()
-		# # print('LOG Token', active_token)
+		print('LOG Token', active_token)
 		token_str = 'Token ' + active_token
 		hd_token = {'Authorization':token_str}
 		store = requests.post('https://jupieter.pythonanywhere.com/c_app/logout/', headers=hd_token)
-		## print(hd_token)
-		# print(store)
+		print(hd_token)
+		print(store)
 		self.btn_disable(False, False, True)
 		self.act_token_db('Empty', 'Empty')
 		self.ids.welcome_label.text =('LOG IN')
@@ -50,19 +50,19 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 		
 
 	def log_in(self):
-		# print('START LOG')
+		print('START LOG')
 		user = self.ids.user.text
 		password = self.ids.password.text
 		if user != "" or password != "" :
 			x = {'email':user, 'password':password}
 			sends = json=x
-			# print(sends)
+			print(sends)
 			store = requests.post('https://jupieter.pythonanywhere.com/c_app/login/', data=sends).json()
-			# print(store)
+			print(store)
 			keys = []
 			values = []
 			for key in store.keys():
-				# print (key)
+				print ('key', key)
 				keys.append(key)
 			# print ('key: ', keys[0] )
 			if keys[0] == 'expiry':
@@ -79,7 +79,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 				scr4 = MDApp.get_running_app().id_scr_4
 				self.ids.password.text = ""	
 				scr4.icon = 'account-check'
-				# print('END LOG') 
+				print('END LOG') 
 
 			elif keys[0] == 'non_field_errors':
 				x = store['non_field_errors']
@@ -89,7 +89,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 
 			else:
 				self.ids.welcome_label.text =(f'Hi /{user}/ wrong email or password!')
-				# print('WRONG LOG')
+				print('WRONG LOG')
 	
 	def btn_disable(self, btn_in, btn_clr, btn_out):
 		self.ids.log_in_btn.disabled = btn_in
@@ -151,7 +151,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 
 
 	def clear(self):
-		# print('Clear  !')
+		print('Clear  !')
 		self.ids.user.text = ""		
 		self.ids.password.text = ""	
 		self.ids.welcome_label.text = "LOG IN"		
