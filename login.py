@@ -55,7 +55,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 		password = self.ids.password.text
 		if user != "" or password != "" :
 			x = {'email':user, 'password':password}
-			sends = json=x
+			sends = x
 			print(sends)
 			store = requests.post('https://jupieter.pythonanywhere.com/c_app/login/', data=sends).json()
 			print(store)
