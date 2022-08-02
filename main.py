@@ -24,13 +24,6 @@ from kivy.uix.recycleview import RecycleView
 # from clock import IncrediblyCrudeClock
 # from first_coffee import FirstCoffe
 
-class ItemDrawer(OneLineIconListItem):
-    icon = StringProperty()
-    text_color = ListProperty((0, 0, 0, 1))
-
-active_token = 'Semmi'
-
-
 
 class ContentNavigationDrawer(MDBoxLayout):
     pass
@@ -48,9 +41,7 @@ class DrawerList(ThemableBehavior, MDList):
 
 
 class TestNavigationDrawer(MDApp):
-    counter = NumericProperty(0)
-    id_scr_1 = ObjectProperty()
-    id_scr_4 = ObjectProperty()
+
     def build(self):
         # print('Build 0')
         
@@ -88,36 +79,6 @@ class TestNavigationDrawer(MDApp):
         cur.execute(sql, data2)
         conn.commit()
         conn.close()'''
-    
-    def on_start(self):
-        # print('on_start')
-        icons_item = {
-            "folder": "My files",
-            "account-multiple": "Shared with me",
-            "star": "Starred",
-            "history": "Recent",
-            "checkbox-marked": "Shared with me",
-            "upload": "Upload",
-        }
-        # print(icons_item)
-        for icon_name in icons_item.keys():            
-            self.root.ids.content_drawer.ids.md_list.add_widget(
-                ItemDrawer(icon=icon_name, text=icons_item[icon_name])
-            )
-        # log = LogInCard()
-        # log.act_token_db('Empty', 'Empty')
-        # self.root.ids.screen1.add_widget(FirstCoffe())
-        # self.root.ids.screen3.add_widget(IncrediblyCrudeClock())
-        # self.root.ids.screen4.add_widget(LogInCard())
-        # self.id_scr_1 = self.root.ids.screen1
-        # self.id_scr_4 = self.root.ids.screen4
-        # main_rt = self.root
-        # print('main login', main_rt)
-
-    
-
-    
-
 
 if __name__ == '__main__':
     # print('START MAIN')
