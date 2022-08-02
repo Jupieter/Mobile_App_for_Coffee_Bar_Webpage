@@ -1,0 +1,87 @@
+#:set active_token 'FAL'
+
+<LogInCard>
+    id: log_in_card  
+    size_hint: None, None
+    size: 400, 500
+    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    elevation: 25
+    padding: 25
+    spacing: 35
+    radius: 20
+    orientation: 'vertical'
+    line_color: (0.2, 0.2, 0.2, 0.8)
+
+    MDLabel:
+        id: welcome_label
+        text: "LOG IN"
+        font_size: 30
+        halign: 'center'
+        size_hint_y: None
+        height: self.texture_size[1]
+        padding_y: 6
+    
+    Widget:
+        size_hint_y: None
+        height: 20
+
+    MDTextFieldRound:
+        id: user
+        hint_text: "username"
+        icon_right: "account"
+        size_hint_x: None
+        width: 300
+        font_size: 14
+        pos_hint: {"center_x": 0.5}
+    
+    MDTextFieldRound:
+        id: password
+        hint_text: "password"
+        icon_right: "eye-off"
+        size_hint_x: None
+        width: 300
+        font_size: 14
+        pos_hint: {"center_x": 0.5}
+        password: True
+    
+    Widget:
+        size_hint_y: None
+        height: 20
+
+    MDGridLayout:
+        adaptive_size: True
+        # md_bg_color: app.theme_cls.primary_color
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        cols: 3
+        spacing: 15,15
+
+        MDRoundFlatButton:
+            id: log_in_btn 
+            text: "LOG IN"
+            font_size: 12
+            pos_hint: {"center_x": 0.5}
+            on_press: root.log_in()
+            disabled: False
+        
+        MDRoundFlatButton:
+            id: log_clr_btn
+            text: "CLEAR"
+            font_size: 12
+            pos_hint: {"center_x": 0.5} 
+            on_press: root.clear() 
+            disabled: False
+
+        MDRoundFlatButton:
+            id: log_out_btn 
+            text: "LOG OUT"
+            font_size: 12
+            pos_hint: {"center_x": 0.5}
+            on_press: root.log_out()
+            disabled: True 
+
+
+    Widget:
+        size_hint_y: None
+        height: 20
+
+
