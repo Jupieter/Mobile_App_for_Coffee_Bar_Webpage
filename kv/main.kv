@@ -51,43 +51,4 @@ MDScreen:
             text: 'Account'
             icon: 'account-cancel'
            
-    MDNavigationLayout:
-        id: nav_lay
-
-        ScreenManager:
-            id: sm_manager
-
-            MDScreen:
-                id: top_menu
-                
-                MDToolbar:
-                    id: mdtoolbar1
-                    title: "I-me Coffe Bar 'Ante Portas' "
-                    elevation: 10
-                    pos_hint: {"top": 1}
-                    md_bg_color: app.theme_cls.primary_color
-                    specific_text_color: "#000000"
-                    left_action_items:
-                        [['menu', lambda x: nav_drawer.set_state("open")]]
-                    elevation:10
-
-                    MDIconButton:         
-                        pos_hint: {"center_x": .5, "center_y": .5}
-                        icon: "image/coffe_bean_heart.png"
-
-
-        MDNavigationDrawer:
-            id: nav_drawer
-            md_bg_color: app.theme_cls.primary_color
-            radius: (0, 16, 16, 0) if self.anchor == "left" else (16, 0, 0, 16)
-
-            ContentNavigationDrawer:
-                id: content_drawer
-                orientation: 'vertical'
-                padding: "8dp"
-                spacing: "8dp"
-
-
-    
-            
-                
+   
