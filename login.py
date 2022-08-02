@@ -64,13 +64,13 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 			for key in store.keys():
 				print ('key', key)
 				keys.append(key)
-			# print ('key: ', keys[0] )
+			print ('key: ', keys[0] )
 			if keys[0] == 'expiry':
 				self.ids.welcome_label.text =(f'Logged {user}.')
 				act_expiry = store['expiry']
 				act_token = store['token']
-				# print(act_expiry)
-				# print(act_token)
+				print(act_expiry)
+				print(act_token)
 				self.act_token_db(act_token, act_expiry)
 				password='Emp'
 				self.act_user_db(user, password)
@@ -83,7 +83,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 
 			elif keys[0] == 'non_field_errors':
 				x = store['non_field_errors']
-				# print('val: ', x)
+				print('val: ', x)
 				self.ids.welcome_label.text =(f' {x}')
 
 
@@ -111,7 +111,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 		return active_user
 
 	def act_token_db(self, act_token, act_expiry):
-		# print(act_token)
+		print(act_token)
 		conn = sqlite3.connect('coffe_app.db')	
 		cur = conn.cursor()
 		sql = """UPDATE act_tokens 
@@ -123,7 +123,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 		conn.close()
 
 	def act_user_db(self, act_user, act_pass):
-		# print(act_user, act_pass)
+		print(act_user, act_pass)
 		conn = sqlite3.connect('coffe_app.db')	
 		cur = conn.cursor()
 		sql = """UPDATE act_users 
@@ -139,13 +139,13 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 		cur = conn.cursor()
 		# conn.execute("SELECT act_token from act_tokens")
 		sql = """SELECT act_user FROM act_users WHERE id = 1"""
-		# print(sql)
+		print(sql)
 		data = (1)
 		users = cur.execute(sql)
 		# print('user: ', users)
 		for row in users:
 			user = row[0]
-			# print ("user = ", user)
+			print ("user = ", user)
 		conn.close()
 		return user
 
