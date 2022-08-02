@@ -6,7 +6,7 @@ os.environ['KIVY_HOME'] = cwd + '/conf'
 
 from kivy.uix.label import Label
 import time
-import sqlite3
+# import sqlite3
 import requests
 
 from kivy.lang import Builder
@@ -53,13 +53,14 @@ class TestNavigationDrawer(MDApp):
     id_scr_4 = ObjectProperty()
     def build(self):
         # print('Build 0')
-        self.create_db()
+        
+        # self.create_db()
 
         self.theme_cls.theme_style = "Light"
         self.theme_cls.primary_palette = "Brown"  # "Purple", "Red"
         return Builder.load_file('kv/main.kv')
     
-    def create_db(self):
+    '''def create_db(self):
         # print('CREATE START DB')
         # Create Database Or Connect To One
         conn = sqlite3.connect('coffe_app.db')
@@ -86,7 +87,7 @@ class TestNavigationDrawer(MDApp):
         data2 = (1,'a@a.com','abc123')    
         cur.execute(sql, data2)
         conn.commit()
-        conn.close()
+        conn.close()'''
     
     def on_start(self):
         # print('on_start')
