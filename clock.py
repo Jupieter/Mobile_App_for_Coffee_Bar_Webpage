@@ -19,7 +19,8 @@ class IncrediblyCrudeClock(MDCard):
         Clock.schedule_interval(crudeclock.update, 1) 
 
     def update(self, *args):
-        self.ids.clock_btn.text = time.asctime()  
+        self.ids.clock_btn.text = time.asctime()
+        print('TIME')  
         
         
 #      
