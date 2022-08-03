@@ -1,0 +1,176 @@
+<CounterLabel>:
+    text: 'the counter value is {}'.format(app.counter)  # `app` in kv is equivalent to `App.get_running_app()` in Python
+
+<FirstCoffe>
+    id: fk_box 
+    size_hint: None, None
+    size: 400, 700
+    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    elevation: 25
+    padding: 25
+    spacing: 25
+    radius: 20
+    orientation: 'vertical'
+    line_color: (0.2, 0.2, 0.2, 0.8)
+
+    MDLabel:
+        id: fk_label
+        text: "NEXT COFFEE"
+        font_size: 30
+        halign: 'center'
+        size_hint_y: None
+        height: self.texture_size[1]
+        padding_y: 6
+    MDCard:
+        id: fk_datum 
+        size_hint: None, None
+        size: 300, 50
+        pos_hint: {"center_x": 0.5}
+        elevation: 25
+        padding: 25
+        spacing: 25
+        radius: 20
+        orientation: 'vertical'
+        line_color: (0.2, 0.2, 0.2, 1)
+        MDLabel:
+            id: fk_datum_label
+            text: "----.--.--"
+            font_size: 20
+            halign: 'center'
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            # size_hint_y: None
+            height: self.texture_size[1]
+            padding_y: 6
+
+    MDGridLayout:
+        adaptive_size: True
+        # md_bg_color: app.theme_cls.primary_color
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        cols: 2
+        spacing: 15,15
+
+        MDCard:
+            id: fk_hour 
+            size_hint: None, None
+            size: 120, 50
+            pos_hint: {"center_x": 0.5}
+            elevation: 25
+            padding: 25
+            spacing: 25
+            radius: 20
+            orientation: 'vertical'
+            line_color: (0.2, 0.2, 0.2, 1)
+            MDLabel:
+                id: fk_hour_label
+                text: "--"
+                font_size: 20
+                halign: 'center'
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                # size_hint_y: None
+                height: self.texture_size[1]
+                padding_y: 6
+        MDCard:
+            id: fk_min
+            size_hint: None, None
+            size: 120, 50
+            pos_hint: {"center_x": 0.5}
+            elevation: 25
+            padding: 25
+            spacing: 25
+            radius: 20
+            orientation: 'vertical'
+            line_color: (0.2, 0.2, 0.2, 1)
+            MDLabel:
+                id: fk_min_label
+                text: "--"
+                font_size: 20
+                halign: 'center'
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                # size_hint_y: None
+                height: self.texture_size[1]
+                padding_y: 6
+
+    Button:
+        type: 'large'
+        pos_hint: {"center_x": 0.5}
+        size_hint: (.8, .1)
+        size: (100, 100)
+        background_normal: "image/koffe.jpeg"
+        background_down: "image/koffe_bw.jpeg"
+        border: (25,25,25,25)
+        on_press: root.switch_scr2()
+
+
+
+    MDCard:
+        id: fk_to_cd
+        size_hint: None, None
+        size: 300, 80
+        pos_hint: {"center_x": 0.5}
+        elevation: 25
+        padding: 25
+        spacing: 25
+        radius: 20
+        orientation: 'vertical'
+        line_color: (0.2, 0.2, 0.2, 1)
+        MDLabel:
+            id: fk_to_label
+            text: "The following coffee is prepared:"
+            font_size: 20
+            halign: 'center'
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            # size_hint_y: None
+            height: self.texture_size[1]
+            padding_y: 6
+
+    MDGridLayout:
+        adaptive_size: True
+        # md_bg_color: app.theme_cls.primary_color
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        cols: 2
+        spacing: 15,15
+
+
+        MDCard:
+            id: fk_hour_to 
+            size_hint: None, None
+            size: 120, 50
+            pos_hint: {"center_x": 0.5}
+            elevation: 25
+            padding: 25
+            spacing: 25
+            radius: 20
+            orientation: 'vertical'
+            line_color: (0.2, 0.2, 0.2, 1)
+            MDLabel:
+                id: fk_hour_to_label
+                text: "--"
+                font_size: 20
+                halign: 'center'
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                # size_hint_y: None
+                height: self.texture_size[1]
+                padding_y: 6
+        MDCard:
+            id: fk_min_to
+            size_hint: None, None
+            size: 120, 50
+            pos_hint: {"center_x": 0.5}
+            elevation: 25
+            padding: 25
+            spacing: 25
+            radius: 20
+            orientation: 'vertical'
+            line_color: (0.2, 0.2, 0.2, 1)
+            MDLabel:
+                id: fk_min_to_label
+                text: "--"
+                font_size: 20
+                halign: 'center'
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                # size_hint_y: None
+                height: self.texture_size[1]
+                padding_y: 6
+    Widget:
+        size_hint_y: None
+        height: 10
