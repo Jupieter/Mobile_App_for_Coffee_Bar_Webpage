@@ -58,7 +58,7 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		# print('HEAD Token', hd_token)
 		if active_token != 'Empty':
 			# print('Request')
-			store = requests.get('https://jupieter.pythonanywhere.com/c_app/todaytcoffee/', headers=hd_token).json()
+			store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/todaytcoffee/', headers=hd_token).json()
 			# print('store', store)
 			if store == []:
 				# print('Empty coffee')

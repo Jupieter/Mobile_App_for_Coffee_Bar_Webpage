@@ -38,7 +38,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 		print('LOG Token', active_token)
 		token_str = 'Token ' + active_token
 		hd_token = {'Authorization':token_str}
-		store = requests.post('https://jupieter.pythonanywhere.com/c_app/logout/', headers=hd_token)
+		store = requests.post('https://coffeeanteportas.herokuapp.com/c_app/logout/', headers=hd_token)
 		print(hd_token)
 		print(store)
 		self.btn_disable(False, False, True)
@@ -57,7 +57,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 			x = {'email':user, 'password':password}
 			sends = x
 			print(sends)
-			store = requests.post('https://jupieter.pythonanywhere.com/c_app/login/', data=sends).json()
+			store = requests.post('https://coffeeanteportas.herokuapp.com/c_app/login/', data=sends).json()
 			print(store)
 			keys = []
 			values = []
