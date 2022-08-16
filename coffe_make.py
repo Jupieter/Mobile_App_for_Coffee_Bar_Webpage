@@ -13,7 +13,7 @@ import requests
 import sqlite3
 
 
-# presentation3 = Builder.load_file('kv/coffee_make.kv')
+Builder.load_file('kv/coffee_make.kv')
 main_ids = ObjectProperty
 
 class CounterLabel(Label):
@@ -23,9 +23,10 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 	print('Coffee 0')
 	def __init__(self, **kwargs):
 		super(CoffeWare, self).__init__(**kwargs)
+		self.load_data()
 		magam = self
 		Clock.schedule_once(magam.load_data, 0)
-		Clock.schedule_interval(magam.load_data, 30) 
+		Clock.schedule_interval(magam.load_data, 5) 
 	
 	def load_token(self, *args):
 		conn = sqlite3.connect('coffe_app.db')
@@ -47,5 +48,10 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 			print('Request')
 			store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/act_ware/', headers=hd_token).json()
 			print('store', store)
+			st = []
+			for item in store:
+				# sti = item["w_name"])
+				print('st', item)
+			print(self.ids.coffe_ware_label.text)
 			
 		

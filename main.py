@@ -116,6 +116,11 @@ class TestNavigationDrawer(MDApp):
         main_rt = self.root
         print('main login', main_rt)
 
+    def screen_make():
+        print('Coffe Make switch')
+        # coffe_make = CoffeWare()
+        
+
     
 
     
