@@ -127,14 +127,14 @@
         adaptive_size: True
         # md_bg_color: app.theme_cls.primary_color
         pos_hint: {"center_x": 0.5, "center_y": 0.5}
-        cols: 2
+        cols: 3
         spacing: 15,15
 
 
         MDCard:
             id: fk_hour_to 
             size_hint: None, None
-            size: 120, 50
+            size: 90, 50
             pos_hint: {"center_x": 0.5}
             elevation: 25
             padding: 25
@@ -154,7 +154,7 @@
         MDCard:
             id: fk_min_to
             size_hint: None, None
-            size: 120, 50
+            size: 90, 50
             pos_hint: {"center_x": 0.5}
             elevation: 25
             padding: 25
@@ -164,6 +164,27 @@
             line_color: (0.2, 0.2, 0.2, 1)
             MDLabel:
                 id: fk_min_to_label
+                text: "--"
+                font_size: 20
+                halign: 'center'
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                # size_hint_y: None
+                height: self.texture_size[1]
+                padding_y: 6
+
+        MDCard:
+            id: fk_sec_to
+            size_hint: None, None
+            size: 90, 50
+            pos_hint: {"center_x": 0.5}
+            elevation: 25
+            padding: 25
+            spacing: 25
+            radius: 20
+            orientation: 'vertical'
+            line_color: (0.2, 0.2, 0.2, 1)
+            MDLabel:
+                id: fk_sec_to_label
                 text: "--"
                 font_size: 20
                 halign: 'center'

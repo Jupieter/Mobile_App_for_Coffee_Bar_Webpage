@@ -21,7 +21,8 @@ from kivymd.uix.card import MDCard
 from kivy.uix.recycleview import RecycleView
 
 from login import LogInCard
-from clock import IncrediblyCrudeClock
+# from clock import IncrediblyCrudeClock
+from coffe_make import CoffeWare
 from first_coffee import FirstCoffe
 
 class ItemDrawer(OneLineIconListItem):
@@ -108,7 +109,7 @@ class TestNavigationDrawer(MDApp):
         log = LogInCard()
         log.act_token_db('Empty', 'Empty')
         self.root.ids.screen1.add_widget(FirstCoffe())
-        self.root.ids.screen3.add_widget(IncrediblyCrudeClock())
+        self.root.ids.screen3.add_widget(CoffeWare())
         self.root.ids.screen4.add_widget(LogInCard())
         self.id_scr_1 = self.root.ids.screen1
         self.id_scr_4 = self.root.ids.screen4

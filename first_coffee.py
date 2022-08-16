@@ -31,7 +31,7 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		x = self.children[0]
 		# print('fk ids :', x)
 		Clock.schedule_once(magam.load_data, 0)
-		Clock.schedule_interval(magam.load_data, 7) 
+		Clock.schedule_interval(magam.load_data, 1) 
 	
 	def switch_scr2(self):
         # get a reference to the top right label only by walking through the widget tree
@@ -67,6 +67,7 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 				fc_min = '--'
 				to_hour = '--'
 				to_min = '--'
+				to_sec = '--'
 			else:
 				# print('Else coffee')
 				list_data = []
@@ -89,11 +90,13 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 				timedelta_obj = (dt_obj - act_t)
 				to_hour = int(timedelta_obj.seconds/3600)
 				to_min = int(timedelta_obj.seconds/60)-to_hour*60
-				# print(to_hour,to_min, 'timedelta_obj', timedelta_obj)
+				to_sec = int(timedelta_obj.seconds)-to_hour*3600-to_min*60
+				print(to_hour,to_min, to_sec)
 			
 			self.ids.fk_datum_label.text = (f'{fc_date}')
 			self.ids.fk_hour_label.text = (f'{fc_hour}')
 			self.ids.fk_min_label.text = (f'{fc_min}')
 			self.ids.fk_hour_to_label.text = (f'{to_hour}')
 			self.ids.fk_min_to_label.text = (f'{to_min}')
+			self.ids.fk_sec_to_label.text = (f'{to_sec}')
 		
