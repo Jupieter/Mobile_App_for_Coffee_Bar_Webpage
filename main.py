@@ -96,12 +96,12 @@ class TestNavigationDrawer(MDApp):
     def on_start(self):
         print('on_start')
         icons_item = {
-            "folder": "My files",
-            "account-multiple": "Shared with me",
-            "star": "Starred",
-            "history": "Recent",
-            "checkbox-marked": "Shared with me",
-            "upload": "Upload",
+            "basket-plus-outline": "Acquisition",
+            "account-multiple": "Warehouse",
+            "storefront-outline": "Store",
+            "notebook-edit-outline": "Booking",
+            "email-send-outline": "Contact",
+            "web": "Statistic",
         }
         # print(icons_item)
         for icon_name in icons_item.keys():            
