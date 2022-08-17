@@ -3,28 +3,31 @@
 
 <FirstCoffe>
     id: fk_box 
-    size_hint: None, None
-    size: 400, 700
-    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    size_hint: 0.85, 0.85
+    # size: 400, 700
+    pos_hint: {"center_x": 0.5, "center_y": 0.46}
     elevation: 25
     padding: 25
     spacing: 25
     radius: 20
     orientation: 'vertical'
-    line_color: (0.2, 0.2, 0.2, 0.8)
+    line_color: (0.0, 0.0, 0.0, 0.8)
+
 
     MDLabel:
         id: fk_label
         text: "NEXT COFFEE"
-        font_size: 30
+        size_hint: 1, 0.1
+        # size_hint_y: None
+        font_size: self.height/2.5
         halign: 'center'
-        size_hint_y: None
         height: self.texture_size[1]
-        padding_y: 6
+        padding_x: 15
+        
     MDCard:
         id: fk_datum 
-        size_hint: None, None
-        size: 300, 50
+        size_hint: 0.8, 0.05
+        # size: 300, 50
         pos_hint: {"center_x": 0.5}
         elevation: 25
         padding: 25
@@ -35,24 +38,26 @@
         MDLabel:
             id: fk_datum_label
             text: "----.--.--"
-            font_size: 20
+            size_hint: 1, 0.1
+            font_size: self.width/10
             halign: 'center'
             pos_hint: {"center_x": 0.5, "center_y": 0.5}
             # size_hint_y: None
-            height: self.texture_size[1]
+            # height: self.texture_size[1]
             padding_y: 6
 
     MDGridLayout:
-        adaptive_size: True
+        # adaptive_size: True
         # md_bg_color: app.theme_cls.primary_color
+        size_hint: 0.8, 0.05
         pos_hint: {"center_x": 0.5, "center_y": 0.5}
         cols: 2
         spacing: 15,15
 
         MDCard:
             id: fk_hour 
-            size_hint: None, None
-            size: 120, 50
+            size_hint: 1, 0.5
+            # size: 120, 50
             pos_hint: {"center_x": 0.5}
             elevation: 25
             padding: 25
@@ -63,16 +68,17 @@
             MDLabel:
                 id: fk_hour_label
                 text: "--"
-                font_size: 20
+                size_hint: 1, 1
+                font_size: self.width/5
                 halign: 'center'
                 pos_hint: {"center_x": 0.5, "center_y": 0.5}
                 # size_hint_y: None
-                height: self.texture_size[1]
+                # height: self.texture_size[1]
                 padding_y: 6
         MDCard:
             id: fk_min
-            size_hint: None, None
-            size: 120, 50
+            size_hint: 1, 0.5
+            # size: 120, 50
             pos_hint: {"center_x": 0.5}
             elevation: 25
             padding: 25
@@ -83,29 +89,29 @@
             MDLabel:
                 id: fk_min_label
                 text: "--"
-                font_size: 20
+                size_hint: 1, 1
+                font_size: self.width/5
                 halign: 'center'
                 pos_hint: {"center_x": 0.5, "center_y": 0.5}
                 # size_hint_y: None
-                height: self.texture_size[1]
+                # height: self.texture_size[1]
                 padding_y: 6
 
     Button:
         type: 'large'
         pos_hint: {"center_x": 0.5}
-        size_hint: (.8, .1)
+        size_hint: (.8, .18)
         size: (100, 100)
         background_normal: "image/koffe.jpeg"
         background_down: "image/koffe_bw.jpeg"
         border: (25,25,25,25)
         on_press: root.switch_scr2()
-
-
+        padding_y: 6
 
     MDCard:
         id: fk_to_cd
-        size_hint: None, None
-        size: 300, 80
+        size_hint: 0.8, 0.1
+        # size: 300, 80
         pos_hint: {"center_x": 0.5}
         elevation: 25
         padding: 25
@@ -116,15 +122,17 @@
         MDLabel:
             id: fk_to_label
             text: "The following coffee is prepared:"
-            font_size: 20
+            size_hint: 1, 0.1
+            font_size: self.width/14
             halign: 'center'
             pos_hint: {"center_x": 0.5, "center_y": 0.5}
             # size_hint_y: None
-            height: self.texture_size[1]
+            # height: self.texture_size[1]
             padding_y: 6
 
     MDGridLayout:
-        adaptive_size: True
+        # adaptive_size: True
+        size_hint: 0.8, 0.05
         # md_bg_color: app.theme_cls.primary_color
         pos_hint: {"center_x": 0.5, "center_y": 0.5}
         cols: 3
@@ -133,8 +141,8 @@
 
         MDCard:
             id: fk_hour_to 
-            size_hint: None, None
-            size: 90, 50
+            size_hint: 1, 0.5
+            # size: 90, 50
             pos_hint: {"center_x": 0.5}
             elevation: 25
             padding: 25
@@ -145,7 +153,8 @@
             MDLabel:
                 id: fk_hour_to_label
                 text: "--"
-                font_size: 20
+                size_hint: 1, 1
+                font_size: self.width/2.5
                 halign: 'center'
                 pos_hint: {"center_x": 0.5, "center_y": 0.5}
                 # size_hint_y: None
@@ -153,8 +162,8 @@
                 padding_y: 6
         MDCard:
             id: fk_min_to
-            size_hint: None, None
-            size: 90, 50
+            size_hint: 1, 0.5
+            # size: 90, 50
             pos_hint: {"center_x": 0.5}
             elevation: 25
             padding: 25
@@ -165,7 +174,8 @@
             MDLabel:
                 id: fk_min_to_label
                 text: "--"
-                font_size: 20
+                size_hint: 1, 1
+                font_size: self.width/2.5
                 halign: 'center'
                 pos_hint: {"center_x": 0.5, "center_y": 0.5}
                 # size_hint_y: None
@@ -174,8 +184,8 @@
 
         MDCard:
             id: fk_sec_to
-            size_hint: None, None
-            size: 90, 50
+            size_hint: 1, 0.5
+            # size: 90, 50
             pos_hint: {"center_x": 0.5}
             elevation: 25
             padding: 25
@@ -186,12 +196,12 @@
             MDLabel:
                 id: fk_sec_to_label
                 text: "--"
-                font_size: 20
+                size_hint: 1, 1
+                font_size: self.width/2.5
                 halign: 'center'
                 pos_hint: {"center_x": 0.5, "center_y": 0.5}
                 # size_hint_y: None
                 height: self.texture_size[1]
                 padding_y: 6
     Widget:
-        size_hint_y: None
-        height: 10
+        size_hint_y: 0.01

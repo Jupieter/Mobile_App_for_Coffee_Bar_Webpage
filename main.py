@@ -4,11 +4,13 @@ cwd = os.getcwd()
 # print(cwd)
 os.environ['KIVY_HOME'] = cwd + '/conf'
 
-from kivy.uix.label import Label
-# import time
 import sqlite3
+# import time
 # import requests
+# corePrime 480 * 800, J3 - 720 x 1280, A13 2408 x 1080 a20e 720x1560
 
+
+from kivy.uix.label import Label
 from kivy.lang import Builder
 from kivy.clock import Clock
 from kivymd.uix.boxlayout import MDBoxLayout

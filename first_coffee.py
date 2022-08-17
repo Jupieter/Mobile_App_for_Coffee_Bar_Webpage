@@ -36,8 +36,8 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 	def switch_scr2(self):
         # get a reference to the top right label only by walking through the widget tree
 		scr1 = MDApp.get_running_app().id_scr_1
-		# print(scr1)
-		scr1.icon = 'account-check'
+		print(scr1)
+		# scr1.icon = 'account-check'
 
 	
 	def load_token(self, *args):
@@ -50,53 +50,45 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		return active_token
 
 	def load_data(self, *args):
-		# print('recycle 2')
-		active_token = self.load_token()
-		# print('LOG Token', active_token)
-		token_str = 'Token ' + active_token
-		hd_token = {'Authorization':token_str}
-		# print('HEAD Token', hd_token)
-		if active_token != 'Empty':
-			# print('Request')
-			store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/todaytcoffee/', headers=hd_token).json()
-			# print('store', store)
-			if store == []:
-				# print('Empty coffee')
-				fc_date = 'No coffee today'
-				fc_hour = '--'
-				fc_min = '--'
-				to_hour = '--'
-				to_min = '--'
-				to_sec = '--'
-			else:
-				# print('Else coffee')
-				list_data = []
-				for item in store:
-					list_data.append({'text': item['c_make_date']})
-				first_coffe = list_data[0]['text']
-				# print(first_coffe)
-				# self.data = first_coffe
-				# # print(self.dat			
-				fc_date = first_coffe[0:10]
-				# print(fc_date)
-				fc_hour = first_coffe[11:13]
-				fc_min = first_coffe[14:16]
-				# print(fc_hour,':',fc_min)
+		store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/todaytcoffee/').json()
+		print('STORE',store)
+		if store == []:
+			# print('Empty coffee')
+			fc_date = 'No coffee today'
+			fc_hour = '--'
+			fc_min = '--'
+			to_hour = '--'
+			to_min = '--'
+			to_sec = '--'
+		else:
+			# print('Else coffee')
+			list_data = []
+			for item in store:
+				list_data.append({'text': item['c_make_date']})
+			first_coffe = list_data[0]['text']
+			# print(first_coffe)
+			# self.data = first_coffe
+			# # print(self.dat			
+			fc_date = first_coffe[0:10]
+			# print(fc_date)
+			fc_hour = first_coffe[11:13]
+			fc_min = first_coffe[14:16]
+			# print(fc_hour,':',fc_min)
 
-				dt = first_coffe[0:10]+' ' + first_coffe[11:19]
-				dt_obj =datetime.fromisoformat(dt)
-				act_t = datetime.now()
-				# print(dt_obj,'-', type(dt_obj), '-',type(act_t))
-				timedelta_obj = (dt_obj - act_t)
-				to_hour = int(timedelta_obj.seconds/3600)
-				to_min = int(timedelta_obj.seconds/60)-to_hour*60
-				to_sec = int(timedelta_obj.seconds)-to_hour*3600-to_min*60
-				print(to_hour,to_min, to_sec)
-			
-			self.ids.fk_datum_label.text = (f'{fc_date}')
-			self.ids.fk_hour_label.text = (f'{fc_hour}')
-			self.ids.fk_min_label.text = (f'{fc_min}')
-			self.ids.fk_hour_to_label.text = (f'{to_hour}')
-			self.ids.fk_min_to_label.text = (f'{to_min}')
-			self.ids.fk_sec_to_label.text = (f'{to_sec}')
+			dt = first_coffe[0:10]+' ' + first_coffe[11:19]
+			dt_obj =datetime.fromisoformat(dt)
+			act_t = datetime.now()
+			# print(dt_obj,'-', type(dt_obj), '-',type(act_t))
+			timedelta_obj = (dt_obj - act_t)
+			to_hour = int(timedelta_obj.seconds/3600)
+			to_min = int(timedelta_obj.seconds/60)-to_hour*60
+			to_sec = int(timedelta_obj.seconds)-to_hour*3600-to_min*60
+			print(to_hour,to_min, to_sec)
+		
+		self.ids.fk_datum_label.text = (f'{fc_date}')
+		self.ids.fk_hour_label.text = (f'{fc_hour}')
+		self.ids.fk_min_label.text = (f'{fc_min}')
+		self.ids.fk_hour_to_label.text = (f'{to_hour}')
+		self.ids.fk_min_to_label.text = (f'{to_min}')
+		self.ids.fk_sec_to_label.text = (f'{to_sec}')
 		
