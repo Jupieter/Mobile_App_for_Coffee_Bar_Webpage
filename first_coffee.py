@@ -21,17 +21,21 @@ class CounterLabel(Label):
 
 class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 	# print('LogInCard 0')
+	
 	def __init__(self, **kwargs):
 		super(FirstCoffe, self).__init__(**kwargs)
+		self.dt_obj = None
 		# print('fk_test', main_ids)
 		# sm = ScreenManager()
 		# y = sm.screens
-		magam = self
 		# # print('fk sm :', y)
 		x = self.children[0]
 		# print('fk ids :', x)
+		magam = self
 		Clock.schedule_once(magam.load_data, 0)
-		Clock.schedule_interval(magam.load_data, 1) 
+		Clock.schedule_interval(magam.load_data, 60) # data request
+		Clock.schedule_interval(magam.time_back, 1) # time counter sec
+		 
 	
 	def switch_scr2(self):
         # get a reference to the top right label only by walking through the widget tree
@@ -45,8 +49,6 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		active_tok = conn.execute("SELECT act_token from act_tokens")
 		for row in active_tok:
 			active_token = row[0]
-			# print ("token = ", active_token)
-		# Clock.schedule_interval(# print('tik-tak'), 3)
 		return active_token
 
 	def load_data(self, *args):
@@ -54,12 +56,11 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		print('STORE',store)
 		if store == []:
 			# print('Empty coffee')
+			self.dt_obj = None
 			fc_date = 'No coffee today'
 			fc_hour = '--'
 			fc_min = '--'
-			to_hour = '--'
-			to_min = '--'
-			to_sec = '--'
+			
 		else:
 			# print('Else coffee')
 			list_data = []
@@ -76,19 +77,34 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 			# print(fc_hour,':',fc_min)
 
 			dt = first_coffe[0:10]+' ' + first_coffe[11:19]
-			dt_obj =datetime.fromisoformat(dt)
-			act_t = datetime.now()
-			# print(dt_obj,'-', type(dt_obj), '-',type(act_t))
-			timedelta_obj = (dt_obj - act_t)
-			to_hour = int(timedelta_obj.seconds/3600)
-			to_min = int(timedelta_obj.seconds/60)-to_hour*60
-			to_sec = int(timedelta_obj.seconds)-to_hour*3600-to_min*60
-			print(to_hour,to_min, to_sec)
+			self.dt_obj =datetime.fromisoformat(dt)
+			print('dt_obj', self.dt_obj)
 		
 		self.ids.fk_datum_label.text = (f'{fc_date}')
 		self.ids.fk_hour_label.text = (f'{fc_hour}')
 		self.ids.fk_min_label.text = (f'{fc_min}')
+		
+	
+	def time_back(self, *args):
+		# counter without data request
+		# print('b_s', self.dt_obj)
+		if self.dt_obj:
+			act_t = datetime.now()
+			# print(dt_obj,'-', type(dt_obj), '-',type(act_t))
+			timedelta_obj = (self.dt_obj - act_t)
+			self.back_sec = timedelta_obj.seconds
+			to_hour = int(self.back_sec/3600)
+			to_min = int(self.back_sec/60)-to_hour*60
+			to_sec = int(self.back_sec)-to_hour*3600-to_min*60
+			# print(self.back_sec, to_hour,to_min, to_sec)
+			# print(self.ids.fk_sec_to_label.text)
+		else:
+			to_hour = '--'
+			to_min = '--'
+			to_sec = '--'
+
 		self.ids.fk_hour_to_label.text = (f'{to_hour}')
 		self.ids.fk_min_to_label.text = (f'{to_min}')
 		self.ids.fk_sec_to_label.text = (f'{to_sec}')
+
 		

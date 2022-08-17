@@ -26,7 +26,7 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		self.load_data()
 		magam = self
 		Clock.schedule_once(magam.load_data, 0)
-		Clock.schedule_interval(magam.load_data, 5) 
+		#Clock.schedule_interval(magam.load_data, 5) 
 	
 	def load_token(self, *args):
 		conn = sqlite3.connect('coffe_app.db')

@@ -67,7 +67,7 @@ MDScreen:
         selected_color_background: "Custom"
         text_color_active: 0, 0, 0, 1
 
-        MDBottomNavigationItem:
+        MDBottomNavigationItemSc1:
             id: screen1
             name: 'screen 1'
             text: 'Home'
@@ -84,14 +84,21 @@ MDScreen:
             MDLabel:
                 text: 'Order Coffe'
                 halign: 'center'
+            MDRoundFlatButton:
+                id: print
+                text: "Test"
+                font_size: 0.2 * self.height
+                size_hint: 0.5, 0.5
+                pos_hint: {"center_x": 0.5} 
+                disabled: False
 
-        MDBottomNavigationItem:
+
+        MDBottomNavigationItemSc3:
             id: screen3
             name: 'screen 3'
             text: 'Make'
             pos_hint: {"center_x": .5, "center_y": .5}
             icon: 'coffee-maker'
-            on_tab_press: print('press Make')
 
             MDLabel:
                 text: 'Make Coffee'

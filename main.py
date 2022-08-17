@@ -8,8 +8,8 @@ import sqlite3
 # import time
 # import requests
 # corePrime 480 * 800, J3 - 720 x 1280, A13 2408 x 1080 a20e 720x1560
-
-
+from kivy.clock import Clock
+from kivymd.uix.bottomnavigation import MDBottomNavigationItem
 from kivy.uix.label import Label
 from kivy.lang import Builder
 from kivy.clock import Clock
@@ -27,16 +27,39 @@ from login import LogInCard
 from coffe_make import CoffeWare
 from first_coffee import FirstCoffe
 
+active_token = 'Semmi'
+
+
 class ItemDrawer(OneLineIconListItem):
     icon = StringProperty()
     text_color = ListProperty((0, 0, 0, 1))
 
-active_token = 'Semmi'
 
+class MDBottomNavigationItemSc1(MDBottomNavigationItem):
+
+    def __init__(self, **kwargs):
+        super(MDBottomNavigationItemSc1, self).__init__(**kwargs)
+
+
+class MDBottomNavigationItemSc3(MDBottomNavigationItem):
+    print('MD scr3')
+	
+    def __init__(self, **kwargs):
+        super(MDBottomNavigationItemSc3, self).__init__(**kwargs)
+    
+    def on_tab_touch_down(self, *args):
+        print("TTTT")
+        # self.root.ids.screen3.add_widget(CoffeWare())
+        c_ware = CoffeWare()
+        c_ware.load_data()
+
+    def on_tab_release(self, *args): 
+        print("on_tab_release")
 
 
 class ContentNavigationDrawer(MDBoxLayout):
     pass
+
 
 class DrawerList(ThemableBehavior, MDList):
     
@@ -55,6 +78,11 @@ class TestNavigationDrawer(MDApp):
     counter = NumericProperty(0)
     id_scr_1 = ObjectProperty()
     id_scr_4 = ObjectProperty()
+
+    def screen_make():
+        print('Coffe Make switch')
+        # coffe_make = CoffeWare()
+
     def build(self):
         print('Build 0')
         
@@ -118,9 +146,6 @@ class TestNavigationDrawer(MDApp):
         main_rt = self.root
         print('main login', main_rt)
 
-    def screen_make():
-        print('Coffe Make switch')
-        # coffe_make = CoffeWare()
         
 
     
