@@ -36,25 +36,21 @@ class ItemDrawer(OneLineIconListItem):
 
 
 class MDBottomNavigationItemSc1(MDBottomNavigationItem):
-
     def __init__(self, **kwargs):
         super(MDBottomNavigationItemSc1, self).__init__(**kwargs)
 
 
 class MDBottomNavigationItemSc3(MDBottomNavigationItem):
-    print('MD scr3')
 	
     def __init__(self, **kwargs):
         super(MDBottomNavigationItemSc3, self).__init__(**kwargs)
+        print('MD scr3')
     
     def on_tab_touch_down(self, *args):
         print("TTTT")
         # self.root.ids.screen3.add_widget(CoffeWare())
         c_ware = CoffeWare()
         c_ware.load_data()
-
-    def on_tab_release(self, *args): 
-        print("on_tab_release")
 
 
 class ContentNavigationDrawer(MDBoxLayout):

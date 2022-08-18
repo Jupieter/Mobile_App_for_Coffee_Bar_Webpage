@@ -87,10 +87,8 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 	
 	def time_back(self, *args):
 		# counter without data request
-		# print('b_s', self.dt_obj)
 		if self.dt_obj:
 			act_t = datetime.now()
-			# print(dt_obj,'-', type(dt_obj), '-',type(act_t))
 			timedelta_obj = (self.dt_obj - act_t)
 			self.back_sec = timedelta_obj.seconds
 			to_hour = int(self.back_sec/3600)
@@ -99,9 +97,6 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 			to_hour ='{:0>2}'.format(to_hour)
 			to_min ='{:0>2}'.format(to_min)
 			to_sec ='{:0>2}'.format(to_sec)
-			print(type(to_sec), to_sec)
-			# print(self.back_sec, to_hour,to_min, to_sec)
-			# print(self.ids.fk_sec_to_label.text)
 		else:
 			to_hour = '--'
 			to_min = '--'
