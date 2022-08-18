@@ -33,7 +33,7 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		# print('fk ids :', x)
 		magam = self
 		Clock.schedule_once(magam.load_data, 0)
-		Clock.schedule_interval(magam.load_data, 60) # data request
+		Clock.schedule_interval(magam.load_data, 5) # data request
 		Clock.schedule_interval(magam.time_back, 1) # time counter sec
 		 
 	
@@ -96,6 +96,10 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 			to_hour = int(self.back_sec/3600)
 			to_min = int(self.back_sec/60)-to_hour*60
 			to_sec = int(self.back_sec)-to_hour*3600-to_min*60
+			to_hour ='{:0>2}'.format(to_hour)
+			to_min ='{:0>2}'.format(to_min)
+			to_sec ='{:0>2}'.format(to_sec)
+			print(type(to_sec), to_sec)
 			# print(self.back_sec, to_hour,to_min, to_sec)
 			# print(self.ids.fk_sec_to_label.text)
 		else:

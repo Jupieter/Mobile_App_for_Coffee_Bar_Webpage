@@ -44,14 +44,19 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		token_str = 'Token ' + active_token
 		hd_token = {'Authorization':token_str}
 		# print('HEAD Token', hd_token)
-		if active_token != 'Empty':
+		if active_token == 'Empty':
+			print(self.ids)
+			self.ids.coffe_message_label.text = "Isn't valid login"
+		else:	
 			print('Request')
 			store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/act_ware/', headers=hd_token).json()
 			print('store', store)
+			self.ids.coffe_message_label.text = "van kávé"
 			st = []
 			for item in store:
 				# sti = item["w_name"])
 				print('st', item)
 			print(self.ids.coffe_ware_label.text)
+			print(self.ids.coffe_message_label.text)
 			
 		
