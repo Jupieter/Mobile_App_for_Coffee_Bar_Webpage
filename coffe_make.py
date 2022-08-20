@@ -3,25 +3,18 @@ from kivy.lang import Builder
 from kivy.clock import Clock
 from kivymd.uix.card import MDCard
 
-from kivymd.uix.picker import MDTimePicker
+from kivymd.uix.picker import MDTimePicker, MDDatePicker
 from kivymd.uix.button import MDFillRoundFlatButton
 
 from kivy.properties import BooleanProperty
 from kivy.uix.screenmanager import ScreenManager, Screen
 
-from datetime import time, datetime
+from datetime import time, datetime, timedelta
 import requests
 import sqlite3, random
 
 
 Builder.load_file('kv/coffee_make.kv')
-
-class MyTimePicker(MDTimePicker):
-	def __init__(self, **kwargs):
-		super(MyTimePicker, self).__init__(**kwargs)
-
-	
-
 
 class DoseButton(MDFillRoundFlatButton):
 	print('DoseButton 0')
@@ -46,23 +39,41 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		Clock.schedule_once(magam.load_data, 0)
 		#Clock.schedule_interval(magam.load_data, 5) 
 
-	def on_save(self, instance, value):
+	def d_on_save(self, instance, value, date_range):
+		print('d_on_save:',instance, value, date_range)
+
+	def show_date_picker(self):
+		act_t = datetime.now()
+		end_t = act_t + timedelta(days = 5)
+		act_date = str(act_t)[0:10].replace("-", ":")
+		end_date =  str(end_t)[0:10].replace("-", ":")
+		print('act_t', act_date, end_date)
+		min_date = datetime.strptime(act_date, '%Y:%m:%d').date()
+		max_date = datetime.strptime(end_date, '%Y:%m:%d').date()
+		print(min_date, max_date)
+		date_dialog = MDDatePicker(
+			min_date=min_date,
+			max_date=max_date,
+    		)
+		# date_dialog = MDDatePicker()
+		# date_dialog.min_date=min_date
+		# date_dialog.max_date=max_date
+		date_dialog.bind(on_save=self.d_on_save)
+		date_dialog.open()
+
+	def t_on_save(self, instance, value):
 		print(instance, value)
 		self.ids.time_btn.text = str(value)
 
-	def get_time(self, instance, time):
-		print('time:', time)
-		return time
-
 	def show_time_picker(self):
 		'''Open time picker dialog.'''	
-		time_dialog = MyTimePicker()
+		time_dialog = MDTimePicker()
 		# now = datetime.now()
 		# current_time = now.strftime("%H:%M:%S").time()
 		# print(now, '  :  ',current_time)
 		# time_dialog.set_time = current_time
 		# time_dialog._set_current_time
-		time_dialog.bind(on_save=self.on_save, time=self.get_time)
+		time_dialog.bind(on_save=self.t_on_save)
 		time_dialog.open()
 		
 	def press_dose(self, act_choice):

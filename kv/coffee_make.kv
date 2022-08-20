@@ -36,9 +36,17 @@
         on_release: root.show_time_picker()
 
     MDFillRoundFlatButton:
+        id: date_btn
+        font_size: 30
+        text: "Coffee Date"
+        value: 0
+        pos_hint: {'center_x': .5}
+        on_release: root.show_date_picker()
+
+    MDFillRoundFlatButton:
         id: time_btn
         font_size: 30
-        text: "Open time picker"
+        text: "Coffee Time "
         value: 0
         pos_hint: {'center_x': .5}
         on_release: root.show_time_picker()
