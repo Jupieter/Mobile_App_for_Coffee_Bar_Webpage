@@ -18,13 +18,13 @@ Builder.load_file('kv/coffee_make.kv')
 
 class DoseButton(MDFillRoundFlatButton):
 	print('DoseButton 0')
-	font_size = 30
+	font_size = 25
 	selected = BooleanProperty()
 
 	def __init__(self, **kwargs):
 		super(DoseButton, self).__init__(**kwargs)
 		self.selected = False
-		self.text_color=(0, 0, 0, 0.6)
+		self.text_color=(1, 1, 1, 0.6)
 		
 
 class CoffeWare(MDCard): # the.boss@staff.com    Enter1
@@ -41,6 +41,8 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 
 	def d_on_save(self, instance, value, date_range):
 		print('d_on_save:',instance, value, date_range)
+		self.ids.date_btn.text = str(value)
+		self.ids.date_btn.md_bg_color=(0, 0.5, 0, 1)
 
 	def show_date_picker(self):
 		act_t = datetime.now()
@@ -64,6 +66,7 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 	def t_on_save(self, instance, value):
 		print(instance, value)
 		self.ids.time_btn.text = str(value)
+		self.ids.time_btn.md_bg_color=(0, 0.5, 0, 1)
 
 	def show_time_picker(self):
 		'''Open time picker dialog.'''	
@@ -76,19 +79,6 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		time_dialog.bind(on_save=self.t_on_save)
 		time_dialog.open()
 		
-	def press_dose(self, act_choice):
-		prnt = self.ids.coffe_ware_label.parent
-		print('children1',prnt.ids.dose_grid.children)
-		print('children2',self.ids.dose_grid.children)
-		for dose_but in prnt.ids.dose_grid.children:
-			print(dose_but)
-			print(dose_but.text, dose_but.text_color)
-			dose_but.selected = False
-			dose_but.text_color=[0, 0, 0, 0.3]
-			dose_but.md_bg_color = [0.5, 0.5, 0.5, 1]
-			act_choice.text_color=(0, 0, 0, 1)
-			act_choice.md_bg_color=(0, 0.5, 0, 1)
-			print(act_choice.value)	
 	
 	def load_token(self, *args):
 		conn = sqlite3.connect('coffe_app.db')
@@ -132,5 +122,31 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 			self.ids.dose_grid.add_widget(bt)
 			# parnt = self.ids.coffe_ware_label.parent
 			# bt.on_press = 'coffee_ware_card.press_dose(self)'
+
+	def press_dose(self, act_choice):
+		prnt = self.ids.coffe_ware_label.parent
+		print('children1',prnt.ids.dose_grid.children)
+		print('children2',self.ids.dose_grid.children)
+		for dose_but in prnt.ids.dose_grid.children:
+			print(dose_but)
+			print(dose_but.text, dose_but.text_color)
+			dose_but.selected = False
+			dose_but.text_color=[0, 0, 0, 0.3]
+			dose_but.md_bg_color = [0.5, 0.5, 0.5, 1]
+			act_choice.text_color=(1, 1, 1, 1)
+			act_choice.md_bg_color=(0, 0.5, 0, 1)
+			print(act_choice.value)	
+	
+	def button_able(self, able=False):
+		prnt = self.ids.coffe_ware_label.parent
+		print('children3', prnt.ids.btn_box.children)
+		for button in prnt.ids.dose_grid.children:
+			button.disabled = able
+			print(button.disabled)
+		for button in prnt.ids.btn_box.children:
+			button.disabled = able
+			print(button.disabled)
+		
+
 			
 		

@@ -5,51 +5,60 @@
     pos_hint: {"center_x": 0.5, "center_y": 0.46}
     elevation: 25
     padding: 25
-    spacing: 35
+    spacing: 25
     radius: 20
     orientation: 'vertical'
     line_color: (0.2, 0.2, 0.2, 0.8)
+
+    Widget:
+        id: start_widget
+        size_hint_y: None
+        height: 20
     
     MDLabel:
         id: coffe_ware_label
+        font_size: 40
         text: "Coffee Make 3"
         halign: 'center'
 
     MDLabel:
         id: coffe_message_label
+        font_size: 20
         text: "Coffee Make 3"
         halign: 'center'
-
+    
     MDBoxLayout:
+        id: btn_box
         orientation: "vertical"
         adaptive_size: True
-        spacing: "12dp"
-        padding: "56dp"
-        pos_hint: {"center_x": .5, "center_y": .5}
+        spacing: 25
+        padding: 25
+        pos_hint: {"center_x": .5}
+
     
-    MDFillRoundFlatButton:
-        id: ware_btn
-        font_size: 30
-        text: "Opened Coffee"
-        value: 0
-        pos_hint: {'center_x': .5}
-        on_release: root.show_time_picker()
+        MDFillRoundFlatButton:
+            id: ware_btn
+            font_size: 25
+            text: "Opened Coffee"
+            value: 0
+            pos_hint: {'center_x': .5}
+            on_release: root.show_time_picker()
 
-    MDFillRoundFlatButton:
-        id: date_btn
-        font_size: 30
-        text: "Coffee Date"
-        value: 0
-        pos_hint: {'center_x': .5}
-        on_release: root.show_date_picker()
+        MDFillRoundFlatButton:
+            id: date_btn
+            font_size: 25
+            text: "Coffee Date"
+            value: 0
+            pos_hint: {'center_x': .5}
+            on_release: root.show_date_picker()
 
-    MDFillRoundFlatButton:
-        id: time_btn
-        font_size: 30
-        text: "Coffee Time "
-        value: 0
-        pos_hint: {'center_x': .5}
-        on_release: root.show_time_picker()
+        MDFillRoundFlatButton:
+            id: time_btn
+            font_size: 25
+            text: "Coffee Time "
+            value: 0
+            pos_hint: {'center_x': .5}
+            on_release: root.show_time_picker()
     
     MDGridLayout:
         id: dose_grid
@@ -79,7 +88,16 @@
             value: 8
             on_press: coffee_ware_card.press_dose(self) # root.press_dose(self)
     
+    MDFillRoundFlatButton:
+        id: ware_save
+        font_size: 25
+        text: "Save the next coffee time"
+        value: 0
+        pos_hint: {'center_x': .5}
+        on_release: root.button_able(True)
+    
     Widget:
+        id: end_widget
         size_hint_y: None
         height: 20
 
