@@ -23,14 +23,15 @@ from kivymd.uix.card import MDCard
 from kivy.uix.recycleview import RecycleView
 
 from login import LogInCard
-# from clock import IncrediblyCrudeClock
 from coffe_make import CoffeWare
 from first_coffee import FirstCoffe
+
 
 active_token = 'Semmi'
 
 
 class ItemDrawer(OneLineIconListItem):
+    print('ItemDrawer 0')
     icon = StringProperty()
     text_color = ListProperty((0, 0, 0, 1))
 
@@ -70,7 +71,7 @@ class DrawerList(ThemableBehavior, MDList):
         instance_item.text_color = self.theme_cls.primary_color
 
 
-class TestNavigationDrawer(MDApp):
+class CoffeeBarApp(MDApp):
     counter = NumericProperty(0)
     id_scr_1 = ObjectProperty()
     id_scr_4 = ObjectProperty()
@@ -151,5 +152,4 @@ class TestNavigationDrawer(MDApp):
 
 if __name__ == '__main__':
     print('START MAIN')
-    TestNavigationDrawer().run()
-
+    CoffeeBarApp().run()

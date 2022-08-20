@@ -9,12 +9,71 @@
     radius: 20
     orientation: 'vertical'
     line_color: (0.2, 0.2, 0.2, 0.8)
+    
     MDLabel:
         id: coffe_ware_label
         text: "Coffee Make 3"
         halign: 'center'
+
     MDLabel:
         id: coffe_message_label
         text: "Coffee Make 3"
         halign: 'center'
+
+    MDBoxLayout:
+        orientation: "vertical"
+        adaptive_size: True
+        spacing: "12dp"
+        padding: "56dp"
+        pos_hint: {"center_x": .5, "center_y": .5}
+    
+    MDFillRoundFlatButton:
+        id: ware_btn
+        font_size: 30
+        text: "Opened Coffee"
+        value: 0
+        pos_hint: {'center_x': .5}
+        on_release: root.show_time_picker()
+
+    MDFillRoundFlatButton:
+        id: time_btn
+        font_size: 30
+        text: "Open time picker"
+        value: 0
+        pos_hint: {'center_x': .5}
+        on_release: root.show_time_picker()
+    
+    MDGridLayout:
+        id: dose_grid
+        adaptive_size: True
+        pos_hint: {"center_x": 0.5}
+        cols: 2
+        spacing: 15,15
+
+        DoseButton:
+            id: d2
+            text: "2 Dose"
+            value: 2
+            on_press: coffee_ware_card.press_dose(self) # root.press_dose(self)
+        DoseButton:
+            id: d4
+            text: "4 Dose"
+            value: 4
+            on_press: coffee_ware_card.press_dose(self) # root.press_dose(self)
+        DoseButton:
+            id: d6
+            text: "6 Dose"
+            value: 6
+            on_press: coffee_ware_card.press_dose(self) # root.press_dose(self)
+        DoseButton:
+            id: d8
+            text: "8 Dose"
+            value: 8
+            on_press: coffee_ware_card.press_dose(self) # root.press_dose(self)
+    
+    Widget:
+        size_hint_y: None
+        height: 20
+
+
     
