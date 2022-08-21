@@ -72,15 +72,26 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		date_dialog.open()
 
 	def t_on_save(self, instance, value):
-		print(instance, value)
-		self.ids.time_btn.text = str(value)
+		print('Set Time: ', value)
+		date = self.ids.date_btn.text
+		print('Set Date: ', date)
+		dt = str(date) + ' ' + str(value)
+		self.dt_obj =datetime.fromisoformat(dt)
+		act_t = datetime.now()
+		print('act_t  /self.dt_obj: ', act_t, self.dt_obj)
+		if self.dt_obj < act_t:
+			self.dt_obj = act_t + timedelta(hours = 1)
+			t_now = self.dt_obj.time()
+		else:
+			t_now = value
+		print('t_now: ', t_now)
+		self.ids.time_btn.text = str(t_now)[0:8]
 		self.ids.time_btn.md_bg_color=(0, 0.5, 0, 1)
 		Clock.schedule_once(self.button_able, 0)
 		
 	def show_time_picker(self):
 		'''Open time picker dialog.'''	
 		time_dialog = MDTimePicker()
-		# now = datetime.now()
 		# current_time = now.strftime("%H:%M:%S").time()
 		# print(now, '  :  ',current_time)
 		# time_dialog.set_time = current_time
