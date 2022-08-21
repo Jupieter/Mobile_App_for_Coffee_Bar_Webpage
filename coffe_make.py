@@ -53,6 +53,7 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 # 		print('d_on_save:',instance, value, date_range)
 		self.ids.date_btn.text = str(value)
 		self.ids.date_btn.md_bg_color=(0, 0.5, 0, 1)
+		Clock.schedule_once(self.button_able, 0)
 
 	def show_date_picker(self):
 		act_t = datetime.now()
@@ -74,7 +75,8 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		print(instance, value)
 		self.ids.time_btn.text = str(value)
 		self.ids.time_btn.md_bg_color=(0, 0.5, 0, 1)
-
+		Clock.schedule_once(self.button_able, 0)
+		
 	def show_time_picker(self):
 		'''Open time picker dialog.'''	
 		time_dialog = MDTimePicker()
@@ -137,23 +139,24 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		print(texte)
 		self.ids.ware_btn.text = texte
 		self.ids.ware_btn.md_bg_color=(0, 0.5, 0, 1)
-
-
-
+		self.ids.ware_btn.value = id
+		Clock.schedule_once(self.button_able, 0)
 
 	def press_dose(self, act_choice):
-		prnt = self.ids.coffe_ware_label.parent
-		print('children1',prnt.ids.dose_grid.children)
-		print('children2',self.ids.dose_grid.children)
-		for dose_but in prnt.ids.dose_grid.children:
-			print(dose_but)
+		# prnt = self.ids.coffe_ware_label.parent
+		# print('children1',prnt.ids.dose_grid.children)
+		# print('children2',self.ids.dose_grid.children)
+		for dose_but in self.ids.dose_grid.children:
+			# print(dose_but)
 			print(dose_but.text, dose_but.text_color)
 			dose_but.selected = False
 			dose_but.text_color=[0, 0, 0, 0.3]
 			dose_but.md_bg_color = [0.5, 0.5, 0.5, 1]
 			act_choice.text_color=(1, 1, 1, 1)
 			act_choice.md_bg_color=(0, 0.5, 0, 1)
-			print(act_choice.value)	
+			print(act_choice.value)
+		self.ids.dose_grid.value = act_choice.value
+		Clock.schedule_once(self.button_able, 0)
 	
 	def button_able(self, *args):
 		active_token = self.load_token()
@@ -166,15 +169,25 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 			self.ids.coffe_message_label.text = "Set the parameters:"
 		print('able',able)
 		prnt = self.ids.coffe_ware_label.parent
-		for button1 in prnt.ids.dose_grid.children:
+		for button1 in self.ids.dose_grid.children:
 			button1.disabled = able
-		for button2 in prnt.ids.btn_box.children:
+		for button2 in self.ids.btn_box.children:
 			button2.disabled = able
-		self.ids.ware_save.disabled = able
+		if (self.ids.ware_btn.value == 0 or
+			self.ids.date_btn.text == 'Coffee Date' or
+			self.ids.time_btn.text == 'Coffee Time' or
+			self.ids.dose_grid.value == 0):
+			self.ids.ware_save.disabled = True
+		else:
+			self.ids.ware_save.disabled = False
 		print('END able')
 		
-	def r_fresh(self, *args):
-		print('FRESH')
+	def ware_save(self, *args):
+		ware = self.ids.ware_btn.value
+		date = self.ids.date_btn.text
+		time = self.ids.time_btn.text
+		dose = self.ids.dose_grid.value
+		print('SAVE', ware, date, time, dose)
 
 			
 		

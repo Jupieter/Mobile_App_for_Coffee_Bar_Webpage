@@ -56,13 +56,14 @@
         MDFillRoundFlatButton:
             id: time_btn
             font_size: 25
-            text: "Coffee Time "
+            text: "Coffee Time"
             value: 0
             pos_hint: {'center_x': .5}
             on_release: root.show_time_picker()
     
     MDGridLayout:
         id: dose_grid
+        value: 0
         adaptive_size: True
         pos_hint: {"center_x": 0.5}
         cols: 2
@@ -95,7 +96,7 @@
         text: "Save the next coffee time"
         value: 0
         pos_hint: {'center_x': .5}
-        on_release: root.button_able()
+        on_release: root.ware_save()
     
     Widget:
         id: end_widget
