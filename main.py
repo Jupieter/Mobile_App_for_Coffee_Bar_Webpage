@@ -47,7 +47,7 @@ class MDBottomNavigationItemSc3(MDBottomNavigationItem):
         super(MDBottomNavigationItemSc3, self).__init__(**kwargs)
         print('MD scr3')
     
-    def on_tab_touch_down(self, *args):
+    def on_enter(self, *args):
         print("TTTT")
         # self.root.ids.screen3.add_widget(CoffeWare())
         c_ware = CoffeWare()

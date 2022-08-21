@@ -1,5 +1,6 @@
 <CoffeWare>
-    id: coffee_ware_card  
+    id: coffee_ware_card
+    on_pre_enter: 
     size_hint: 0.85, 0.70
     # size: 400, 700
     pos_hint: {"center_x": 0.5, "center_y": 0.46}
@@ -24,7 +25,7 @@
     MDLabel:
         id: coffe_message_label
         font_size: 20
-        text: "Coffee Make 3"
+        text: "message"
         halign: 'center'
     
     MDBoxLayout:
@@ -94,7 +95,7 @@
         text: "Save the next coffee time"
         value: 0
         pos_hint: {'center_x': .5}
-        on_release: root.button_able(True)
+        on_release: root.button_able()
     
     Widget:
         id: end_widget

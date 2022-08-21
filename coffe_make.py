@@ -1,5 +1,6 @@
 from time import timezone
 from kivy.lang import Builder
+from kivy.app import App
 from kivy.clock import Clock
 from kivymd.uix.card import MDCard
 
@@ -12,7 +13,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from datetime import time, datetime, timedelta
 import requests
 import sqlite3, random
-
+from kivy.uix.screenmanager import ScreenManager
 
 Builder.load_file('kv/coffee_make.kv')
 
@@ -25,22 +26,29 @@ class DoseButton(MDFillRoundFlatButton):
 		super(DoseButton, self).__init__(**kwargs)
 		self.selected = False
 		self.text_color=(1, 1, 1, 0.6)
+		sm = ScreenManager
+		self.sm = sm
 		
 
 class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 	print('CoffeWare 0')
+	
 
 	def __init__(self, **kwargs):
 		super(CoffeWare, self).__init__(**kwargs)
-		self.load_data()
-		print('add dose btn')
-		# self.add_dose_button()		
-		magam = self
-		Clock.schedule_once(magam.load_data, 0)
-		#Clock.schedule_interval(magam.load_data, 5) 
+		# self.add_dose_button()
+		# self.load_data()		
+		# Clock.schedule_once(self.load_data_clk, 0)
+		# Clock.schedule_interval(self.load_data_clk, 5)
+		# self.r_fresh()
+		self.message = ""
+		Clock.schedule_once(self.button_able, 0)
+		Clock.schedule_interval(self.button_able, 3)
+		# Clock.schedule_once(self.r_fresh, 0)
+		# Clock.schedule_interval(self.r_fresh, 5) 
 
 	def d_on_save(self, instance, value, date_range):
-		print('d_on_save:',instance, value, date_range)
+# 		print('d_on_save:',instance, value, date_range)
 		self.ids.date_btn.text = str(value)
 		self.ids.date_btn.md_bg_color=(0, 0.5, 0, 1)
 
@@ -57,9 +65,6 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 			min_date=min_date,
 			max_date=max_date,
     		)
-		# date_dialog = MDDatePicker()
-		# date_dialog.min_date=min_date
-		# date_dialog.max_date=max_date
 		date_dialog.bind(on_save=self.d_on_save)
 		date_dialog.open()
 
@@ -85,12 +90,14 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		active_tok = conn.execute("SELECT act_token from act_tokens")
 		for row in active_tok:
 			active_token = row[0]
-			print ("token = ", active_token)
+			# print ("token = ", active_token)
 		return active_token
 	
-
 	def load_data(self, *args):
-		# print('recycle ware')
+		Clock.schedule_once(self.load_data_clk, 0)
+
+	def load_data_clk(self, *args):
+		print('coffe make data')
 		active_token = self.load_token()
 		# print('LOG Token', active_token)
 		token_str = 'Token ' + active_token
@@ -98,30 +105,28 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		# print('HEAD Token', hd_token)
 		if active_token == 'Empty':
 			print('token print',self.ids.coffe_ware_label.parent)
-			self.ids.coffe_message_label.text = "Isn't valid login"
+			# self.message = "Isn't valid login with staff status"
 		else:	
 			print('Request')
 			store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/act_ware/', headers=hd_token).json()
 			print('store', store)
-			self.ids.coffe_message_label.text = "van kávé"
 			st = []
 			for item in store:
 				# sti = item["w_name"])
 				print('st', item)
-			print(self.ids.coffe_ware_label.text)
-			print(self.ids.coffe_message_label.text)
-			self.add_dose_button()
-			print(self.ids.items)
+			# self.message  = "Set the parameters:"
+		return self.message
 	
 	def add_dose_button(self):
-		dose_b = ['2 dose','4 dose','6 dose','8 dose',]
+		dose_b = ['10 dose','12 dose',]
 		for i in dose_b:
 			bt = DoseButton()
 			bt.text = i
 			bt.id=i
+			parnt = self.ids.coffe_ware_label.parent
+			print('parnt',parnt)
+			# bt.bind(on_press = self.press_dose(self))
 			self.ids.dose_grid.add_widget(bt)
-			# parnt = self.ids.coffe_ware_label.parent
-			# bt.on_press = 'coffee_ware_card.press_dose(self)'
 
 	def press_dose(self, act_choice):
 		prnt = self.ids.coffe_ware_label.parent
@@ -137,16 +142,33 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 			act_choice.md_bg_color=(0, 0.5, 0, 1)
 			print(act_choice.value)	
 	
-	def button_able(self, able=False):
+	def button_able(self, *args):
+		# app = App.get_running_app()
+		# print('App:', app.root.ids.screen3.ids)
+		active_token = self.load_token()
+		print(active_token)
+		if active_token == 'Empty':
+			able = True
+			self.ids.coffe_message_label.text = "Isn't valid login with staff status"
+		else:
+			able = False
+			self.ids.coffe_message_label.text = "Set the parameters:"
+		print('able',able)
 		prnt = self.ids.coffe_ware_label.parent
-		print('children3', prnt.ids.btn_box.children)
-		for button in prnt.ids.dose_grid.children:
-			button.disabled = able
-			print(button.disabled)
-		for button in prnt.ids.btn_box.children:
-			button.disabled = able
-			print(button.disabled)
+		print('children3', prnt)
+		for button1 in prnt.ids.dose_grid.children:
+			button1.disabled = able
+			print('dose',button1.text, button1.disabled)
+		for button2 in prnt.ids.btn_box.children:
+			button2.disabled = able
+			# print('box:',button2.text, button2.disabled)
+		self.ids.ware_save.disabled = able
+		# scr =self.get_creen()
+
+		print('END able')
 		
+	def r_fresh(self, *args):
+		print('FRESH')
 
 			
 		
