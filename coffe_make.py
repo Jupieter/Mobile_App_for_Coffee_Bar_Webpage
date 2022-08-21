@@ -3,17 +3,14 @@ from kivy.lang import Builder
 from kivy.app import App
 from kivy.clock import Clock
 from kivymd.uix.card import MDCard
-
 from kivymd.uix.picker import MDTimePicker, MDDatePicker
 from kivymd.uix.button import MDFillRoundFlatButton
-
 from kivy.properties import BooleanProperty
-from kivy.uix.screenmanager import ScreenManager, Screen
-
+from kivy.uix.screenmanager import ScreenManager
 from datetime import time, datetime, timedelta
 import requests
 import sqlite3, random, json
-from kivy.uix.screenmanager import ScreenManager
+from login import LogInCard
 
 Builder.load_file('kv/coffee_make.kv')
 
@@ -39,7 +36,8 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		# self.add_dose_button()
 		# self.load_data()
 		self.stor = None
-		self.ware_step = 0	
+		self.ware_step = 0
+		self.dt_obj = None
 		Clock.schedule_once(self.load_data, 0)
 		# Clock.schedule_interval(self.load_data_clk, 5)
 		# self.r_fresh()
@@ -200,10 +198,10 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		
 	def ware_save(self, *args):
 		ware = self.ids.ware_btn.value
-		date = self.ids.date_btn.text
-		time = self.ids.time_btn.text
 		dose = self.ids.dose_grid.value
-		print('SAVE', ware, date, time, dose)
+		log_card = LogInCard()
+		active_user = log_card.load_user()
+		print('SAVE', self.dt_obj, active_user, ware, dose)
 
 			
 		
