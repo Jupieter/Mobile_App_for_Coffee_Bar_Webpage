@@ -12,7 +12,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 
 from datetime import time, datetime, timedelta
 import requests
-import sqlite3, random
+import sqlite3, random, json
 from kivy.uix.screenmanager import ScreenManager
 
 Builder.load_file('kv/coffee_make.kv')
@@ -37,13 +37,15 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 	def __init__(self, **kwargs):
 		super(CoffeWare, self).__init__(**kwargs)
 		# self.add_dose_button()
-		# self.load_data()		
-		# Clock.schedule_once(self.load_data_clk, 0)
+		# self.load_data()
+		self.stor = None
+		self.ware_step = 0	
+		Clock.schedule_once(self.load_data, 0)
 		# Clock.schedule_interval(self.load_data_clk, 5)
 		# self.r_fresh()
 		self.message = ""
 		Clock.schedule_once(self.button_able, 0)
-		Clock.schedule_interval(self.button_able, 3)
+		# Clock.schedule_interval(self.button_able, 3)
 		# Clock.schedule_once(self.r_fresh, 0)
 		# Clock.schedule_interval(self.r_fresh, 5) 
 
@@ -99,34 +101,45 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 	def load_data_clk(self, *args):
 		print('coffe make data')
 		active_token = self.load_token()
-		# print('LOG Token', active_token)
 		token_str = 'Token ' + active_token
 		hd_token = {'Authorization':token_str}
-		# print('HEAD Token', hd_token)
 		if active_token == 'Empty':
 			print('token print',self.ids.coffe_ware_label.parent)
-			# self.message = "Isn't valid login with staff status"
 		else:	
 			print('Request')
 			store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/act_ware/', headers=hd_token).json()
-			print('store', store)
-			st = []
-			for item in store:
-				# sti = item["w_name"])
-				print('st', item)
-			# self.message  = "Set the parameters:"
-		return self.message
+			print('store', store)			
+			self.stor = self.ware_json(store)
+			print(self.stor)
+		return self.stor
 	
-	def add_dose_button(self):
-		dose_b = ['10 dose','12 dose',]
-		for i in dose_b:
-			bt = DoseButton()
-			bt.text = i
-			bt.id=i
-			parnt = self.ids.coffe_ware_label.parent
-			print('parnt',parnt)
-			# bt.bind(on_press = self.press_dose(self))
-			self.ids.dose_grid.add_widget(bt)
+	def ware_json(self, store_d):
+		store = []
+		for item in store_d:
+			it = json.loads(item)
+			print('st', item)
+			print('it', it)
+			store.append(it)
+		return store
+	
+	def ware_button(self, *args):
+		print("self.stor", self.stor)
+		tuple_len = len(self.stor)
+		self.ware_step += 1
+		if self.ware_step > tuple_len:
+			self.ware_step = 1
+		id = self.stor[self.ware_step-1]['w_id']
+		name = self.stor[self.ware_step-1]['w_name'].replace('Coffee','')
+		name.replace(',','')
+		dose = self.stor[self.ware_step-1]['w_dose']
+		print('self.ware_step',self.ware_step, id, name, dose)
+		texte = str(id) + " " + name + " left " + str(dose) +" dose"
+		print(texte)
+		self.ids.ware_btn.text = texte
+		self.ids.ware_btn.md_bg_color=(0, 0.5, 0, 1)
+
+
+
 
 	def press_dose(self, act_choice):
 		prnt = self.ids.coffe_ware_label.parent
@@ -143,8 +156,6 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 			print(act_choice.value)	
 	
 	def button_able(self, *args):
-		# app = App.get_running_app()
-		# print('App:', app.root.ids.screen3.ids)
 		active_token = self.load_token()
 		print(active_token)
 		if active_token == 'Empty':
@@ -155,16 +166,11 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 			self.ids.coffe_message_label.text = "Set the parameters:"
 		print('able',able)
 		prnt = self.ids.coffe_ware_label.parent
-		print('children3', prnt)
 		for button1 in prnt.ids.dose_grid.children:
 			button1.disabled = able
-			print('dose',button1.text, button1.disabled)
 		for button2 in prnt.ids.btn_box.children:
 			button2.disabled = able
-			# print('box:',button2.text, button2.disabled)
 		self.ids.ware_save.disabled = able
-		# scr =self.get_creen()
-
 		print('END able')
 		
 	def r_fresh(self, *args):
