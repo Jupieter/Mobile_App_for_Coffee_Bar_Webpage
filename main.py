@@ -111,12 +111,16 @@ class CoffeeBarApp(MDApp):
         sql = """CREATE TABLE if not exists act_users(
             id INT PRIMARY KEY NOT NULL,
             act_user TEXT,
-            act_pass TEXT)"""
+            act_pass TEXT,
+            act_pkey INT NOT NULL default 0,
+            act_staff BOOLEAN NOT NULL default 0 
+            )"""
         cur.execute(sql)
         sql = """INSERT OR IGNORE INTO 
                 act_users (id, act_user, act_pass) 
                 VALUES (?, ?, ?)"""
-        data2 = (1,'a@a.com','abc123')    
+        data2 = (1,'a@aa.com','abc1234')  
+        print(data2)  
         cur.execute(sql, data2)
         conn.commit()
         conn.close()

@@ -15,7 +15,7 @@ Builder.load_file('kv/login.kv')
 
 
 
-class LogInCard(MDCard): # the.boss@staff.com    Enter1
+class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.com', 'password': 'Enter1'}
 	print('LogInCard 0')
 	def __init__(self, **kwargs):
 		super(LogInCard, self).__init__(**kwargs)
@@ -54,13 +54,12 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 		user = self.ids.user.text
 		password = self.ids.password.text
 		if user != "" or password != "" :
-			x = {'email':user, 'password':password}
+			x = {"email": user, 'password':password}
 			sends = x
 			print(sends)
 			store = requests.post('https://coffeeanteportas.herokuapp.com/c_app/login/', data=sends).json()
-			print(store)
+			print('login store: ', store)
 			keys = []
-			values = []
 			for key in store.keys():
 				print ('key', key)
 				keys.append(key)
@@ -69,11 +68,16 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 				self.ids.welcome_label.text =(f'Logged {user}.')
 				act_expiry = store['expiry']
 				act_token = store['token']
+				act_pkey = store['user_pk']
+				act_staff = store['is_staff']
 				print(act_expiry)
 				print(act_token)
+				print(act_pkey)
+				print(act_staff)
 				self.act_token_db(act_token, act_expiry)
-				password='Emp'
-				self.act_user_db(user, password)
+				password ='Emp'  # if don't store the password
+				print('come USER DB ')
+				self.act_user_db(user, password, act_pkey, act_staff)
 				self.btn_disable(True, True, False)
 				self.ids.welcome_label.text =('LOG OUT')
 				scr4 = MDApp.get_running_app().id_scr_4
@@ -115,21 +119,30 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1
 		conn = sqlite3.connect('coffe_app.db')	
 		cur = conn.cursor()
 		sql = """UPDATE act_tokens 
-					SET act_token = ?, act_expiry = ?
+					SET act_token = ?, 
+					act_expiry = ?
 					WHERE id = ?"""
 		data = (act_token, act_expiry, 1)
 		cur.execute(sql, data)
 		conn.commit()
 		conn.close()
 
-	def act_user_db(self, act_user, act_pass):
-		print(act_user, act_pass)
+	def act_user_db(self, act_user, act_pass, act_pkey, act_staff):
+		print(act_user, act_pass, act_pkey, act_staff)
+		if act_staff == True: 
+			act_staff_num = 1
+		else:
+			act_staff_num = 0
+
 		conn = sqlite3.connect('coffe_app.db')	
 		cur = conn.cursor()
 		sql = """UPDATE act_users 
-					SET act_user = ?, act_pass = ? 
+					SET act_user = ?, 
+					act_pass = ?,
+					act_pkey = ?,
+					act_staff = ?
 					WHERE id = ?"""
-		data = (act_user, act_pass, 1)
+		data = (act_user, act_pass, act_pkey, act_staff, 1)
 		cur.execute(sql, data)
 		conn.commit()
 		conn.close()
