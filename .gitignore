@@ -8,3 +8,4 @@ db.sqlite3
 /django
 .DS_Store
 *.bat
+.db
