@@ -163,8 +163,10 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 	def button_able(self, *args):
 		log_card = LogInCard()
 		active_token = log_card.load_token()
+		active_user, act_pkey, act_staff = log_card.read_user()
+
 		print(active_token)
-		if active_token == 'Empty':
+		if active_token == 'Empty'or act_staff == False:
 			able = True
 			self.ids.coffe_message_label.text = "Isn't valid login with staff status"
 		else:
@@ -185,7 +187,7 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 			self.ids.date_btn.text == 'Coffee Date' or
 			self.ids.time_btn.text == 'Coffee Time' or
 			self.ids.dose_grid.value == 0):
-			self.ids.ware_save.disabled = True
+			self.ids.ware_save.disabled = True 
 		else:
 			self.ids.ware_save.disabled = False
 		print('END able')
