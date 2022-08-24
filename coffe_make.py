@@ -194,9 +194,11 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		ware = self.ids.ware_btn.value
 		dose = self.ids.dose_grid.value
 		log_card = LogInCard()
-		active_user = log_card.read_user()
+		active_user, act_pkey, act_staff = log_card.read_user()
 		print('SAVE', 'self.dt_obj', self.dt_obj, type(self.dt_obj))
 		print('SAVE', 'active_user', active_user, type(active_user))
+		print('SAVE', 'act_pkey', act_pkey, type(act_pkey))
+		print('SAVE', 'act_staff', act_staff, type(act_staff))
 		print('SAVE', 'ware', ware, type(ware))
 		print('SAVE', 'dose', dose, type(dose))
 		

@@ -129,11 +129,6 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 
 	def act_user_db(self, act_user, act_pass, act_pkey, act_staff):
 		print(act_user, act_pass, act_pkey, act_staff)
-		if act_staff == True: 
-			act_staff_num = 1
-		else:
-			act_staff_num = 0
-
 		conn = sqlite3.connect('coffe_app.db')	
 		cur = conn.cursor()
 		sql = """UPDATE act_users 
@@ -151,7 +146,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		conn = sqlite3.connect('coffe_app.db')	
 		cur = conn.cursor()
 		# conn.execute("SELECT act_token from act_tokens")
-		sql = """SELECT act_user, act_pkey FROM act_users WHERE id = 1"""
+		sql = """SELECT act_user, act_pkey, act_staff FROM act_users WHERE id = 1"""
 		print(sql)
 		data = (1)
 		users = cur.execute(sql)
@@ -159,10 +154,16 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		for row in users:
 			user = row[0]
 			pkey = row[1]
+			staff_num = row[2]
+			if staff_num == 1:
+				staff = True
+			else:
+				staff = False
 			print ("user = ", user)
 			print ("pkey = ", pkey)
+			print ("staff = ", staff)
 		conn.close()
-		return user
+		return user, pkey, staff
 
 
 	def clear(self):
