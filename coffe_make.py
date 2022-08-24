@@ -96,22 +96,15 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		# time_dialog._set_current_time
 		time_dialog.bind(on_save=self.t_on_save)
 		time_dialog.open()
-		
-	
-	def load_token(self, *args):
-		conn = sqlite3.connect('coffe_app.db')
-		active_tok = conn.execute("SELECT act_token from act_tokens")
-		for row in active_tok:
-			active_token = row[0]
-			# print ("token = ", active_token)
-		return active_token
+
 	
 	def load_data(self, *args):
 		Clock.schedule_once(self.load_data_clk, 0)
 
 	def load_data_clk(self, *args):
 		print('coffe make data')
-		active_token = self.load_token()
+		log_card = LogInCard()
+		active_token = log_card.load_token()
 		token_str = 'Token ' + active_token
 		hd_token = {'Authorization':token_str}
 		if active_token == 'Empty':
@@ -168,7 +161,8 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		Clock.schedule_once(self.button_able, 0)
 	
 	def button_able(self, *args):
-		active_token = self.load_token()
+		log_card = LogInCard()
+		active_token = log_card.load_token()
 		print(active_token)
 		if active_token == 'Empty':
 			able = True
@@ -200,7 +194,7 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		ware = self.ids.ware_btn.value
 		dose = self.ids.dose_grid.value
 		log_card = LogInCard()
-		active_user = log_card.load_user()
+		active_user = log_card.read_user()
 		print('SAVE', 'self.dt_obj', self.dt_obj, type(self.dt_obj))
 		print('SAVE', 'active_user', active_user, type(active_user))
 		print('SAVE', 'ware', ware, type(ware))

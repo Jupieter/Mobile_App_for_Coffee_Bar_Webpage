@@ -151,14 +151,16 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		conn = sqlite3.connect('coffe_app.db')	
 		cur = conn.cursor()
 		# conn.execute("SELECT act_token from act_tokens")
-		sql = """SELECT act_user FROM act_users WHERE id = 1"""
+		sql = """SELECT act_user, act_pkey FROM act_users WHERE id = 1"""
 		print(sql)
 		data = (1)
 		users = cur.execute(sql)
-		# print('user: ', users)
+		print('user: ', users)
 		for row in users:
 			user = row[0]
+			pkey = row[1]
 			print ("user = ", user)
+			print ("pkey = ", pkey)
 		conn.close()
 		return user
 
