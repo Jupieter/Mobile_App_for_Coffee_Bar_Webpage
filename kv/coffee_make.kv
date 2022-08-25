@@ -52,6 +52,15 @@
         text: "Coffee Time"
         value: 0
         on_release: root.show_time_picker()
+
+    MDFillRoundFlatButton:
+        id: test_btn
+        size_hint: (0.8, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+        font_size: btn_txt * self.height
+        text: "TEST Time"
+        value: 0
+        on_release: root.show_time_picker()
     
     MDFillRoundFlatButton:
         id: ware_btn

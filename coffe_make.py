@@ -1,5 +1,5 @@
 from kivy.lang import Builder
-from kivy.app import App
+from kivymd.app import MDApp
 from kivy.clock import Clock
 from kivymd.uix.card import MDCard
 from kivymd.uix.picker import MDTimePicker, MDDatePicker
@@ -9,14 +9,43 @@ from kivy.uix.screenmanager import ScreenManager
 from datetime import time, datetime, timedelta
 import requests
 import time
-import sqlite3, random, json
+import json
 from login import LogInCard
 
 Builder.load_file('kv/coffee_make.kv')
 
+class MyTimePicker(MDTimePicker):
+	def __init__(self, **kwargs):
+		super(MyTimePicker, self).__init__(**kwargs)
+	
+	def _set_am_pm(self, selected: str) -> None:
+		"""Used by set_time() to manually set the mode to "am" or "pm"."""
+		self.am_pm = selected
+		self._am_pm_selector.mode = self.am_pm
+		self._am_pm_selector.selected = self.am_pm
+	
+	def set_time(self, time_obj):
+		"""
+		Manually set time dialog with the specified time.
+		"""
+		hour = time_obj.hour
+		minute = time_obj.minute
+		if hour > 12:
+			mode = "pm"
+			hour -= 12
+		else:
+			mode = "am"
+		if hour > 11:  # Correction: am/pm fault between 12:01-12:59
+			mode = "pm"
+		hour = str(hour)
+		minute = str(minute)
+		print(hour, minute, mode)
+		self._set_time_input(hour, minute)
+		self._set_dial_time(hour, minute)
+		self._set_am_pm(mode)
+
 class DoseButton(MDFillRoundFlatButton):
 	print('DoseButton 0')
-	# font_size = 25
 	selected = BooleanProperty()
 
 	def __init__(self, **kwargs):
@@ -33,22 +62,14 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 
 	def __init__(self, **kwargs):
 		super(CoffeWare, self).__init__(**kwargs)
-		# self.add_dose_button()
-		# self.load_data()
 		self.stor = None
 		self.ware_step = 0
 		self.dt_obj = None
 		Clock.schedule_once(self.load_data, 0)
-		# Clock.schedule_interval(self.load_data_clk, 5)
-		# self.r_fresh()
 		self.message = ""
-		Clock.schedule_once(self.button_able, 0)
-		# Clock.schedule_interval(self.button_able, 3)
-		# Clock.schedule_once(self.r_fresh, 0)
-		# Clock.schedule_interval(self.r_fresh, 5) 
+		Clock.schedule_once(self.button_able, 0) 
 
 	def d_on_save(self, instance, value, date_range):
-# 		print('d_on_save:',instance, value, date_range)
 		self.ids.date_btn.text = str(value)
 		self.ids.date_btn.md_bg_color=(0, 0.5, 0, 1)
 		Clock.schedule_once(self.button_able, 0)
@@ -89,11 +110,11 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		
 	def show_time_picker(self):
 		'''Open time picker dialog.'''	
-		time_dialog = MDTimePicker()
-		# current_time = now.strftime("%H:%M:%S").time()
-		# print(now, '  :  ',current_time)
-		# time_dialog.set_time = current_time
-		# time_dialog._set_current_time
+		time_dialog = MyTimePicker()
+		act_t = datetime.now()
+		current_time = datetime.now().time()
+		print('act TIME:', act_t, '  :  ', act_t.time(), "current_time", current_time)
+		time_dialog.set_time(current_time)
 		time_dialog.bind(on_save=self.t_on_save)
 		time_dialog.open()
 
@@ -208,16 +229,27 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		}
 		print(sends)
 		# requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', data=sends)
-		self.ids.coffe_message_label.text = "New coffee brewing time saved."
 		print('sleep              sleep')
-		time.sleep(2)
+		self.ids.coffe_message_label.text = "New coffee brewing time saved."
+		self.button_able()
+		time.sleep(1)
+		self.btn_text_reset()
 	
 	def btn_text_reset(self):
-		self.ids.ware_btn.value = "Opened Coffee"
+		print("RESET", self.ids)
+		app = MDApp.get_running_app()
+
+		self.ids.ware_btn.text = "Opened Coffee"
+		self.ids.ware_btn.md_bg_color = app.theme_cls.primary_color
 		self.ids.ware_btn.value = 0
 		self.ids.date_btn.text = 'Coffee Date'
+		self.ids.date_btn.md_bg_color = app.theme_cls.primary_color
 		self.ids.time_btn.text = 'Coffee Time'
+		self.ids.time_btn.md_bg_color = app.theme_cls.primary_color
 		self.ids.dose_grid.value = 0
-		self.press_dose(self, act_choice=None)
+		for dose_but in self.ids.dose_grid.children:
+			print(dose_but.text, dose_but.text_color)
+			dose_but.text_color=[1, 1, 1, 0.6]
+			dose_but.md_bg_color = app.theme_cls.primary_color
 		self.button_able()
 		
