@@ -1,4 +1,3 @@
-from time import timezone
 from kivy.lang import Builder
 from kivy.app import App
 from kivy.clock import Clock
@@ -9,6 +8,7 @@ from kivy.properties import BooleanProperty
 from kivy.uix.screenmanager import ScreenManager
 from datetime import time, datetime, timedelta
 import requests
+import time
 import sqlite3, random, json
 from login import LogInCard
 
@@ -16,7 +16,7 @@ Builder.load_file('kv/coffee_make.kv')
 
 class DoseButton(MDFillRoundFlatButton):
 	print('DoseButton 0')
-	font_size = 25
+	# font_size = 25
 	selected = BooleanProperty()
 
 	def __init__(self, **kwargs):
@@ -121,8 +121,8 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		store = []
 		for item in store_d:
 			it = json.loads(item)
-			print('st', item)
-			print('it', it)
+			# print('st', item)
+			# print('it', it)
 			store.append(it)
 		return store
 	
@@ -197,12 +197,27 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		dose = self.ids.dose_grid.value
 		log_card = LogInCard()
 		active_user, act_pkey, act_staff = log_card.read_user()
-		print('SAVE', 'self.dt_obj', self.dt_obj, type(self.dt_obj))
-		print('SAVE', 'active_user', active_user, type(active_user))
-		print('SAVE', 'act_pkey', act_pkey, type(act_pkey))
-		print('SAVE', 'act_staff', act_staff, type(act_staff))
-		print('SAVE', 'ware', ware, type(ware))
-		print('SAVE', 'dose', dose, type(dose))
-		
-			
+		if self.dt_obj:
+			make_date = self.dt_obj.isoformat()
+			print('SAVE', 'self.dt_obj',  make_date, type(make_date))
+		sends = {
+			"c_make_user": act_pkey,
+			"c_make_date": make_date,
+			"c_make_ware": ware,
+			"c_make_dose": dose
+		}
+		print(sends)
+		# requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', data=sends)
+		self.ids.coffe_message_label.text = "New coffee brewing time saved."
+		print('sleep              sleep')
+		time.sleep(2)
+	
+	def btn_text_reset(self):
+		self.ids.ware_btn.value = "Opened Coffee"
+		self.ids.ware_btn.value = 0
+		self.ids.date_btn.text = 'Coffee Date'
+		self.ids.time_btn.text = 'Coffee Time'
+		self.ids.dose_grid.value = 0
+		self.press_dose(self, act_choice=None)
+		self.button_able()
 		

@@ -1,114 +1,138 @@
+#:set pad_var 0.01
+#:set space_var 0.04
+#:set btn_txt 0.6
+#:set g_btn_txt 0.5
+#:set sz_hint_hight 0.09
 <CoffeWare>
     id: coffee_ware_card
     on_pre_enter: 
-    size_hint: 0.85, 0.70
+    size_hint: 0.9, 0.8
     # size: 400, 700
-    pos_hint: {"center_x": 0.5, "center_y": 0.46}
+    pos_hint: {"center_x": 0.5, "top": 0.85}
     elevation: 25
-    padding: 25
-    spacing: 25
+    padding: 0.05 * self.height
+    spacing:  space_var * self.height
     radius: 20
     orientation: 'vertical'
     line_color: (0.2, 0.2, 0.2, 0.8)
 
     Widget:
         id: start_widget
-        size_hint_y: None
-        height: 20
+        size_hint: (0.8, 0.03 * sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
     
     MDLabel:
         id: coffe_ware_label
-        font_size: 40
-        text: "Coffee Make 3"
+        size_hint: (0.8, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+        # font_size: 1.1* btn_txt * root.height
+        font_size: 0.6 * self.height
+        text: "COFFEE MAKE"
         halign: 'center'
 
     MDLabel:
         id: coffe_message_label
-        font_size: 20
+        size_hint: (0.8, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+        # font_size: 0.7* btn_txt * root.height
+        font_size: 0.4 * self.height
         text: "message"
         halign: 'center'
-    
-    MDBoxLayout:
-        id: btn_box
-        orientation: "vertical"
-        adaptive_size: True
-        spacing: 25
-        padding: 25
-        pos_hint: {"center_x": .5}
+        
+    MDFillRoundFlatButton:
+        id: ware_btn
+        size_hint: (0.8, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+        font_size: btn_txt * self.height
+        text: "Opened Coffee"
+        value: 0
+        on_release: root.ware_button()
 
-    
-        MDFillRoundFlatButton:
-            id: ware_btn
-            font_size: 25
-            text: "Opened Coffee"
-            value: 0
-            pos_hint: {'center_x': .5}
-            on_release: root.ware_button()
+    MDFillRoundFlatButton:
+        id: date_btn
+        size_hint: (0.8, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+        font_size: btn_txt * self.height
+        text: "Coffee Date"
+        value: 0
+        on_release: root.show_date_picker()
 
-        MDFillRoundFlatButton:
-            id: date_btn
-            font_size: 25
-            text: "Coffee Date"
-            value: 0
-            pos_hint: {'center_x': .5}
-            on_release: root.show_date_picker()
-
-        MDFillRoundFlatButton:
-            id: time_btn
-            font_size: 25
-            text: "Coffee Time"
-            value: 0
-            pos_hint: {'center_x': .5}
-            on_release: root.show_time_picker()
+    MDFillRoundFlatButton:
+        id: time_btn
+        size_hint: (0.8, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+        font_size: btn_txt * self.height
+        text: "Coffee Time"
+        value: 0
+        on_release: root.show_time_picker()
     
     MDGridLayout:
+        canvas.before:
+            Color:
+                rgba: (1,0,0, 1)
+            RoundedRectangle:
+                size: self.width+10, self.height+10
+                pos: self.x-5, self.y-5
+                radius: [15]
+            Color:
+                rgba: (253/255, 245/255, 230/255, 1)
+            RoundedRectangle:
+                size: self.width, self.height
+                pos: self.x, self.y
         id: dose_grid
+        size_hint: (0.8,  1.2 * sz_hint_hight)
+        pos_hint: {'center_x': .5, 'top': 1}
         value: 0
-        adaptive_size: True
-        pos_hint: {"center_x": 0.5}
-        cols: 2
-        spacing: 15,15
+        # adaptive_size: True
+        cols: 4
+        # orientation: "horizontal"
+        padding: 0.01 * self.height
+        spacing: 0.2 * self.height
 
         DoseButton:
             id: d2
-            text: "2 Dose"
+            size_hint: (1, 1)
+            font_size: g_btn_txt * self.height
+            # padding: pad_var * self.height
+            text: "2"
             value: 2
-            on_press: coffee_ware_card.press_dose(self) # root.press_dose(self)
+            on_press: coffee_ware_card.press_dose(self) # self.press_dose(self)
         DoseButton:
             id: d4
-            text: "4 Dose"
+            size_hint: (1, 1)
+            font_size: g_btn_txt * self.height
+            # padding: pad_var * self.height
+            text: "4"
             value: 4
-            on_press: coffee_ware_card.press_dose(self) # root.press_dose(self)
+            on_press: coffee_ware_card.press_dose(self)
         DoseButton:
             id: d6
-            text: "6 Dose"
+            size_hint: (1, 1)
+            font_size: g_btn_txt * self.height
+            text: "6"
             value: 6
-            on_press: coffee_ware_card.press_dose(self) # root.press_dose(self)
+            on_press: coffee_ware_card.press_dose(self)
         DoseButton:
             id: d8
-            text: "8 Dose"
+            size_hint: (1, 1)
+            font_size: g_btn_txt * self.height
+            text: "8"
             value: 8
-            on_press: coffee_ware_card.press_dose(self) # root.press_dose(self)
+            on_press: coffee_ware_card.press_dose(self)
     
     MDFillRoundFlatButton:
         id: ware_save
-        font_size: 25
-        text: "Save the next coffee time"
+        size_hint: (0.8, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+        font_size: btn_txt * self.height
+        text: "Save next coffee time"
         value: 0
-        pos_hint: {'center_x': .5}
         on_release: root.ware_save()
     
-    MDFillRoundFlatButton:
-        id: save_test
-        font_size: 25
-        text: "Save the next coffee time TEST"
-        value: 0
-        pos_hint: {'center_x': .5}
-        on_release: root.ware_save()
     Widget:
         id: end_widget
-        size_hint_y: None
-        height: 20
+        size_hint: (0.8, 0.3 * sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
 
 
     
