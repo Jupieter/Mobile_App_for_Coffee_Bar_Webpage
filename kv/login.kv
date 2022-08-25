@@ -1,5 +1,5 @@
-#:set btn_txt 0.6    # rapid change button text size, size_hint height everywhere
-#:set g_btn_txt 0.5
+#:set txt_field 0.4    # rapid change button text size, size_hint height everywhere
+#:set card_txt 0.8 
 #:set sz_hint_hight 0.09 
 
 <LogInCard>
@@ -13,64 +13,71 @@
     orientation: 'vertical'
     line_color: (0.2, 0.2, 0.2, 0.8)
 
+
+    Widget:
+        id: log_start_widget
+        size_hint: (0.8, 0.03 * sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+
     MDLabel:
         id: welcome_label
         text: "LOG IN"
-        size_hint: 1, 0.1
-        # size_hint_y: None
-        font_size: self.height/4
+        size_hint: (0.8, 4 * sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+        font_size: 0.2 * self.height
         halign: 'center'
-        height: self.texture_size[1]
         padding_y: 6
     
     Widget:
-        size_hint_y: None
-        height: 20
+        id: log_I_widget
+        size_hint: (0.8, 0.01 * sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
 
     MDTextFieldRound:
         id: user
         hint_text: "username"
         icon_right: "account"
-        size_hint: 0.8, 0.03
-        # width: 300
-        font_size: 0.4 * self.height
-        pos_hint: {"center_x": 0.5}
+        size_hint: (0.8, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+        font_size: txt_field * self.height
     
     MDTextFieldRound:
         id: password
+        password: True
         hint_text: "password"
         icon_right: "eye-off"
-        size_hint: 0.8, 0.03 
-        font_size: 0.4 * self.height
-        pos_hint: {"center_x": 0.5}
-        password: True
+        size_hint: (0.8, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+        font_size: txt_field * self.height
     
     Widget:
-        size_hint_y: None
-        height: 20
+        id: log_II_widget
+        size_hint: (0.8, 0.01 * sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
 
     MDGridLayout:
-        # adaptive_size: True
-        size_hint: 0.9, 0.04
-        # md_bg_color: app.theme_cls.primary_color
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        id: btn_grid
+        size_hint: (0.8,  1.2 * sz_hint_hight)
+        pos_hint: {'center_x': .5, 'top': 1}
+        value: 0
         cols: 3
-        spacing: 15,15
+        padding: 0.01 * self.height
+        spacing: 0.2 * self.height
 
         MDRoundFlatButton:
             id: log_in_btn 
             text: "LOG IN"
             font_size: 0.2 * self.height
-            size_hint: 1, 0.5
+            size_hint: 1, 1
             pos_hint: {"center_x": 0.5}
             on_press: root.log_in()
             disabled: False
         
         MDRoundFlatButton:
             id: log_clr_btn
-            text: "CLEAR"
+            text: " CLEAR "
             font_size: 0.2 * self.height
-            size_hint: 1, 0.5
+            size_hint: 1, 1
             pos_hint: {"center_x": 0.5} 
             on_press: root.clear() 
             disabled: False
@@ -79,14 +86,15 @@
             id: log_out_btn 
             text: "LOG OUT"
             font_size: 0.2 * self.height
-            size_hint: 1, 0.5
+            size_hint: 1, 1
             pos_hint: {"center_x": 0.5}
             on_press: root.log_out()
             disabled: True 
 
 
     Widget:
-        size_hint_y: None
-        height: 20
+        id: log_end_widget
+        size_hint: (0.8, 0.3 * sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
 
 
