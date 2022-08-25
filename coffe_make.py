@@ -26,7 +26,8 @@ class MyTimePicker(MDTimePicker):
 	
 	def set_time(self, time_obj):
 		"""
-		Manually set time dialog with the specified time.
+		Manually set time dialog with the specified time. 
+		Overvrited version 12:00-12:59 != 'am'
 		"""
 		hour = time_obj.hour
 		minute = time_obj.minute
@@ -56,7 +57,7 @@ class DoseButton(MDFillRoundFlatButton):
 		self.sm = sm
 		
 
-class CoffeWare(MDCard): # the.boss@staff.com    Enter1
+class CoffeWare(MDCard):
 	print('CoffeWare 0')
 	
 
@@ -70,11 +71,13 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		Clock.schedule_once(self.button_able, 0) 
 
 	def d_on_save(self, instance, value, date_range):
+		'''Date picker save function'''
 		self.ids.date_btn.text = str(value)
 		self.ids.date_btn.md_bg_color=(0, 0.5, 0, 1)
 		Clock.schedule_once(self.button_able, 0)
 
 	def show_date_picker(self):
+		'''Open date picker dialog.'''
 		act_t = datetime.now()
 		end_t = act_t + timedelta(days = 5)
 		act_date = str(act_t)[0:10].replace("-", ":")
@@ -91,6 +94,7 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		date_dialog.open()
 
 	def t_on_save(self, instance, value):
+		'''Time picker save function'''
 		print('Set Time: ', value)
 		date = self.ids.date_btn.text
 		print('Set Date: ', date)
@@ -139,15 +143,15 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		return self.stor
 	
 	def ware_json(self, store_d):
+		'''JSON for tuple '''
 		store = []
 		for item in store_d:
 			it = json.loads(item)
-			# print('st', item)
-			# print('it', it)
 			store.append(it)
 		return store
 	
 	def ware_button(self, *args):
+		''' carussel button => selected coffee raw material'''
 		print("self.stor", self.stor)
 		tuple_len = len(self.stor)
 		self.ware_step += 1
@@ -166,9 +170,7 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		Clock.schedule_once(self.button_able, 0)
 
 	def press_dose(self, act_choice):
-		# prnt = self.ids.coffe_ware_label.parent
-		# print('children1',prnt.ids.dose_grid.children)
-		# print('children2',self.ids.dose_grid.children)
+		'''One Choice button selection function'''
 		for dose_but in self.ids.dose_grid.children:
 			# print(dose_but)
 			print(dose_but.text, dose_but.text_color)
@@ -182,12 +184,19 @@ class CoffeWare(MDCard): # the.boss@staff.com    Enter1
 		Clock.schedule_once(self.button_able, 0)
 	
 	def button_able(self, *args):
+		'''buttun disabled if not authenticated 
+			disabled TimePicker if Date not selected
+			disabled SAVE button if all option isn't selected.
+		'''
 		log_card = LogInCard()
 		active_token = log_card.load_token()
 		active_user, act_pkey, act_staff = log_card.read_user()
 
 		print(active_token)
-		if active_token == 'Empty'or act_staff == False:
+		if  act_staff == False:
+			able = True
+			self.ids.coffe_message_label.text = "You have not staff status"
+		elif active_token == 'Empty':
 			able = True
 			self.ids.coffe_message_label.text = "Isn't valid login with staff status"
 		else:
