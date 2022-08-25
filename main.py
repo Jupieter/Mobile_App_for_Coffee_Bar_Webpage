@@ -85,7 +85,7 @@ class CoffeeBarApp(MDApp):
 
     def build(self):
         print('Build 0')
-        self.icon = 'conf/icon/coffee-ante-porta-256.png'
+        self.icon = 'conf/icon/coffee-ante-porta-512.png'
         
         self.create_db()
 
