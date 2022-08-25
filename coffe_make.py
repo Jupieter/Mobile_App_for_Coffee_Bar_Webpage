@@ -237,7 +237,7 @@ class CoffeWare(MDCard):
 			"c_make_dose": dose
 		}
 		print(sends)
-		# requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', data=sends)
+		requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', data=sends)
 		print('sleep              sleep')
 		self.ids.coffe_message_label.text = "New coffee brewing time saved."
 		self.button_able()
