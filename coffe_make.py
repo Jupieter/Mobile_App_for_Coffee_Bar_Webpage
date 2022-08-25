@@ -35,7 +35,7 @@ class MyTimePicker(MDTimePicker):
 			hour -= 12
 		else:
 			mode = "am"
-		if hour > 11:  # Correction: am/pm fault between 12:01-12:59
+		if hour > 11:  # Correction: am/pm fault between 12:00-12:59
 			mode = "pm"
 		hour = str(hour)
 		minute = str(minute)
