@@ -1,45 +1,52 @@
-<CounterLabel>:
-    text: 'the counter value is {}'.format(app.counter)  # `app` in kv is equivalent to `App.get_running_app()` in Python
+#:set card_txt 0.8    # rapid change button text size, size_hint height everywhere
+#:set sz_hint_hight 0.09 
 
 <FirstCoffe>
     id: fk_box 
-    size_hint: 0.85, 0.85
-    # size: 400, 700
-    pos_hint: {"center_x": 0.5, "center_y": 0.46}
+    size_hint: 0.9, 0.8
+    pos_hint: {"center_x": 0.5, "top": 0.85}
     elevation: 25
-    padding: 25
-    spacing: 25
+    padding: 0.05 * self.height
+    spacing:  0.04 * self.height
     radius: 20
     orientation: 'vertical'
     line_color: (0.0, 0.0, 0.0, 0.8)
 
+    Widget:
+        id: fc_start_widget
+        size_hint: (0.8, 0.03 * sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
 
     MDLabel:
         id: fk_label
         text: "NEXT COFFEE"
-        size_hint: 1, 0.1
-        # size_hint_y: None
-        font_size: self.height/2.5
+        size_hint: (0.8, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+        font_size: self.height
         halign: 'center'
         height: self.texture_size[1]
         padding_x: 15
+    
+    Widget:
+        id: fc_pot_widget
+        size_hint: (0.8, 0.01 * sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
         
     MDCard:
         id: fk_datum 
-        size_hint: 0.8, 0.05
-        # size: 300, 50
-        pos_hint: {"center_x": 0.5}
+        size_hint: (0.8, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
         elevation: 25
-        padding: 25
-        spacing: 25
+        padding: 0.05 * self.height
+        spacing:  0.04 * self.height
         radius: 20
         orientation: 'vertical'
         line_color: (0.2, 0.2, 0.2, 1)
         MDLabel:
             id: fk_datum_label
             text: "----.--.--"
-            size_hint: 1, 0.1
-            font_size: self.width/10
+            size_hint: 1, 1
+            font_size: card_txt * self.height
             halign: 'center'
             pos_hint: {"center_x": 0.5, "center_y": 0.5}
             # size_hint_y: None
@@ -49,19 +56,19 @@
     MDGridLayout:
         # adaptive_size: True
         # md_bg_color: app.theme_cls.primary_color
-        size_hint: 0.8, 0.05
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        size_hint: (0.8, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
         cols: 2
         spacing: 15,15
 
         MDCard:
             id: fk_hour 
-            size_hint: 1, 0.5
+            size_hint: 1, 1
             # size: 120, 50
             pos_hint: {"center_x": 0.5}
             elevation: 25
-            padding: 25
-            spacing: 25
+            padding: 0.05 * self.height
+            spacing:  0.04 * self.height
             radius: 20
             orientation: 'vertical'
             line_color: (0.2, 0.2, 0.2, 1)
@@ -69,7 +76,7 @@
                 id: fk_hour_label
                 text: "--"
                 size_hint: 1, 1
-                font_size: self.width/5
+                font_size: card_txt * self.height
                 halign: 'center'
                 pos_hint: {"center_x": 0.5, "center_y": 0.5}
                 # size_hint_y: None
@@ -77,12 +84,12 @@
                 padding_y: 6
         MDCard:
             id: fk_min
-            size_hint: 1, 0.5
+            size_hint: 1, 1
             # size: 120, 50
             pos_hint: {"center_x": 0.5}
             elevation: 25
-            padding: 25
-            spacing: 25
+            padding: 0.05 * self.height
+            spacing:  0.04 * self.height
             radius: 20
             orientation: 'vertical'
             line_color: (0.2, 0.2, 0.2, 1)
@@ -90,7 +97,7 @@
                 id: fk_min_label
                 text: "--"
                 size_hint: 1, 1
-                font_size: self.width/5
+                font_size: card_txt * self.height
                 halign: 'center'
                 pos_hint: {"center_x": 0.5, "center_y": 0.5}
                 # size_hint_y: None
@@ -99,9 +106,8 @@
 
     Button:
         type: 'large'
-        pos_hint: {"center_x": 0.5}
-        size_hint: (.8, .18)
-        size: (100, 100)
+        size_hint: (4 * sz_hint_hight, 4 * sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
         background_normal: "image/koffe.jpeg"
         background_down: "image/koffe_bw.jpeg"
         border: (25,25,25,25)
@@ -110,20 +116,19 @@
 
     MDCard:
         id: fk_to_cd
-        size_hint: 0.8, 0.1
-        # size: 300, 80
-        pos_hint: {"center_x": 0.5}
+        size_hint: (0.8, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
         elevation: 25
-        padding: 25
-        spacing: 25
+        padding: 0.05 * self.height
+        spacing:  0.04 * self.height
         radius: 20
         orientation: 'vertical'
         line_color: (0.2, 0.2, 0.2, 1)
         MDLabel:
             id: fk_to_label
-            text: "The following coffee is prepared:"
-            size_hint: 1, 0.1
-            font_size: self.width/14
+            text: "The following coffee:"
+            size_hint: 1, 1
+            font_size: 0.8 * card_txt * self.height
             halign: 'center'
             pos_hint: {"center_x": 0.5, "center_y": 0.5}
             # size_hint_y: None
@@ -131,22 +136,20 @@
             padding_y: 6
 
     MDGridLayout:
-        # adaptive_size: True
-        size_hint: 0.8, 0.05
-        # md_bg_color: app.theme_cls.primary_color
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        size_hint: (0.8, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
         cols: 3
         spacing: 15,15
 
 
         MDCard:
             id: fk_hour_to 
-            size_hint: 1, 0.5
+            size_hint: 1, 1
             # size: 90, 50
             pos_hint: {"center_x": 0.5}
             elevation: 25
-            padding: 25
-            spacing: 25
+            padding: 0.05 * self.height
+            spacing:  0.04 * self.height
             radius: 20
             orientation: 'vertical'
             line_color: (0.2, 0.2, 0.2, 1)
@@ -154,7 +157,7 @@
                 id: fk_hour_to_label
                 text: "--"
                 size_hint: 1, 1
-                font_size: self.width/2.5
+                font_size: card_txt * self.height
                 halign: 'center'
                 pos_hint: {"center_x": 0.5, "center_y": 0.5}
                 # size_hint_y: None
@@ -162,12 +165,12 @@
                 padding_y: 6
         MDCard:
             id: fk_min_to
-            size_hint: 1, 0.5
+            size_hint: 1, 1
             # size: 90, 50
             pos_hint: {"center_x": 0.5}
             elevation: 25
-            padding: 25
-            spacing: 25
+            padding: 0.05 * self.height
+            spacing:  0.04 * self.height
             radius: 20
             orientation: 'vertical'
             line_color: (0.2, 0.2, 0.2, 1)
@@ -175,7 +178,7 @@
                 id: fk_min_to_label
                 text: "--"
                 size_hint: 1, 1
-                font_size: self.width/2.5
+                font_size: card_txt * self.height
                 halign: 'center'
                 pos_hint: {"center_x": 0.5, "center_y": 0.5}
                 # size_hint_y: None
@@ -184,12 +187,12 @@
 
         MDCard:
             id: fk_sec_to
-            size_hint: 1, 0.5
+            size_hint: 1, 1
             # size: 90, 50
             pos_hint: {"center_x": 0.5}
             elevation: 25
-            padding: 25
-            spacing: 25
+            padding: 0.05 * self.height
+            spacing:  0.04 * self.height
             radius: 20
             orientation: 'vertical'
             line_color: (0.2, 0.2, 0.2, 1)
@@ -197,11 +200,13 @@
                 id: fk_sec_to_label
                 text: "--"
                 size_hint: 1, 1
-                font_size: self.width/2.5
+                font_size: card_txt * self.height
                 halign: 'center'
                 pos_hint: {"center_x": 0.5, "center_y": 0.5}
                 # size_hint_y: None
                 height: self.texture_size[1]
                 padding_y: 6
     Widget:
-        size_hint_y: 0.01
+        id: fc_end_widget
+        size_hint: (0.8, 0.3 * sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}

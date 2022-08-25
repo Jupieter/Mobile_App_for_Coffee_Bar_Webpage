@@ -16,8 +16,6 @@ import sqlite3
 presentation = Builder.load_file('kv/first_coffee.kv')
 main_ids = ObjectProperty
 
-class CounterLabel(Label):
-    pass
 
 class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 	# print('LogInCard 0')
