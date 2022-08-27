@@ -162,7 +162,7 @@ class CoffeWare(MDCard):
 		name.replace(',','')
 		dose = self.stor[self.ware_step-1]['w_dose']
 		print('self.ware_step',self.ware_step, id, name, dose)
-		texte = str(id) + " " + name + " left " + str(dose) +" dose"
+		texte = str(id) + " " + name + "" + str(dose) +" dose"
 		print(texte)
 		self.ids.ware_btn.text = texte
 		self.ids.ware_btn.md_bg_color=(0, 0.5, 0, 1)

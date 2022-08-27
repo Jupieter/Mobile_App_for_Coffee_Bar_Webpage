@@ -1,6 +1,6 @@
-#:set btn_txt 0.6    # rapid change button text size, size_hint height everywhere
-#:set g_btn_txt 0.5
-#:set sz_hint_hight 0.09 
+#:set btn_txt 0.45    # rapid change button text size, size_hint height everywhere
+#:set g_btn_txt 0.45
+#:set sz_hint_hight 0.09
 
 <CoffeWare>
     id: coffee_ware_card
@@ -21,7 +21,7 @@
     
     MDLabel:
         id: coffe_ware_label
-        size_hint: (0.9, sz_hint_hight)
+        size_hint: (0.9, 0.8 * sz_hint_hight)
         pos_hint: {'center_x': .5, "top": 1}
         font_size: self.height
         text: "COFFEE MAKE"
@@ -29,7 +29,7 @@
 
     MDLabel:
         id: coffe_message_label
-        size_hint: (0.9, 0.5 * sz_hint_hight)
+        size_hint: (0.9, 0.35 * sz_hint_hight)
         pos_hint: {'center_x': .5, "top": 1}
         font_size: self.height
         text: "message"
@@ -57,7 +57,7 @@
         id: ware_btn
         size_hint: (0.9, sz_hint_hight)
         pos_hint: {'center_x': .5, "top": 1}
-        font_size: 0.9 * btn_txt * self.height
+        font_size: 0.62 * btn_txt * self.height
         text: "Opened Coffee"
         value: 0
         on_release: root.ware_button()
@@ -105,7 +105,7 @@
         size_hint: (0.9, sz_hint_hight)
         pos_hint: {'center_x': .5, "top": 1}
         font_size: btn_txt * self.height
-        text: "Save next coffee time"
+        text: "SAVE"
         value: 0
         on_release: root.ware_save()
     
