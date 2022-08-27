@@ -1,6 +1,12 @@
 #:set card_txt 0.8    # rapid change button text size, size_hint height everywhere
 #:set sz_hint_hight 0.09 
 
+
+<Item>
+    ImageLeftWidget:
+        source: root.source
+
+
 <FirstCoffe>
     id: fk_box 
     size_hint: 0.9, 0.8
@@ -111,7 +117,7 @@
         background_normal: "image/koffe.jpeg"
         background_down: "image/koffe_bw.jpeg"
         border: (25,25,25,25)
-        on_press: root.switch_scr2()
+        on_press: root.friends_dialog()
         padding_y: 6
 
     MDCard:

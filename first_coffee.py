@@ -1,11 +1,13 @@
 from kivy.lang import Builder
 from kivy.clock import Clock
 from kivymd.app import MDApp
-from kivymd.uix.label import Label
+from kivymd.uix.button import MDFillRoundFlatButton
 from kivymd.uix.card import MDCard
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.list import OneLineAvatarListItem
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.boxlayout import MDBoxLayout
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 from datetime import time, datetime
@@ -17,12 +19,17 @@ presentation = Builder.load_file('kv/first_coffee.kv')
 main_ids = ObjectProperty
 
 
+class Item(OneLineAvatarListItem):
+    divider = None
+    source = StringProperty()
+
 class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 	# print('LogInCard 0')
 	
 	def __init__(self, **kwargs):
 		super(FirstCoffe, self).__init__(**kwargs)
 		self.dt_obj = None
+		self.dialog = None
 		# print('fk_test', main_ids)
 		# sm = ScreenManager()
 		# y = sm.screens
@@ -51,7 +58,7 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 
 	def load_data(self, *args):
 		store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/todaytcoffee/').json()
-		print('STORE',store)
+		# print('STORE',store)
 		if store == []:
 			# print('Empty coffee')
 			self.dt_obj = None
@@ -104,4 +111,18 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		self.ids.fk_min_to_label.text = (f'{to_min}')
 		self.ids.fk_sec_to_label.text = (f'{to_sec}')
 
-		
+	def friends_dialog(self):
+		print("megnyomtam")
+		item_s = []
+		datas = ["user01@gmail.com", "user02@gmail.com", "Add account"]
+		for data in datas:
+			z = Item(text=data, source="image/coffee-ante-porta-512.png")
+			item_s.append(z)
+		if  not self.dialog:
+			self.dialog = MDDialog(
+                title="Friends for the following coffee:",
+                type="simple",
+                items=item_s
+            )
+		self.dialog.open()
+
