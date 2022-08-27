@@ -1,11 +1,11 @@
-#:set txt_field 0.4    # rapid change button text size, size_hint height everywhere
+#:set txt_field 0.35    # rapid change button text size, size_hint height everywhere
 #:set card_txt 0.8 
 #:set sz_hint_hight 0.09 
 
 <LogInCard>
     id: log_in_card  
-    size_hint: 0.9, 0.8
-    pos_hint: {"center_x": 0.5, "top": 0.85}
+    size_hint: 0.9, 0.55
+    pos_hint: {"center_x": 0.5, "top": 0.9}
     elevation: 25
     padding: 0.05 * self.height
     spacing:  0.04 * self.height
@@ -22,12 +22,20 @@
     MDLabel:
         id: welcome_label
         text: "LOG IN"
-        size_hint: (0.8, 4 * sz_hint_hight)
+        size_hint: (0.8, 1 * sz_hint_hight)
         pos_hint: {'center_x': .5, "top": 1}
-        font_size: 0.2 * self.height
+        font_size: self.height
         halign: 'center'
         padding_y: 6
     
+    MDLabel:
+        id: login_message_label
+        size_hint: (0.9, 0.8 * sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+        font_size: 0.5 * self.height
+        text: "message"
+        halign: 'center'
+
     Widget:
         id: log_I_widget
         size_hint: (0.8, 0.01 * sz_hint_hight)
@@ -90,8 +98,7 @@
             pos_hint: {"center_x": 0.5}
             on_press: root.log_out()
             disabled: True 
-
-
+    
     Widget:
         id: log_end_widget
         size_hint: (0.8, 0.3 * sz_hint_hight)

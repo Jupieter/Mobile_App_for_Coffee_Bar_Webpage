@@ -1,14 +1,14 @@
 from kivy.lang import Builder
+from kivy.clock import Clock
 from kivymd.app import MDApp
 from kivymd.uix.card import MDCard
-from kivymd.uix.gridlayout import MDGridLayout
+from kivymd.uix.textfield import MDTextFieldRound
 from kivy.properties import ObjectProperty
 import time
 
 import requests
 import sqlite3
-# from main import MyRecycleView
-# from main import active_token
+
 
 
 Builder.load_file('kv/login.kv')
@@ -19,19 +19,10 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 	print('LogInCard 0')
 	def __init__(self, **kwargs):
 		super(LogInCard, self).__init__(**kwargs)
+		self.mess_text = ""
 		ld_user = self.load_user()
 		self.ids.user.text = ld_user
-		# # print(ld_user)
-		# x = self.root.ids.screen4.ids.items()
-		#x = self.ids.items()
-		#for i in x:
-		#	# print('x', x)
 
-	# def on_start(self):
-		# print('on_start()')
-		# print(self.get_root_window()) # -- None
-		# print(self.get_parent_window()) # -- None
-	# pass
 
 	def log_out(self):
 		active_token = self.load_token()
@@ -47,6 +38,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		scr4 = MDApp.get_running_app().id_scr_4
 		self.ids.password.text = ""	
 		scr4.icon = 'account-cancel'
+		self.ids.login_message_label.text = ""
 		
 
 	def log_in(self):
@@ -65,7 +57,8 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 				keys.append(key)
 			print ('key: ', keys[0] )
 			if keys[0] == 'expiry':
-				self.ids.welcome_label.text =(f'Logged {user}.')
+				# self.ids.login_message_label.text =(f'Logged: {user}.')
+				self.mess_text =(f'Logged: {user}.')
 				act_expiry = store['expiry']
 				act_token = store['token']
 				act_pkey = store['user_pk']
@@ -83,17 +76,23 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 				scr4 = MDApp.get_running_app().id_scr_4
 				self.ids.password.text = ""	
 				scr4.icon = 'account-check'
+				Clock.schedule_once(self.fresh_mess, 2)
 				print('END LOG') 
 
-			elif keys[0] == 'non_field_errors':
-				x = store['non_field_errors']
-				print('val: ', x)
-				self.ids.welcome_label.text =(f' {x}')
+			# elif keys[0] == 'non_field_errors':
+			# 	x = store['non_field_errors']
+			# 	print('val: ', x)
+			# 	print(self.ids)
+			# 	self.ids.login_message_label.text =(f' {x}')
 
 
 			else:
-				self.ids.welcome_label.text =(f'Hi /{user}/ wrong email or password!')
+				self.mess_text = 'Wrong email or password!'
+				Clock.schedule_once(self.fresh_mess, 2)
 				print('WRONG LOG')
+				
+			Clock.schedule_once(self.fresh_mess, 0)
+				
 	
 	def btn_disable(self, btn_in, btn_clr, btn_out):
 		self.ids.log_in_btn.disabled = btn_in
@@ -145,7 +144,6 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 	def read_user(self):
 		conn = sqlite3.connect('coffe_app.db')	
 		cur = conn.cursor()
-		# conn.execute("SELECT act_token from act_tokens")
 		sql = """SELECT act_user, act_pkey, act_staff FROM act_users WHERE id = 1"""
 		print(sql)
 		data = (1)
@@ -170,4 +168,11 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		print('Clear  !')
 		self.ids.user.text = ""		
 		self.ids.password.text = ""	
-		self.ids.welcome_label.text = "LOG IN"		
+		self.ids.welcome_label.text = "LOG IN"
+		self.ids.login_message_label.text = ""		
+	
+	def fresh_mess(self, *args, **kwargs):
+		self.ids.login_message_label.text = self.mess_text
+		self.mess_text = ""
+		
+

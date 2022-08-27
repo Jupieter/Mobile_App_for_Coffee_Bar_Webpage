@@ -241,7 +241,6 @@ class CoffeWare(MDCard):
 		print('sleep              sleep')
 		self.ids.coffe_message_label.text = "New coffee brewing time saved."
 		self.button_able()
-		time.sleep(1)
 		self.btn_text_reset()
 	
 	def btn_text_reset(self):
