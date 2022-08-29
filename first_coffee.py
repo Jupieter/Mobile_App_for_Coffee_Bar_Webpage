@@ -30,6 +30,7 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		super(FirstCoffe, self).__init__(**kwargs)
 		self.dt_obj = None
 		self.dialog = None
+		self.first_id = None
 		# print('fk_test', main_ids)
 		# sm = ScreenManager()
 		# y = sm.screens
@@ -38,7 +39,7 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		# print('fk ids :', x)
 		magam = self
 		Clock.schedule_once(magam.load_data, 0)
-		Clock.schedule_interval(magam.load_data, 5) # data request
+		Clock.schedule_interval(magam.load_data, 10) # data request
 		Clock.schedule_interval(magam.time_back, 1) # time counter sec
 		 
 	
@@ -58,7 +59,7 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 
 	def load_data(self, *args):
 		store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/todaytcoffee/').json()
-		# print('STORE',store)
+		print('STORE',store)
 		if store == []:
 			# print('Empty coffee')
 			self.dt_obj = None
@@ -70,9 +71,10 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 			# print('Else coffee')
 			list_data = []
 			for item in store:
-				list_data.append({'text': item['c_make_date']})
+				list_data.append({'text': item['c_make_date'], "pkey": item['id']})
 			first_coffe = list_data[0]['text']
-			# print(first_coffe)
+			self.first_id = list_data[0]['pkey']
+			print(first_coffe)
 			# self.data = first_coffe
 			# # print(self.dat			
 			fc_date = first_coffe[0:10]
@@ -113,16 +115,26 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 
 	def friends_dialog(self):
 		print("megnyomtam")
+		datas = None
+		sends = {"coffee_selected": self.first_id}
+		print(self.first_id)
+		active_token = self.load_token()
+		print('LOG Token', active_token)
+		if active_token == "Empty":
+			store = ["First Log in!"]
+		if active_token != "Empty":
+			token_str = 'Token ' + active_token
+			hd_token = {'Authorization':token_str}
+			print(sends)
+			store = requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_friends/', headers=hd_token, data=sends).json()
 		item_s = []
-		datas = ["user01@gmail.com", "user02@gmail.com", "Add account"]
-		for data in datas:
+		for data in store:
 			z = Item(text=data, source="image/coffee-ante-porta-512.png")
 			item_s.append(z)
-		if  not self.dialog:
-			self.dialog = MDDialog(
-                title="Friends for the following coffee:",
-                type="simple",
-                items=item_s
-            )
+		self.dialog = MDDialog(
+            title="Friends for the following coffee:",
+            type="simple",
+            items=item_s
+        )
 		self.dialog.open()
 
