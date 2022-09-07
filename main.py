@@ -1,5 +1,5 @@
 import os
-os.environ['KIVY_NO_CONSOLELOG'] = '1'
+os.environ['KIVY_NO_CONSOLELOG'] = '0'
 cwd = os.getcwd()
 # print(cwd)
 os.environ['KIVY_HOME'] = cwd + '/conf'
