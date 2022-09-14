@@ -149,6 +149,10 @@ class CoffeeBarApp(MDApp):
         self.id_scr_1 = self.root.ids.screen1
         self.id_scr_4 = self.root.ids.screen4
         main_rt = self.root
+        from kivy import platform
+        if platform == "android":
+            self.start_service()
+            print("Android service called")
         print('main login', main_rt)
 
     @staticmethod
