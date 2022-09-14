@@ -1,34 +1,40 @@
-from kivy.lang import Builder
-
-from kivymd.app import MDApp
-from kivymd.uix.picker import MDTimePicker
-
-KV = '''
-FloatLayout:
-
-    MDRaisedButton:
-        text: "Open time picker"
-        pos_hint: {'center_x': .5, 'center_y': .5}
-        on_release: app.show_time_picker()
-'''
+from kivy.app import App
+from functools import partial
+from kivy.uix.button import Button
+from kivy.resources import resource_find
+from kivy.garden.notification import Notification
 
 
-class Test(MDApp):
+class Notifier(Button):
+    def __init__(self, **kwargs):
+        super(Notifier, self).__init__(**kwargs)
+        self.bind(on_release=self.show_notification)
+
+    def printer(self, *args):
+        print(args)
+
+    def show_notification(self, *args):
+        # open default notification
+        Notification().open(
+            title='Kivy Notification',
+            message='Hello from the other side?',
+            timeout=5,
+            icon=resource_find('data/logo/kivy-icon-128.png'),
+            on_stop=partial(self.printer, 'Notification closed')
+        )
+
+        # open notification with layout in kv
+        Notification().open(
+            title='Kivy Notification',
+            message="I'm a Button!",
+            kv="Button:\n    text: app.message"
+        )
+
+
+class KivyNotification(App):
     def build(self):
-        return Builder.load_string(KV)
-
-    def show_time_picker(self):
-        from datetime import datetime
-        '''Open time picker dialog.'''
-        previous_time = datetime.strptime("03:20:00", '%H:%M:%S').time()
-        time_dialog = MDTimePicker()
-        time_dialog.set_time(previous_time)
-        time_dialog.bind(time=self.get_time)
-        time_dialog.open()
-    
-    def get_time(self, instance, time):
-        print('time:', time)
-        return time
+        return Notifier()
 
 
-Test().run()
+if __name__ == '__main__':
+    KivyNotification().run()
