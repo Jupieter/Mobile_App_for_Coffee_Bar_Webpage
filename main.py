@@ -168,7 +168,9 @@ class CoffeeBarApp(MDApp):
         return service    
 
     def button_pressed(self):
+        print("5")
         import plyer
+        print("6")
         plyer.notification.notify(title='New Coffee', message="New coffe time:")
     
 
