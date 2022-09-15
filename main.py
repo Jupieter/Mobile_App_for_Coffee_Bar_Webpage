@@ -9,15 +9,20 @@ import sqlite3
 # import requests
 # corePrime 480 * 800, J3 - 720 x 1280, A13 2408 x 1080 a20e 720x1560
 from kivy.clock import Clock
+print("1")
 from kivymd.uix.bottomnavigation import MDBottomNavigationItem
+print("2")
 from kivy.uix.label import Label
+print("3")
 from kivy.lang import Builder
-from kivy.clock import Clock
+print("4")
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.app import MDApp
 from kivy.properties import StringProperty, ListProperty, ObjectProperty, NumericProperty
+print("5")
 from kivymd.uix.list import OneLineIconListItem
 from kivymd.theming import ThemableBehavior
+print("6")
 from kivymd.uix.list import MDList
 from kivymd.uix.card import MDCard
 from kivy.uix.recycleview import RecycleView
@@ -149,29 +154,28 @@ class CoffeeBarApp(MDApp):
         self.id_scr_1 = self.root.ids.screen1
         self.id_scr_4 = self.root.ids.screen4
         main_rt = self.root
-        from kivy import platform
-        if platform == "android":
-            self.start_service()
-            print("Android service called")
+        # from kivy import platform
+        # if platform == "android":
+        #     self.start_service()
+        #     print("Android service called")
         print('main login:', main_rt)
 
-    @staticmethod
-    def start_service():
-        from jnius import autoclass
-        print("1 - start_service")
-        service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
-        print("2 - start_service")
-        mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
-        print("3 - start_service")
-        service.start(mActivity, "")
-        print("4 - start_service")
-        return service    
-
-    def button_pressed(self):
-        print("5 - button_pressed")
-        import plyer
-        print("6 - button_pressed")
-        plyer.notification.notify(title='New Coffee', message="New coffe time:")
+    # @staticmethod
+    # def start_service():
+    #     from jnius import autoclass
+    #     print("1 - start_service")
+    #     service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
+    #     print("2 - start_service")
+    #     mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
+    #     print("3 - start_service")
+    #     service.start(mActivity, "")
+    #     print("4 - start_service")
+    #     return service    
+    # def button_pressed(self):
+    #     print("5 - button_pressed")
+    #     import plyer
+    #     print("6 - button_pressed")
+    #     plyer.notification.notify(title='New Coffee', message="New coffe time:")
     
 
     
