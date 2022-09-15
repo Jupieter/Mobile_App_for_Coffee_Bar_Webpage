@@ -25,7 +25,7 @@ from kivy.uix.recycleview import RecycleView
 from login import LogInCard
 from coffe_make import CoffeWare
 from first_coffee import FirstCoffe
-
+print("afer inports")
 
 active_token = 'Semmi'
 
@@ -153,7 +153,7 @@ class CoffeeBarApp(MDApp):
         if platform == "android":
             self.start_service()
             print("Android service called")
-        print('main login', main_rt)
+        print('main login:', main_rt)
 
     @staticmethod
     def start_service():
