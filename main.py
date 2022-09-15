@@ -158,19 +158,19 @@ class CoffeeBarApp(MDApp):
     @staticmethod
     def start_service():
         from jnius import autoclass
-        print("1")
+        print("1 - start_service")
         service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
-        print("2")
+        print("2 - start_service")
         mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
-        print("3")
+        print("3 - start_service")
         service.start(mActivity, "")
-        print("4")
+        print("4 - start_service")
         return service    
 
     def button_pressed(self):
-        print("5")
+        print("5 - button_pressed")
         import plyer
-        print("6")
+        print("6 - button_pressed")
         plyer.notification.notify(title='New Coffee', message="New coffe time:")
     
 
