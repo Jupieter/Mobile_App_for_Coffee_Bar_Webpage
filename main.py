@@ -179,9 +179,11 @@ class CoffeeBarApp(MDApp):
         
     def button_pressed(self):
         print("5 - button_pressed")
-        import plyer
+        # import plyer
+        from plyer import notification
         print("6 - button_pressed")
-        plyer.notification.notify(title='New Coffee', message="New coffe time:")
+        notification.notify(title='New Coffee', message="New coffe time:")
+        # plyer.notification.notify(title='New Coffee', message="New coffe time:", ticker= "New Coffee")
     
 
     
