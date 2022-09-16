@@ -80,18 +80,27 @@ MDScreen:
             text: 'Order'
             icon: 'coffee'
             badge_icon: "numeric-5"
-            
-            MDLabel:
-                text: 'Order Coffe'
-                halign: 'center'
-            MDRoundFlatButton:
-                id: print
-                text: "Test"
-                font_size: 0.2 * self.height
-                size_hint: 0.5, 0.5
-                pos_hint: {"center_x": 0.5} 
-                disabled: False
-                on_press: app.button_pressed()
+            MDBoxLayout:
+                orientation: "vertical"
+                MDLabel:
+                    text: 'Order Coffe'
+                    halign: 'center'
+                MDRoundFlatButton:
+                    id: print
+                    text: "Test 1"
+                    font_size: 0.2 * self.height
+                    size_hint: 0.5, 0.5
+                    pos_hint: {"center_x": 0.5} 
+                    disabled: False
+                    on_press: app.button_pressed()
+                MDRoundFlatButton:
+                    id: print
+                    text: "Test 2 "
+                    font_size: 0.2 * self.height
+                    size_hint: 0.5, 0.5
+                    pos_hint: {"center_x": 0.5} 
+                    disabled: False
+                    on_press: app.button2_pressed()
 
 
         MDBottomNavigationItemSc3:

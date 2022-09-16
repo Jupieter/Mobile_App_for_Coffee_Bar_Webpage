@@ -173,6 +173,8 @@ class CoffeeBarApp(MDApp):
         print("2 - start_service")
         mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
         print("3 - start_service")
+        # Context = autoclass('android.content.Context')
+        # notification_service = mActivity.getSystemService(Context.NOTIFICATION_SERVICE)
         service.start(mActivity, "")
         print("4 - start_service")
         return service    
@@ -185,6 +187,10 @@ class CoffeeBarApp(MDApp):
         notification.notify(title='New Coffee', message="New coffe time:")
         # plyer.notification.notify(title='New Coffee', message="New coffe time:", ticker= "New Coffee")
     
+    def button2_pressed(self):
+        print("7 - button_pressed")
+        from plyer import vibrator
+        vibrator.vibrate(10)  # vibrate for 10 seconds
 
     
 
