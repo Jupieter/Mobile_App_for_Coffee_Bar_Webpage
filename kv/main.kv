@@ -1,4 +1,5 @@
 # Menu item in the DrawerList list.
+#:import vibrator plyer.vibrator
 
 <ItemDrawer>
     id: it_draw
@@ -101,6 +102,15 @@ MDScreen:
                     pos_hint: {"center_x": 0.5} 
                     disabled: False
                     on_press: app.button2_pressed()
+                Button:
+                    text: 'vibrate 1s'
+                    on_release: vibrator.vibrate(1)
+                Button:
+                    text: 'vibrate 0.1s'
+                    on_release: vibrator.vibrate(0.1)
+                Button:
+                    text: 'cancel vibration'
+                    on_release: vibrator.cancel()
 
 
         MDBottomNavigationItemSc3:
