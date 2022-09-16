@@ -194,7 +194,7 @@ class CoffeeBarApp(MDApp):
         activity = PythonActivity.mActivity
         Context = autoclass('android.content.Context')
         vibrator = activity.getSystemService(Context.VIBRATOR_SERVICE)
-        vibrator.vibrate(10000)  # the argument is in milliseconds
+        vibrator.vibrate(10)  # the argument is in milliseconds
     def button3_pressed(self):
         print("3 - button_pressed")
         from plyer import vibrator
