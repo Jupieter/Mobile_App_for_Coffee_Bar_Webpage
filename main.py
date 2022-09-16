@@ -8,11 +8,10 @@ print("0")
 import sqlite3
 print("sqlite3")
 # corePrime 480 * 800, J3 - 720 x 1280, A13 2408 x 1080 a20e 720x1560
-from kivy.lang import Builder
-print("1")
 from kivymd.app import MDApp
-print("2")
+print("1")
 from kivymd.uix.bottomnavigation import MDBottomNavigationItem
+print("2")
 from kivymd.uix.boxlayout import MDBoxLayout
 print("3")
 from kivy.properties import StringProperty, ListProperty, ObjectProperty, NumericProperty
@@ -23,11 +22,16 @@ from kivymd.uix.list import MDList
 print("5")
 from kivymd.uix.card import MDCard
 from kivy.uix.recycleview import RecycleView
+print("6")
+from kivy.lang import Builder
+print("7")
 
 from login import LogInCard
-print("6")
+print("LogInCard")
 from coffe_make import CoffeWare
+print("CoffeWare")
 from first_coffee import FirstCoffe
+print("FirstCoffe")
 print("afer inports")
 
 active_token = 'Semmi'
