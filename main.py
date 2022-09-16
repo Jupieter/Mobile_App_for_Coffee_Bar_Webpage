@@ -8,23 +8,26 @@ print("0")
 import sqlite3
 print("sqlite3")
 # corePrime 480 * 800, J3 - 720 x 1280, A13 2408 x 1080 a20e 720x1560
-from kivymd.app import MDApp
-print("1")
-from kivymd.uix.bottomnavigation import MDBottomNavigationItem
-print("2")
-from kivymd.uix.boxlayout import MDBoxLayout
-print("3")
-from kivy.properties import StringProperty, ListProperty, ObjectProperty, NumericProperty
-from kivymd.uix.list import OneLineIconListItem
-print("4")
-from kivymd.theming import ThemableBehavior
-from kivymd.uix.list import MDList
-print("5")
-from kivymd.uix.card import MDCard
 from kivy.uix.recycleview import RecycleView
+print("1")
+from kivy.properties import StringProperty, ListProperty, ObjectProperty, NumericProperty
+print("2")
+from kivymd.app import MDApp
+print("3")
+from kivymd.uix.bottomnavigation import MDBottomNavigationItem
+print("4")
+from kivymd.uix.boxlayout import MDBoxLayout
+print("5")
+from kivymd.uix.list import MDList
 print("6")
-from kivy.lang import Builder
+from kivymd.uix.card import MDCard
 print("7")
+from kivymd.uix.list import OneLineIconListItem
+print("8")
+from kivymd.theming import ThemableBehavior
+print("9")
+from kivy.lang import Builder
+print("10")
 
 from login import LogInCard
 print("LogInCard")
