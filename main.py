@@ -188,16 +188,17 @@ class CoffeeBarApp(MDApp):
         # plyer.notification.notify(title='New Coffee', message="New coffe time:", ticker= "New Coffee")
     
     def button2_pressed(self):
+        print("2 - button_pressed")
         from jnius import autoclass
-        PythonActivity = autoclass('org.renpy.android.PythonActivity')
+        PythonActivity = autoclass('org.kivy.android.PythonActivity')
         activity = PythonActivity.mActivity
         Context = autoclass('android.content.Context')
         vibrator = activity.getSystemService(Context.VIBRATOR_SERVICE)
         vibrator.vibrate(10000)  # the argument is in milliseconds
-
-        print("7 - button_pressed")
-        # from plyer import vibrator
-        # vibrator.vibrate(10)  # vibrate for 10 seconds
+    def button3_pressed(self):
+        print("3 - button_pressed")
+        from plyer import vibrator
+        vibrator.vibrate(10)  # vibrate for 10 seconds
 
     
 
