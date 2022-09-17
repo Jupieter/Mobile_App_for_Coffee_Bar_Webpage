@@ -49,49 +49,48 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 			x = {"email": user, 'password':password}
 			sends = x
 			print(sends)
-			store = requests.post('https://coffeeanteportas.herokuapp.com/c_app/login/', data=sends).json()
-			print('login store: ', store)
-			keys = []
-			for key in store.keys():
-				print ('key', key)
-				keys.append(key)
-			print ('key: ', keys[0] )
-			if keys[0] == 'expiry':
-				# self.ids.login_message_label.text =(f'Logged: {user}.')
-				self.mess_text =(f'Logged: {user}.')
-				act_expiry = store['expiry']
-				act_token = store['token']
-				act_pkey = store['user_pk']
-				act_staff = store['is_staff']
-				print(act_expiry)
-				print(act_token)
-				print(act_pkey)
-				print(act_staff)
-				self.act_token_db(act_token, act_expiry)
-				password ='Emp'  # if don't store the password
-				print('come USER DB ')
-				self.act_user_db(user, password, act_pkey, act_staff)
-				self.btn_disable(True, True, False)
-				self.ids.welcome_label.text =('LOG OUT')
-				scr4 = MDApp.get_running_app().id_scr_4
-				self.ids.password.text = ""	
-				scr4.icon = 'account-check'
-				Clock.schedule_once(self.fresh_mess, 2)
-				print('END LOG') 
-
-			# elif keys[0] == 'non_field_errors':
-			# 	x = store['non_field_errors']
-			# 	print('val: ', x)
-			# 	print(self.ids)
-			# 	self.ids.login_message_label.text =(f' {x}')
-
-
-			else:
-				self.mess_text = 'Wrong email or password!'
-				Clock.schedule_once(self.fresh_mess, 2)
-				print('WRONG LOG')
+			try:
+				store = requests.post('https://coffeeanteportas.herokuapp.com/c_app/login/', data=sends).json()
 				
-			Clock.schedule_once(self.fresh_mess, 0)
+				print('login store: ', store)
+				keys = []
+				for key in store.keys():
+					print ('key', key)
+					keys.append(key)
+				print ('key: ', keys[0] )
+				if keys[0] == 'expiry':
+					# self.ids.login_message_label.text =(f'Logged: {user}.')
+					self.mess_text =(f'Logged: {user}.')
+					act_expiry = store['expiry']
+					act_token = store['token']
+					act_pkey = store['user_pk']
+					act_staff = store['is_staff']
+					print(act_expiry)
+					print(act_token)
+					print(act_pkey)
+					print(act_staff)
+					self.act_token_db(act_token, act_expiry)
+					password ='Emp'  # if don't store the password
+					print('come USER DB ')
+					self.act_user_db(user, password, act_pkey, act_staff)
+					self.btn_disable(True, True, False)
+					self.ids.welcome_label.text =('LOG OUT')
+					scr4 = MDApp.get_running_app().id_scr_4
+					self.ids.password.text = ""	
+					scr4.icon = 'account-check'
+					Clock.schedule_once(self.fresh_mess, 2)
+					print('END LOG') 
+				else:
+					self.mess_text = 'Wrong email or password!'
+					# Clock.schedule_once(self.fresh_mess, 2)
+					print('WRONG LOG')
+				
+			except:
+				store = {'nothing':'nothing'}
+				self.mess_text = 'No internet connection'
+				Clock.schedule_once(self.fresh_mess, 2)
+				print('No internet')
+		Clock.schedule_once(self.fresh_mess, 0)
 				
 	
 	def btn_disable(self, btn_in, btn_clr, btn_out):

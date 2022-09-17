@@ -58,7 +58,10 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		return active_token
 
 	def load_data(self, *args):
-		store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/todaytcoffee/').json()
+		try:
+			store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/todaytcoffee/').json()
+		except:
+			store = []
 		print('STORE',store)
 		if store == []:
 			# print('Empty coffee')
