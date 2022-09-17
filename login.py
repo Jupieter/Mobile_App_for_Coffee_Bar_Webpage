@@ -29,16 +29,25 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		print('LOG Token', active_token)
 		token_str = 'Token ' + active_token
 		hd_token = {'Authorization':token_str}
-		store = requests.post('https://coffeeanteportas.herokuapp.com/c_app/logout/', headers=hd_token)
-		print(hd_token)
-		print(store)
-		self.btn_disable(False, False, True)
-		self.act_token_db('Empty', 'Empty')
-		self.ids.welcome_label.text =('LOG IN')
-		scr4 = MDApp.get_running_app().id_scr_4
-		self.ids.password.text = ""	
-		scr4.icon = 'account-cancel'
-		self.ids.login_message_label.text = ""
+		try:
+			store = requests.post('https://coffeeanteportas.herokuapp.com/c_app/logout/', headers=hd_token)
+			print(hd_token)
+			print(store)
+			self.btn_disable(False, False, True)
+			self.act_token_db('Empty', 'Empty')
+			self.ids.welcome_label.text =('LOG IN')
+			scr4 = MDApp.get_running_app().id_scr_4
+			self.ids.password.text = ""	
+			scr4.icon = 'account-cancel'
+			self.ids.login_message_label.text = ""
+			self.mess_text = 'Logged out succesfully'
+			Clock.schedule_once(self.fresh_mess, 3)
+		except:
+			store = {'nothing':'nothing'}
+			self.mess_text = 'Problem with internet conection'
+			Clock.schedule_once(self.fresh_mess, 3)
+			print('No internet')
+		Clock.schedule_once(self.fresh_mess, 0)
 		
 
 	def log_in(self):
@@ -78,17 +87,17 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 					scr4 = MDApp.get_running_app().id_scr_4
 					self.ids.password.text = ""	
 					scr4.icon = 'account-check'
-					Clock.schedule_once(self.fresh_mess, 2)
+					Clock.schedule_once(self.fresh_mess, 3)
 					print('END LOG') 
 				else:
 					self.mess_text = 'Wrong email or password!'
-					# Clock.schedule_once(self.fresh_mess, 2)
+					Clock.schedule_once(self.fresh_mess, 3)
 					print('WRONG LOG')
 				
 			except:
 				store = {'nothing':'nothing'}
-				self.mess_text = 'No internet connection'
-				Clock.schedule_once(self.fresh_mess, 2)
+				self.mess_text = 'Problem with internet conection'
+				Clock.schedule_once(self.fresh_mess, 3)
 				print('No internet')
 		Clock.schedule_once(self.fresh_mess, 0)
 				
