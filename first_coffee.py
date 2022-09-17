@@ -60,36 +60,39 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 	def load_data(self, *args):
 		try:
 			store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/todaytcoffee/').json()
+			print('STORE',store)
+			if store == []:
+				# print('Empty coffee')
+				self.dt_obj = None
+				fc_date = 'No coffee today'
+				fc_hour = '--'
+				fc_min = '--'
+
+			else:
+				# print('Else coffee')
+				list_data = []
+				for item in store:
+					list_data.append({'text': item['c_make_date'], "pkey": item['id']})
+				first_coffe = list_data[0]['text']
+				self.first_id = list_data[0]['pkey']
+				print(first_coffe)
+				# self.data = first_coffe
+				# # print(self.dat			
+				fc_date = first_coffe[0:10]
+				# print(fc_date)
+				fc_hour = first_coffe[11:13]
+				fc_min = first_coffe[14:16]
+				# print(fc_hour,':',fc_min)
+
+				dt = first_coffe[0:10]+' ' + first_coffe[11:19]
+				self.dt_obj =datetime.fromisoformat(dt)
+				print('dt_obj', self.dt_obj)
+		
 		except:
 			store = []
-		print('STORE',store)
-		if store == []:
-			# print('Empty coffee')
-			self.dt_obj = None
-			fc_date = 'No coffee today'
+			fc_date = 'Problem with internet conection'
 			fc_hour = '--'
 			fc_min = '--'
-			
-		else:
-			# print('Else coffee')
-			list_data = []
-			for item in store:
-				list_data.append({'text': item['c_make_date'], "pkey": item['id']})
-			first_coffe = list_data[0]['text']
-			self.first_id = list_data[0]['pkey']
-			print(first_coffe)
-			# self.data = first_coffe
-			# # print(self.dat			
-			fc_date = first_coffe[0:10]
-			# print(fc_date)
-			fc_hour = first_coffe[11:13]
-			fc_min = first_coffe[14:16]
-			# print(fc_hour,':',fc_min)
-
-			dt = first_coffe[0:10]+' ' + first_coffe[11:19]
-			self.dt_obj =datetime.fromisoformat(dt)
-			print('dt_obj', self.dt_obj)
-		
 		self.ids.fk_datum_label.text = (f'{fc_date}')
 		self.ids.fk_hour_label.text = (f'{fc_hour}')
 		self.ids.fk_min_label.text = (f'{fc_min}')
