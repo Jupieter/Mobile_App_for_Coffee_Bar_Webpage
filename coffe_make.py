@@ -136,11 +136,16 @@ class CoffeWare(MDCard):
 			print('token print',self.ids.coffe_ware_label.parent)
 		else:	
 			print('Request')
-			store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/act_ware/', headers=hd_token).json()
-			print('store', store)			
-			self.stor = self.ware_json(store)
-			print(self.stor)
-		return self.stor
+			try:
+				store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/act_ware/', headers=hd_token).json()
+				print('store', store)			
+				self.stor = self.ware_json(store)
+				print(self.stor)
+				return self.stor
+			except:
+				self.ids.coffe_message_label.text = "New coffee brewing time saved."
+				print("Problem with internet conection")
+
 	
 	def ware_json(self, store_d):
 		'''JSON for tuple '''
@@ -153,21 +158,25 @@ class CoffeWare(MDCard):
 	def ware_button(self, *args):
 		''' carussel button => selected coffee raw material'''
 		print("self.stor", self.stor)
-		tuple_len = len(self.stor)
-		self.ware_step += 1
-		if self.ware_step > tuple_len:
-			self.ware_step = 1
-		id = self.stor[self.ware_step-1]['w_id']
-		name = self.stor[self.ware_step-1]['w_name'].replace('Coffee','')
-		name.replace(',','')
-		dose = self.stor[self.ware_step-1]['w_dose']
-		print('self.ware_step',self.ware_step, id, name, dose)
-		texte = str(id) + " " + name + "" + str(dose) +" dose"
-		print(texte)
-		self.ids.ware_btn.text = texte
-		self.ids.ware_btn.md_bg_color=(0, 0.5, 0, 1)
-		self.ids.ware_btn.value = id
-		Clock.schedule_once(self.button_able, 0)
+		if self.stor != None:
+			tuple_len = len(self.stor)
+			self.ware_step += 1
+			if self.ware_step > tuple_len:
+				self.ware_step = 1
+			id = self.stor[self.ware_step-1]['w_id']
+			name = self.stor[self.ware_step-1]['w_name'].replace('Coffee','')
+			name.replace(',','')
+			dose = self.stor[self.ware_step-1]['w_dose']
+			print('self.ware_step',self.ware_step, id, name, dose)
+			texte = str(id) + " " + name + "" + str(dose) +" dose"
+			print(texte)
+			self.ids.ware_btn.text = texte
+			self.ids.ware_btn.md_bg_color=(0, 0.5, 0, 1)
+			self.ids.ware_btn.value = id
+			Clock.schedule_once(self.button_able, 0)
+		else:
+			self.ids.coffe_message_label.text = "Something went wrong. No ware data"
+		
 
 	def press_dose(self, act_choice):
 		'''One Choice button selection function'''
@@ -237,11 +246,14 @@ class CoffeWare(MDCard):
 			"c_make_dose": dose
 		}
 		print(sends)
-		requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', data=sends)
-		print('sleep              sleep')
-		self.ids.coffe_message_label.text = "New coffee brewing time saved."
-		self.button_able()
-		self.btn_text_reset()
+		try:
+			requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', data=sends)
+			print('sleep              sleep')
+			self.ids.coffe_message_label.text = "New coffee brewing time saved."
+			self.button_able()
+			self.btn_text_reset()
+		except:
+			self.ids.coffe_message_label.text = "It seems, there is no internet"
 	
 	def btn_text_reset(self):
 		print("RESET", self.ids)
