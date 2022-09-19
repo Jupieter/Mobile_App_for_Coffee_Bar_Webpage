@@ -159,45 +159,29 @@ class CoffeeBarApp(MDApp):
         self.id_scr_1 = self.root.ids.screen1
         self.id_scr_4 = self.root.ids.screen4
         main_rt = self.root
+        print('main login:', main_rt)
         from kivy import platform
+        from service.main import start_service
         if platform == "android":
             self.start_service()
             print("Android service called")
-        print('main login:', main_rt)
-
-    @staticmethod
-    def start_service():
-        from jnius import autoclass
-        print("1 - start_service")
-        service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
-        print("2 - start_service")
-        mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
-        print("3 - start_service")
-        # Context = autoclass('android.content.Context')
-        # notification_service = mActivity.getSystemService(Context.NOTIFICATION_SERVICE)
-        service.start(mActivity, "")
-        print("4 - start_service")
-        return service    
         
     def button_pressed(self):
         print("5 - button_pressed")
-        # import plyer
         from plyer import notification
         print("6 - button_pressed")
         notification.notify(title='New Coffee', message="New coffe time:", toast=True)
-        # plyer.notification.notify(title='New Coffee', message="New coffe time:", ticker= "New Coffee")
     
     def button2_pressed(self):
         print("2 - button_pressed")
         from plyer import notification
         print("6 - button_pressed")
-        # notification.notify(title='New Coffee', message="New coffe time:", toast=True)
-        notification.notify(title='New Coffee', message="New coffe time:", ticker= "New Coffee", toast=False)
+        notification.notify(title='New Coffee', message="New coffe time:", ticker= "New Coffee", app_icon='image/coffe_icon1.png', toast=False)
 
     def button3_pressed(self):
         print("3 - button_pressed")
         from plyer import vibrator
-        vibrator.vibrate(2)  # vibrate for 10 seconds
+        vibrator.vibrate(2)  # vibrate for 2 seconds
 
     
 
