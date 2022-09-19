@@ -10,4 +10,7 @@ def start_service():
     print("4 - start_service")
     return service
 
+def valami():
+    print("valami")
+
 
