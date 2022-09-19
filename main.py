@@ -161,10 +161,9 @@ class CoffeeBarApp(MDApp):
         main_rt = self.root
         print('main login:', main_rt)
         from kivy import platform
-        from service.main import AndroService as and_serv
-        and_serv.valami()
+        from service.main import start_service
         if platform == "android":
-            and_serv.start_service()
+            start_service()
             print("Android service called")
         
     def button_pressed(self):
