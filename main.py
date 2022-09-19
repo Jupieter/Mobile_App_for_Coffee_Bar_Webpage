@@ -164,7 +164,7 @@ class CoffeeBarApp(MDApp):
         from service.main import start_service, valami
         valami()
         if platform == "android":
-            self.start_service()
+            start_service()
             print("Android service called")
         
     def button_pressed(self):
