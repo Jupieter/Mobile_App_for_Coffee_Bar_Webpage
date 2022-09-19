@@ -2,9 +2,9 @@ from time import sleep
 import requests
 from jnius import autoclass
 
-# PythonService = autoclass('org.kivy.android.PythonService')
-# print("PythonService")
-# PythonService.mService.setAutoRestartService(True)
+PythonService = autoclass('org.kivy.android.PythonService')
+print("PythonService")
+PythonService.mService.setAutoRestartService(True)
 
 def load_data():
     try:
@@ -13,7 +13,6 @@ def load_data():
         if store == []:
             print('No coffee today')
         else:
-            print('Else coffee')
             list_data = []
             for item in store:
                 list_data.append({'date': item['c_make_date'], "pkey": item['id']})
@@ -28,5 +27,6 @@ def load_data():
 
 while True:
     print("Coffeebar  service running.....")
-    load_data()
-    sleep(5)
+    dt = load_data()
+    print(dt)
+    sleep(8)
