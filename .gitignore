@@ -3,8 +3,8 @@
 __pycache__
 venv
 temp
-.buildozer
 bin
+.buildozer
 conf/logs
 conf/icon
 db.sqlite3
@@ -13,3 +13,4 @@ db.sqlite3
 *.bat
 *.db
 *.spec
+
