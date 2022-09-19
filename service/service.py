@@ -28,5 +28,5 @@ PythonService.mService.setAutoRestartService(True)
 while True:
     print("Coffeebar  service running.....")
     # dt = load_data()
-    print(dt)
+    # print(dt)
     sleep(8)
