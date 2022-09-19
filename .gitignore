@@ -3,8 +3,8 @@
 __pycache__
 venv
 temp
-bin
 .buildozer
+bin
 conf/logs
 conf/icon
 db.sqlite3
