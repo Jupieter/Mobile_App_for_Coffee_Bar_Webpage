@@ -8,6 +8,7 @@ print("PythonService")
 PythonService.mService.setAutoRestartService(True)
 
 def load_data():
+    notification.notify(title='New Coffee', message="New coffe time:", toast=True, timeout=1)
     try:
         store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/todaytcoffee/').json()
         # print('STORE',store)
@@ -30,5 +31,4 @@ def load_data():
 while True:
     dt = load_data()
     print("Coffeebar  service running.....", dt)
-    notification.notify(title='New Coffee', message="New coffe time:", toast=True, timeout=1)
     sleep(10)
