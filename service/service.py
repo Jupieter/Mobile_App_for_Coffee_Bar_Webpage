@@ -1,10 +1,11 @@
 from time import sleep
 import requests
 from jnius import autoclass
+from plyer import notification
 
-PythonService = autoclass('org.kivy.android.PythonService')
-print("PythonService")
-PythonService.mService.setAutoRestartService(True)
+# PythonService = autoclass('org.kivy.android.PythonService')
+# print("PythonService")
+# PythonService.mService.setAutoRestartService(True)
 
 def load_data():
     try:
@@ -27,7 +28,7 @@ def load_data():
 
 
 while True:
-    print("Coffeebar  service running.....")
     dt = load_data()
-    print(dt)
-    sleep(5)
+    print("Coffeebar  service running.....", dt)
+    notification.notify(title='New Coffee', message="New coffe time:", toast=True, timeout=2)
+    sleep(10)

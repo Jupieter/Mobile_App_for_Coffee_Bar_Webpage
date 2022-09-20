@@ -167,19 +167,17 @@ class CoffeeBarApp(MDApp):
             print("Android service called")
         
     def button_pressed(self):
-        print("5 - button_pressed")
         from plyer import notification
-        print("6 - button_pressed")
-        notification.notify(title='New Coffee', message="New coffe time:", toast=True)
+        print("toast - button_pressed")
+        notification.notify(title='New Coffee', message="New coffe time:", toast=True, timeout=2)
     
     def button2_pressed(self):
-        print("2 - button_pressed")
         from plyer import notification
-        print("6 - button_pressed")
+        print("notification - button_pressed")
         notification.notify(title='New Coffee', message="New coffe time:", ticker= "New Coffee", app_icon='image/coffe_icon1.png', toast=False)
 
     def button3_pressed(self):
-        print("3 - button_pressed")
+        print("vibrator - button_pressed")
         from plyer import vibrator
         vibrator.vibrate(2)  # vibrate for 2 seconds
 
