@@ -162,14 +162,15 @@ class CoffeeBarApp(MDApp):
         print('main login:', main_rt)
         from kivy import platform
         from service.main import start_service
+        from service import service
         if platform == "android":
-            start_service()
+            service()
             print("Android service called")
         
     def button_pressed(self):
         from plyer import notification
         print("toast - button_pressed")
-        notification.notify(title='New Coffee', message="New coffe time:", toast=True, timeout=2)
+        notification.notify(title='New Coffee', message="New coffe time:", toast=True)
     
     def button2_pressed(self):
         from plyer import notification
