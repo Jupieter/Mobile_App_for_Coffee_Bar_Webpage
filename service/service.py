@@ -30,5 +30,5 @@ def load_data():
 while True:
     dt = load_data()
     print("Coffeebar  service running.....", dt)
-    notification.notify(title='New Coffee', message="New coffe time:", toast=True)
+    # notification.notify(title='New Coffee', message="New coffe time:", toast=True)
     sleep(10)
