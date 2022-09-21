@@ -3,12 +3,6 @@ import requests
 from jnius import autoclass
 from plyer import notification
 
-print("1 - start_service")
-service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
-mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
-service.start(mActivity, "")
-print("4 - start_service")
-
 PythonService = autoclass('org.kivy.android.PythonService')
 print("PythonService")
 PythonService.mService.setAutoRestartService(True)
@@ -36,5 +30,5 @@ def load_data():
 while True:
     dt = load_data()
     print("Coffeebar  service running.....", dt)
-    # notification.notify(title='New Coffee', message="New coffe time:", toast=True)
+    notification.notify(title='New Coffee', message="New coffe time:", toast=True)
     sleep(10)
