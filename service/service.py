@@ -3,9 +3,9 @@ import requests
 from jnius import autoclass
 from plyer import notification
 
-PythonService = autoclass('org.kivy.android.PythonService')
-print("PythonService")
-PythonService.mService.setAutoRestartService(True)
+# PythonService = autoclass('org.kivy.android.PythonService')
+# print("PythonService")
+# PythonService.mService.setAutoRestartService(True)
 
 def load_data():
     try:
@@ -30,5 +30,8 @@ def load_data():
 while True:
     dt = load_data()
     print("Coffeebar  service running.....", dt)
-    # notification.notify(title='New Coffee', message = dt,  toast=True)
+    try: 
+        notification.notify(title='New Coffee', message = dt,  toast=True)
+    except:
+        print("Maybe permission for service")
     sleep(15)
