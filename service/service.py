@@ -3,9 +3,9 @@ import requests
 from jnius import autoclass
 from plyer import notification
 
-PythonService = autoclass('org.kivy.android.PythonService')
-print("PythonService")
-PythonService.mService.setAutoRestartService(True)
+# PythonService = autoclass('org.kivy.android.PythonService')
+# print("PythonService")
+# PythonService.mService.setAutoRestartService(True)
 
 def load_data():
     try:
@@ -19,7 +19,7 @@ def load_data():
                 list_data.append({'date': item['c_make_date'], "pkey": item['id']})
             first_coffe = list_data[0]['date']
             first_id = list_data[0]['pkey']
-            dt = first_coffe[0:10]+' ' + first_coffe[11:19]
+            dt = first_coffe[0:10]+' ' + first_coffe[11:16]
             print(first_id, ' Next Coffee:  ', dt)
         return dt
     except:
@@ -30,5 +30,5 @@ def load_data():
 while True:
     dt = load_data()
     print("Coffeebar  service running.....", dt)
-    # notification.notify(title='New Coffee', message="New coffe time:", toast=True)
-    sleep(10)
+    notification.notify(title='New Coffee', message = dt, ticker= "New Coffee",timeout=3,  toast=False)
+    sleep(15)
