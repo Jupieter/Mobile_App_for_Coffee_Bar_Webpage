@@ -127,6 +127,7 @@ class AndroidNotification(Notification):
         '''
         .. versionadded:: 1.4.0
         '''
+        print("In the   _build_notification")
         if SDK_INT < 26:
             noti = NotificationBuilder(activity)
         else:
@@ -168,6 +169,7 @@ class AndroidNotification(Notification):
         self._get_notification_service().notify(0, notification)
 
     def _notify(self, **kwargs):
+        print("In the _notify")
         noti = None
         message = kwargs.get('message').encode('utf-8')
         ticker = kwargs.get('ticker').encode('utf-8')
@@ -207,6 +209,7 @@ def notify(self, title='', message='', app_name='', app_icon='',
     '''
     The notification.py is here 
     '''
+    print("In the notify_android")
     self._notify(
         title=title, message=message,
         app_icon=app_icon, app_name=app_name,
