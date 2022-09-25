@@ -177,6 +177,7 @@ class AndroidNotification(Notification):
             kwargs.get('title', '').encode('utf-8')
         )
         icon = kwargs.get('app_icon')
+        print(title, "_notify", message)
 
         # decide whether toast only or proper notification
         if kwargs.get('toast'):
@@ -204,14 +205,3 @@ def instance():
     '''
     return AndroidNotification()
 
-def notify(self, title='', message='', app_name='', app_icon='',
-           timeout=10, ticker='', toast=False):
-    '''
-    The notification.py is here 
-    '''
-    print(title, "In the notify_android",  message, toast)
-    # self._notify(
-    #     title=title, message=message,
-    #     app_icon=app_icon, app_name=app_name,
-    #     timeout=timeout, ticker=ticker, toast=toast
-    # )
