@@ -209,9 +209,9 @@ def notify(self, title='', message='', app_name='', app_icon='',
     '''
     The notification.py is here 
     '''
-    print("In the notify_android")
-    self._notify(
-        title=title, message=message,
-        app_icon=app_icon, app_name=app_name,
-        timeout=timeout, ticker=ticker, toast=toast
-    )
+    print(title, "In the notify_android",  message, toast)
+    # self._notify(
+    #     title=title, message=message,
+    #     app_icon=app_icon, app_name=app_name,
+    #     timeout=timeout, ticker=ticker, toast=toast
+    # )
