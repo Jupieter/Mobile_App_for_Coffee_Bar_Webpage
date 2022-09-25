@@ -32,7 +32,7 @@ while True:
     dt = load_data()
     print("Coffeebar  service running.....", dt)
     try: 
-        notification_android._notify(title='New Coffee', message = dt,  toast=True)
+        notification_android.notify(title='New Coffee', message = dt,  toast=True)
     except:
         print("Maybe permission for service")
     sleep(15)
