@@ -201,3 +201,17 @@ def instance():
     Instance for facade proxy.
     '''
     return AndroidNotification()
+
+    def notify(self, title='', message='', app_name='', app_icon='',
+               timeout=10, ticker='', toast=False):
+        '''
+        The notification.py is here 
+        '''
+
+
+
+        self._notify(
+            title=title, message=message,
+            app_icon=app_icon, app_name=app_name,
+            timeout=timeout, ticker=ticker, toast=toast
+        )
