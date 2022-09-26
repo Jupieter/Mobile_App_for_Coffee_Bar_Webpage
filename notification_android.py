@@ -40,7 +40,9 @@ class AndroidNotification(Notification):
     '''
 
     def __init__(self):
+        print("notification __init__")
         package_name = activity.getPackageName()
+        print(package_name)
         self._ns = None
         self._channel_id = package_name
 
@@ -91,6 +93,7 @@ class AndroidNotification(Notification):
 
         .. versionadded:: 1.4.0
         '''
+        print("notification toast")
         Toast.makeText(
             activity,
             cast('java.lang.CharSequence', AndroidString(message)),
