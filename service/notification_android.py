@@ -58,6 +58,7 @@ class AndroidNotification(Notification):
             self._app_icon = None
 
     def _get_notification_service(self):
+        print("_get_notification_service")
         if not self._ns:
             self._ns = cast(NotificationManager, activity.getSystemService(
                 Context.NOTIFICATION_SERVICE
@@ -165,11 +166,14 @@ class AndroidNotification(Notification):
         notification.setAutoCancel(True)
 
     def _open_notification(self, notification):
+        print("SDK_INT : ",SDK_INT)
         if SDK_INT >= 16:
             notification = notification.build()
+            print("SDK_INT > 16")
         else:
             notification = notification.getNotification()
-
+            print("SDK_INT < 16")
+        print("notification: ",notification)
         self._get_notification_service().notify(0, notification)
 
     def _notify(self, **kwargs):
