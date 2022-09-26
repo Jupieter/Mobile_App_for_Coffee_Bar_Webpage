@@ -59,10 +59,12 @@ class AndroidNotification(Notification):
 
     def _get_notification_service(self):
         print("_get_notification_service")
+        print("self._ns 1:  ",self._ns)
         if not self._ns:
             self._ns = cast(NotificationManager, activity.getSystemService(
                 Context.NOTIFICATION_SERVICE
             ))
+        print("self._ns 2:  ",self._ns)
         return self._ns
 
     def _build_notification_channel(self, name):
