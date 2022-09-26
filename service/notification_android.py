@@ -113,8 +113,8 @@ class AndroidNotification(Notification):
 
         .. versionadded:: 1.4.0
         '''
-        app_icon = self._app_icon
-        notification.setSmallIcon(app_icon)
+        # app_icon = self._app_icon
+        # notification.setSmallIcon(app_icon)
 
         bitmap_icon = app_icon
         if icon is not None:
