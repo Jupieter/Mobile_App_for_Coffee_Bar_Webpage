@@ -36,4 +36,5 @@ while True:
         an.notify(title='New Coffee', message = dt,  toast=False, app_icon='image/coffe_icon1.png')
     except:
         print("Maybe permission for service")
+    an.notify(title='New Coffee', message = dt,  toast=False, app_icon='image/coffe_icon1.png')
     sleep(15)
