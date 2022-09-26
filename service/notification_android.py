@@ -48,6 +48,9 @@ class AndroidNotification(Notification):
         self._channel_id = package_name
 
         pm = activity.getPackageManager()
+        info = pm.getApplicationInfo(package_name, 0)
+        print("info first", info)
+        print("info.icon",info.icon)
         try:
             info = pm.getActivityInfo(activity.getComponentName(), 0)
             if info.icon == 0:
