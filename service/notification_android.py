@@ -176,9 +176,10 @@ class AndroidNotification(Notification):
         noti = None
         message = kwargs.get('message').encode('utf-8')
         ticker = kwargs.get('ticker').encode('utf-8')
-        title = AndroidString(
-            kwargs.get('title', '').encode('utf-8')
-        )
+        title = kwargs.get('title', '').encode('utf-8')
+        # title = AndroidString(
+        #     kwargs.get('title', '').encode('utf-8')
+        # )
         icon = kwargs.get('app_icon')
         print("title",title, "message", message,"icon",icon)
 
