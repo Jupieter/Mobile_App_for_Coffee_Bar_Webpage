@@ -55,7 +55,7 @@ class AndroidNotification(Notification):
                 info = pm.getApplicationInfo(package_name, 0) 
             self._app_icon = info.icon
         except:
-            self._app_icon = "image/coffe_icon1.pngcoffee-ante-porta-512.png"
+            self._app_icon = "image/coffee-ante-porta-512.png"
 
     def _get_notification_service(self):
         print("_get_notification_service")
