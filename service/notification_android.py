@@ -132,6 +132,7 @@ class AndroidNotification(Notification):
                 python_act.getResources(), app_icon
             )
             notification.setLargeIcon(bitmap_icon)
+        print("bitmap_icon  ", bitmap_icon)
         notification.setSmallIcon(app_icon)
 
     def _build_notification(self, title):
