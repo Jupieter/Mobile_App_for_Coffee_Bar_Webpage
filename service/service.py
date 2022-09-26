@@ -7,6 +7,7 @@ from  service.notification_android import AndroidNotification
 PythonService = autoclass('org.kivy.android.PythonService')
 print("PythonService")
 PythonService.mService.setAutoRestartService(True)
+an = AndroidNotification()
 
 def load_data():
     try:
@@ -32,7 +33,6 @@ while True:
     dt = load_data()
     print("Coffeebar  service running.....", dt)
     try: 
-        an = AndroidNotification()
         an.notify(title='New Coffee', message = dt,  toast=True)
     except:
         print("Maybe permission for service")
