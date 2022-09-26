@@ -176,12 +176,11 @@ class AndroidNotification(Notification):
         noti = None
         message = kwargs.get('message').encode('utf-8')
         ticker = kwargs.get('ticker').encode('utf-8')
-        title = kwargs.get('title', '').encode('utf-8')
-        # title = AndroidString(
-        #     kwargs.get('title', '').encode('utf-8')
-        # )
+        title = AndroidString(
+            kwargs.get('title', '').encode('utf-8')
+        )
         icon = kwargs.get('app_icon')
-        print("title",title, "message", message,"icon",icon)
+        print("title",title, "message", message,"icon",icon, "toast",kwargs.get('toast'))
 
         # decide whether toast only or proper notification
         if kwargs.get('toast'):
@@ -195,12 +194,12 @@ class AndroidNotification(Notification):
             noti.setContentText(AndroidString(message))
             noti.setTicker(AndroidString(ticker))
 
-        # set additional flags for notification
-        self._set_icons(noti, icon=icon)
-        self._set_open_behavior(noti)
-
-        # launch
-        self._open_notification(noti)
+            # set additional flags for notification
+            self._set_icons(noti, icon=icon)
+            self._set_open_behavior(noti)
+    
+            # launch
+            self._open_notification(noti)
 
 
 def instance():
