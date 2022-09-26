@@ -4,9 +4,9 @@ from jnius import autoclass
 # from plyer import notification
 from  service.notification_android import AndroidNotification
 
-# PythonService = autoclass('org.kivy.android.PythonService')
-# print("PythonService")
-# PythonService.mService.setAutoRestartService(True)
+PythonService = autoclass('org.kivy.android.PythonService')
+print("PythonService")
+PythonService.mService.setAutoRestartService(True)
 
 def load_data():
     try:
