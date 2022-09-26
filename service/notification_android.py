@@ -191,13 +191,15 @@ class AndroidNotification(Notification):
             noti = self._build_notification(title)
 
         # set basic properties for notification
-        print("noti:  ", noti)
+        print("noti 1:  ", noti)
         noti.setContentTitle(title)
         noti.setContentText(AndroidString(message))
         noti.setTicker(AndroidString(ticker))
+        print("noti 2:  ", noti)
         # set additional flags for notification
-        self._set_icons(noti, icon=icon)
+        # self._set_icons(noti, icon=icon)
         self._set_open_behavior(noti)
+        print("noti 3:  ", noti)
 
         # launch
         self._open_notification(noti)
