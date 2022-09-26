@@ -116,7 +116,7 @@ class AndroidNotification(Notification):
         # app_icon = self._app_icon
         # notification.setSmallIcon(app_icon)
 
-        bitmap_icon = app_icon
+        bitmap_icon = None # app_icon
         if icon is not None:
             bitmap_icon = BitmapFactory.decodeFile(icon)
             notification.setLargeIcon(bitmap_icon)
