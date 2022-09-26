@@ -42,7 +42,8 @@ class AndroidNotification(Notification):
     def __init__(self):
         print("notification __init__")
         package_name = activity.getPackageName()
-        print(package_name)
+        print("activity:  ", activity)
+        print("package_name:  ",package_name)
         self._ns = None
         self._channel_id = package_name
 
@@ -190,6 +191,7 @@ class AndroidNotification(Notification):
             noti = self._build_notification(title)
 
         # set basic properties for notification
+        print("noti:  ", noti)
         noti.setContentTitle(title)
         noti.setContentText(AndroidString(message))
         noti.setTicker(AndroidString(ticker))
