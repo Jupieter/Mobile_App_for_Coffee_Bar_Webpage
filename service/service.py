@@ -33,7 +33,7 @@ while True:
     dt = load_data()
     print("Coffeebar  service running.....", dt)
     try: 
-        an.notify(title='New Coffee', message = dt,  toast=True)
+        an.notify(title='New Coffee', message = dt,  toast=False, app_icon='image/coffe_icon1.png')
     except:
         print("Maybe permission for service")
     sleep(15)

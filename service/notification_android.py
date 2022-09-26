@@ -189,17 +189,16 @@ class AndroidNotification(Notification):
         else:
             noti = self._build_notification(title)
 
-            # set basic properties for notification
-            noti.setContentTitle(title)
-            noti.setContentText(AndroidString(message))
-            noti.setTicker(AndroidString(ticker))
+        # set basic properties for notification
+        noti.setContentTitle(title)
+        noti.setContentText(AndroidString(message))
+        noti.setTicker(AndroidString(ticker))
+        # set additional flags for notification
+        self._set_icons(noti, icon=icon)
+        self._set_open_behavior(noti)
 
-            # set additional flags for notification
-            self._set_icons(noti, icon=icon)
-            self._set_open_behavior(noti)
-    
-            # launch
-            self._open_notification(noti)
+        # launch
+        self._open_notification(noti)
 
 
 def instance():
