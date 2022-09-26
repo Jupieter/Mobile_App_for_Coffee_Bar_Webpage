@@ -51,15 +51,16 @@ class AndroidNotification(Notification):
         info = pm.getApplicationInfo(package_name, 0)
         print("info first", info)
         print("info.icon",info.icon)
-        try:
-            info = pm.getActivityInfo(activity.getComponentName(), 0)
-            if info.icon == 0:
-                # Take the application icon instead.
-                info = pm.getApplicationInfo(package_name, 0) 
-            self._app_icon = info.icon
-            print("info.icon:  ",info.icon)
-        except:
-            self._app_icon = None
+        self._app_icon = info.icon
+        # try:
+        #     info = pm.getActivityInfo(activity.getComponentName(), 0)
+        #     if info.icon == 0:
+        #         # Take the application icon instead.
+        #         info = pm.getApplicationInfo(package_name, 0) 
+        #     self._app_icon = info.icon
+        #     print("info.icon:  ",info.icon)
+        # except:
+        #     self._app_icon = None
 
     def _get_notification_service(self):
         print("_get_notification_service")
