@@ -55,7 +55,7 @@ class AndroidNotification(Notification):
                 info = pm.getApplicationInfo(package_name, 0) 
             self._app_icon = info.icon
         except:
-            self._app_icon = "image/coffee-ante-porta-512.png"
+            self._app_icon = None
 
     def _get_notification_service(self):
         print("_get_notification_service")
@@ -203,7 +203,7 @@ class AndroidNotification(Notification):
         noti.setTicker(AndroidString(ticker))
         print("noti 2:  ", noti)
         # set additional flags for notification
-        # self._set_icons(noti, icon=icon)
+        self._set_icons(noti, icon=icon)
         self._set_open_behavior(noti)
         print("noti 3:  ", noti)
 
