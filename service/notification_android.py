@@ -54,6 +54,7 @@ class AndroidNotification(Notification):
                 # Take the application icon instead.
                 info = pm.getApplicationInfo(package_name, 0) 
             self._app_icon = info.icon
+            print("info.icon:  ",info.icon)
         except:
             self._app_icon = None
 
@@ -114,7 +115,7 @@ class AndroidNotification(Notification):
         .. versionadded:: 1.4.0
         '''
         print("icon: ",icon)
-        app_icon = BitmapFactory.decodeFile(icon)
+        app_icon = BitmapFactory.decodeFile("image/Coffee.ico")
         print("app_icon: ",app_icon)
         notification.setSmallIcon(app_icon)
 
