@@ -115,7 +115,7 @@ class AndroidNotification(Notification):
         .. versionadded:: 1.4.0
         '''
         print("icon: ", icon)
-        app_icon = BitmapFactory.decodeFile('image\coffee-ante-porta-512.png')
+        app_icon = BitmapFactory.decodeFile('image\Coffee_icon_24.png')
         print("app_icon: ", app_icon)
 
         bitmap_icon = None # app_icon
