@@ -113,7 +113,9 @@ class AndroidNotification(Notification):
 
         .. versionadded:: 1.4.0
         '''
-        app_icon = BitmapFactory.decodeFile(icon)
+        print("icon: ",icon)
+        app_icon = BitmapFactory.decodeFile("image\coffee-ante-porta-512.png")
+        print("app_icon: ",app_icon)
         notification.setSmallIcon(app_icon)
 
         bitmap_icon = None # app_icon
