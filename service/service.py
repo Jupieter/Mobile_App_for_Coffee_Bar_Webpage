@@ -14,14 +14,22 @@ PythonService = autoclass('org.kivy.android.PythonService')
 print("PythonService")
 PythonService.mService.setAutoRestartService(True)
 
+try:
+    ofi = open('max_coffee_id.txt', 'x')
+    f = open('max_coffee_id.txt', 'w')
+    f.write(str(0))
+    f.close()
+except:
+    print("have file max_coffee_id.txt")
+
 def open_file():
-    ofi = open('./service/max_coffee_id.txt', 'r')
+    ofi = open('max_coffee_id.txt', 'r')
     old_id = int(ofi.read())
     ofi.close()
     return old_id
 
 def write_file(old_id = 0):
-    f = open('./service/max_coffee_id.txt', 'w')
+    f = open('max_coffee_id.txt', 'w')
     f.write(str(old_id))
     f.close()
 
@@ -53,4 +61,4 @@ while True:
             # notification.notify(title='New Coffee', message = dt,  toast=False)
         except:
             print("Maybe permission for service")
-    sleep(60)
+    sleep(20)
