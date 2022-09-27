@@ -42,7 +42,7 @@ def load_data():
         else:
             new_coffe = store["new_date"]
             max_id = store["max_id"]
-            dt = new_coffe[0:10]+' \n' + new_coffe[11:16]       
+            dt = new_coffe[0:10]+'   ' + new_coffe[11:16]       
         return max_id, dt
     except:
         dt = 'Problem with internet conection'
