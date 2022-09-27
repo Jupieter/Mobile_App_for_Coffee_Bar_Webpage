@@ -15,13 +15,13 @@ print("PythonService")
 PythonService.mService.setAutoRestartService(True)
 
 def open_file():
-    ofi = open('max_coffee_id.txt', 'r')
+    ofi = open('service/max_coffee_id.txt', 'r')
     old_id = int(ofi.read())
     ofi.close()
     return old_id
 
 def write_file(old_id = 0):
-    f = open('max_coffee_id.txt', 'w')
+    f = open('service/max_coffee_id.txt', 'w')
     f.write(str(old_id))
     f.close()
 
