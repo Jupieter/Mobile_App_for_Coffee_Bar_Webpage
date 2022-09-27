@@ -1,3 +1,8 @@
+'''
+This python service file asks for the coffee-made id. 
+If the id is greater than the file containing the id number, it sends a notification.
+'''
+
 from time import sleep
 import requests
 from jnius import autoclass
@@ -9,32 +14,43 @@ PythonService = autoclass('org.kivy.android.PythonService')
 print("PythonService")
 PythonService.mService.setAutoRestartService(True)
 
+def open_file():
+    ofi = open('max_coffee_id.txt', 'r')
+    old_id = int(ofi.read())
+    ofi.close()
+    return old_id
+
+def write_file(old_id = 0):
+    f = open('max_coffee_id.txt', 'w')
+    f.write(str(old_id))
+    f.close()
+
+
 def load_data():
     try:
-        store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/todaytcoffee/').json()
-        # print('STORE',store)
+        store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/coffee_notify/').json()
         if store == []:
             dt = 'No coffee today'
         else:
-            list_data = []
-            for item in store:
-                list_data.append({'date': item['c_make_date'], "pkey": item['id']})
-            first_coffe = list_data[0]['date']
-            first_id = list_data[0]['pkey']
-            dt = first_coffe[0:10]+' ' + first_coffe[11:16]
-            print(first_id, ' Next Coffee:  ', dt)
-        return dt
+            new_coffe = store["new_date"]
+            max_id = store["max_id"]
+            dt = new_coffe[0:10]+' \n' + new_coffe[11:16]       
+        return max_id, dt
     except:
         dt = 'Problem with internet conection'
         return dt
 
 
 while True:
-    dt = load_data()
+    max_id, dt = load_data()
     print("Coffeebar  service running.....", dt)
-    try: 
-        an.notify(title='New Coffee', message = dt,  toast=False, app_icon='image/coffe_icon1.png')
-    except:
-        print("Maybe permission for service")
-    an.notify(title='New Coffee', message = dt,  toast=False, app_icon='image/coffe_icon1.png')
-    sleep(15)
+    old_id = open_file()
+    print("old id:  ", old_id, "requested id:  ", max_id)
+    if max_id > old_id:
+        write_file(max_id)
+        try: 
+            an.notify(title='New Coffee', message = dt,  toast=False, app_icon='image/coffe_icon1.png')
+            # notification.notify(title='New Coffee', message = dt,  toast=False)
+        except:
+            print("Maybe permission for service")
+    sleep(60)
