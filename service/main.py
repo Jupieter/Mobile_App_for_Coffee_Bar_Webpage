@@ -7,7 +7,7 @@ def start_service():
     PythonActivity = autoclass('org.kivy.android.PythonActivity')
     currentActivity = cast('android.app.Activity', PythonActivity.mActivity)
     context = cast('android.content.Context', currentActivity.getApplicationContext())
-    job_service = autoclass("org.jupieter.coffee_ante.TestJobService")
+    job_service = autoclass("org.jupieter.coffee_ante.Util")
     job_service.scheduleJob(context)
     print("4 - start_service")
     return job_service
