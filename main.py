@@ -180,7 +180,14 @@ class CoffeeBarApp(MDApp):
         print("vibrator - button_pressed")
         from plyer import vibrator
         vibrator.vibrate(2)  # vibrate for 2 seconds
-
+    
+    def on_end(self):
+        from kivy import platform
+        from service.main import start_service
+        if platform == "android":
+            start_service()
+            print("Android service called")
+        
     
 
 
