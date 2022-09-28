@@ -10,9 +10,9 @@ from jnius import autoclass
 from  service.notification_android import AndroidNotification
 
 an = AndroidNotification()
-PythonService = autoclass('org.kivy.android.PythonService')
-print("PythonService")
-PythonService.mService.setAutoRestartService(True)
+# PythonService = autoclass('org.kivy.android.PythonService')
+# print("PythonService")
+# PythonService.mService.setAutoRestartService(True)
 
 try:
     ofi = open('max_coffee_id.txt', 'x')
