@@ -48,17 +48,16 @@ def load_data():
         dt = 'Problem with internet conection'
         return dt
 
+# Timer not here in this python file is in JobSheduler
 
-while True:
-    max_id, dt = load_data()
-    print("Coffeebar  service running.....", dt)
-    old_id = open_file()
-    print("old id:  ", old_id, "requested id:  ", max_id)
-    if max_id > old_id:
-        write_file(max_id)
-        try: 
-            an.notify(title='New Coffee', message = dt,  toast=False, app_icon='image/coffe_icon1.png')
-            # notification.notify(title='New Coffee', message = dt,  toast=False)
-        except:
-            print("Maybe permission for service")
-    sleep(20)
+max_id, dt = load_data()
+print("Coffeebar  service running.....", dt)
+old_id = open_file()
+print("old id:  ", old_id, "requested id:  ", max_id)
+if max_id > old_id:
+    write_file(max_id)
+    try: 
+        an.notify(title='New Coffee', message = dt,  toast=False, app_icon='image/coffe_icon1.png')
+        # notification.notify(title='New Coffee', message = dt,  toast=False)
+    except:
+        print("No work the notification")
