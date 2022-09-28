@@ -181,7 +181,7 @@ class CoffeeBarApp(MDApp):
         from plyer import vibrator
         vibrator.vibrate(2)  # vibrate for 2 seconds
     
-    def on_end(self):
+    def on_stop(self):
         from kivy import platform
         from service.main import start_service
         if platform == "android":
