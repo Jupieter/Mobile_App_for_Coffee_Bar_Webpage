@@ -13,6 +13,9 @@ an = AndroidNotification()
 # PythonService = autoclass('org.kivy.android.PythonService')
 # print("PythonService")
 # PythonService.mService.setAutoRestartService(True)
+job_service = autoclass("org.jupieter.coffee_ante.Util")
+print("Job Service")
+job_service.mService.setAutoRestartService(True)
 
 try:
     ofi = open('max_coffee_id.txt', 'x')

@@ -16,7 +16,7 @@ def start_service():
     except:
         print("NO   context")
     try:
-        job_service = autoclass("org.jupieter.coffee_ante.TestJobService")
+        job_service = autoclass("org.jupieter.coffee_ante.Util")
         print("job_service",job_service)
     except:
         print("NO   job_service")
