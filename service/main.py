@@ -26,7 +26,12 @@ def start_service():
         # service.start(currentActivity, "")
         service.onCreate()
     except:
-        print("NO   MsgPushService")
+        print("NO   onCreate")
+    try:
+        # service.start(currentActivity, "")
+        service.onStartCommand()
+    except:
+        print("NO   onStartCommand")
     return service
 
     # try:
