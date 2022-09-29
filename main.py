@@ -160,11 +160,11 @@ class CoffeeBarApp(MDApp):
         self.id_scr_4 = self.root.ids.screen4
         main_rt = self.root
         print('main login:', main_rt)
-        from kivy import platform
-        from service.main import start_service
-        if platform == "android":
-            start_service()
-            print("Android service called")
+        # from kivy import platform
+        # from service.main import start_service
+        # if platform == "android":
+        #     start_service()
+        #     print("Android service called")
         
     def button_pressed(self):
         from plyer import notification
@@ -180,15 +180,7 @@ class CoffeeBarApp(MDApp):
         print("vibrator - button_pressed")
         from plyer import vibrator
         vibrator.vibrate(2)  # vibrate for 2 seconds
-    
-    def on_stop(self):
-        from kivy import platform
-        from service.main import start_service
-        if platform == "android":
-            start_service()
-            print("Android service called")
-        
-    
+   
 
 
 if __name__ == '__main__':

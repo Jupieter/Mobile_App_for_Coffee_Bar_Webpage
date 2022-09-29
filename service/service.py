@@ -13,8 +13,8 @@ an = AndroidNotification()
 # PythonService = autoclass('org.kivy.android.PythonService')
 # print("PythonService")
 # PythonService.mService.setAutoRestartService(True)
-job_service = autoclass("org.jupieter.coffee_ante.Util")
-print("Job Service")
+# job_service = autoclass("org.jupieter.coffee_ante.Util")
+print("No Job Service")
 # job_service.setAutoRestartService(True)
 
 try:
@@ -57,6 +57,10 @@ max_id, dt = load_data()
 print("Coffeebar  service running.....", dt)
 old_id = open_file()
 print("old id:  ", old_id, "requested id:  ", max_id)
+try:
+    an.notify(title='Coffee Service', message = dt,  toast=True)
+except:
+    print("NO Toast")
 if max_id > old_id:
     write_file(max_id)
     try: 
