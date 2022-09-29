@@ -18,14 +18,15 @@ def start_service():
         print("NO   context")
     try:
         service = autoclass("org.jupieter.coffee_ante.MsgPushService")
+        print("service",service)
         # service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
     except:
         print("NO   MsgPushService")
-    # try:
-    #     service.start(currentActivity, "")
-    #     # context.startService(service)
-    # except:
-    #     print("NO   MsgPushService")
+    try:
+        # service.start(currentActivity, "")
+        service.onCreate()
+    except:
+        print("NO   MsgPushService")
     return service
 
     # try:
