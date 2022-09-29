@@ -2,21 +2,41 @@ def start_service():
     from jnius import autoclass, cast
     print("1 - start_service")
     # service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
-    service = autoclass("org.jupieter.coffee_ante.MsgPushService")
-    mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
-    service.start(mActivity, "")
+    # mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
+    # service.start(mActivity, "")
 
+    PythonActivity = autoclass('org.kivy.android.PythonActivity')
+    try:
+        currentActivity = cast('android.app.Activity', PythonActivity.mActivity)
+        print("currentActivity",currentActivity)
+    except:
+        print("NO   currentActivity")
+    try:
+        context = cast('android.content.Context', currentActivity.getApplicationContext())
+        print("context",context)
+    except:
+        print("NO   context")
+    try:
+        service = autoclass("org.jupieter.coffee_ante.MsgPushService")
+    except:
+        print("NO   MsgPushService")
+    try:
+        context.startService(service)
+    except:
+        print("NO   MsgPushService")
+
+
+    # try:
+    #     context = cast('android.content.Context', currentActivity.getApplicationContext())
+    #     print("context",context)
+    # except:
+    #     print("NO   context")
     # PythonActivity = autoclass('org.kivy.android.PythonActivity')
     # try:
     #     currentActivity = cast('android.app.Activity', PythonActivity.mActivity)
     #     print("currentActivity",currentActivity)
     # except:
     #     print("NO   currentActivity")
-    # try:
-    #     context = cast('android.content.Context', currentActivity.getApplicationContext())
-    #     print("context",context)
-    # except:
-    #     print("NO   context")
     # try:
     #     job_service = autoclass("org.jupieter.coffee_ante.Util")
     #     print("job_service",job_service)
