@@ -5,29 +5,38 @@ def start_service():
     # mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
     # service.start(mActivity, "")
 
-    PythonActivity = autoclass('org.kivy.android.PythonActivity')
-    try:
-        currentActivity = cast('android.app.Activity', PythonActivity.mActivity)
-        print("currentActivity",currentActivity)
-    except:
-        print("NO   currentActivity")
-    try:
-        context = cast('android.content.Context', currentActivity.getApplicationContext())
-        print("context",context)
-    except:
-        print("NO   context")
-    try:
-        service = autoclass("org.jupieter.coffee_ante.MsgPushService")
-        print("service",service)
-        # service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
-    except:
-        print("NO   MsgPushService")
-    try:
-        # service.start(currentActivity, "")
-        service.onCreate()
-    except:
-        print("NO   onCreate")
-    try:
+    # PythonActivity = autoclass('org.kivy.android.PythonActivity')
+    # try:
+    #     currentActivity = cast('android.app.Activity', PythonActivity.mActivity)
+    #     print("currentActivity",currentActivity)
+    # except:
+    #     print("NO   currentActivity")
+    # try:
+    #     context = cast('android.content.Context', currentActivity.getApplicationContext())
+    #     print("context",context)
+    # except:
+    #     print("NO   context")
+    # try:
+    #     context = cast('android.content.Intent', currentActivity.getApplicationIntent())
+    #     print("context",context)
+    # except:
+    #     print("NO   context")
+    # try:
+    #     service = autoclass("org.jupieter.coffee_ante.MsgPushService")
+    #     print("service",service)
+    #     # service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
+    # except:
+    #     print("NO   MsgPushService")
+    # try:
+    #     context.startService(service)
+    # except:
+    #     print("NO   startService")
+    # try:
+    #     # service.start(currentActivity, "")
+    #     service.onCreate()
+    # except:
+    #     print("NO   onCreate")
+    # try:
         # service.start(currentActivity, "")
         service.onStartCommand()
     except:
