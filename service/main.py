@@ -8,9 +8,11 @@ def start_service():
     service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
     mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
     service.start(mActivity, "")
-
-    android.start_service(title='MsgPushService')
-
+    try:
+        android.start_service(title='MsgPushService')
+        print("MsgPushService _service")
+    except:
+        print("NO   MsgPushService _service")
     # PythonActivity = autoclass('org.kivy.android.PythonActivity')
     # try:
     #     currentActivity = cast('android.app.Activity', PythonActivity.mActivity)
@@ -22,16 +24,15 @@ def start_service():
     #     print("context",context)
     # except:
     #     print("NO   context")
-    # try:
-    #     service = autoclass("org.jupieter.coffee_ante.MsgPushService")
-    #     print("service",service)
-    #     # service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
-    # except:
-    #     print("NO   MsgPushService")
-    # try:
-    #     context.startService(service)
-    # except:
-    #     print("NO   startService")
+    try:
+        msg_service = autoclass("org.jupieter.coffee_ante.MsgPushService")
+        print("service",service)
+    except:
+        print("NO   MsgPushService")
+    try:
+        msg_service.start(mActivity)
+    except:
+        print("NO   startService")
     # try:
     #     # service.start(currentActivity, "")
     #     service.onStartCommand()
