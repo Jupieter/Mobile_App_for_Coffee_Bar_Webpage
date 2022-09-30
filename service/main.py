@@ -17,11 +17,6 @@ def start_service():
     except:
         print("NO   context")
     try:
-        context = cast('android.content.Intent', currentActivity.getApplicationIntent())
-        print("context",context)
-    except:
-        print("NO   context")
-    try:
         service = autoclass("org.jupieter.coffee_ante.MsgPushService")
         print("service",service)
         # service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
@@ -31,11 +26,6 @@ def start_service():
         startService(service)
     except:
         print("NO   startService")
-    # try:
-    #     # service.start(currentActivity, "")
-    #     service.onCreate()
-    # except:
-    #     print("NO   onCreate")
     # try:
     #     # service.start(currentActivity, "")
     #     service.onStartCommand()
