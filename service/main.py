@@ -1,31 +1,37 @@
+import android
+
+
 def start_service():
     from jnius import autoclass, cast
-    print("1 - start_service")
-    # service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
-    # mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
-    # service.start(mActivity, "")
 
-    PythonActivity = autoclass('org.kivy.android.PythonActivity')
-    try:
-        currentActivity = cast('android.app.Activity', PythonActivity.mActivity)
-        print("currentActivity",currentActivity)
-    except:
-        print("NO   currentActivity")
-    try:
-        context = cast('android.content.Context', currentActivity.getApplicationContext())
-        print("context",context)
-    except:
-        print("NO   context")
-    try:
-        service = autoclass("org.jupieter.coffee_ante.MsgPushService")
-        print("service",service)
-        # service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
-    except:
-        print("NO   MsgPushService")
-    try:
-        startService(service)
-    except:
-        print("NO   startService")
+    print("1 - start_service")
+    service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
+    mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
+    service.start(mActivity, "")
+
+    android.start_service(title='MsgPushService')
+
+    # PythonActivity = autoclass('org.kivy.android.PythonActivity')
+    # try:
+    #     currentActivity = cast('android.app.Activity', PythonActivity.mActivity)
+    #     print("currentActivity",currentActivity)
+    # except:
+    #     print("NO   currentActivity")
+    # try:
+    #     context = cast('android.content.Context', currentActivity.getApplicationContext())
+    #     print("context",context)
+    # except:
+    #     print("NO   context")
+    # try:
+    #     service = autoclass("org.jupieter.coffee_ante.MsgPushService")
+    #     print("service",service)
+    #     # service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
+    # except:
+    #     print("NO   MsgPushService")
+    # try:
+    #     context.startService(service)
+    # except:
+    #     print("NO   startService")
     # try:
     #     # service.start(currentActivity, "")
     #     service.onStartCommand()
