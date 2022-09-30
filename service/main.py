@@ -1,9 +1,9 @@
 def start_service():
     from jnius import autoclass, cast
     print("1 - start_service")
-    # service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
-    # mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
-    # service.start(mActivity, "")
+    service = autoclass("org.jupieter.coffee_ante.ServiceCoffeebar")
+    mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
+    service.start(mActivity, "")
 
     # PythonActivity = autoclass('org.kivy.android.PythonActivity')
     # try:
@@ -37,11 +37,11 @@ def start_service():
     # except:
     #     print("NO   onCreate")
     # try:
-        # service.start(currentActivity, "")
-        service.onStartCommand()
-    except:
-        print("NO   onStartCommand")
-    return service
+    #     # service.start(currentActivity, "")
+    #     service.onStartCommand()
+    # except:
+    #     print("NO   onStartCommand")
+    # return service
 
     # try:
     #     context = cast('android.content.Context', currentActivity.getApplicationContext())
