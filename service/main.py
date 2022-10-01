@@ -16,7 +16,22 @@ def start_service():
         msg_service.start(mActivity)
     except:
         print("NO   msg_service.start")
+
+
+    try:
+        import android
+        sdk = android.io.Build.VERSION.SDK_INT
+        print("SDK_INT", sdk)
+        cod = android.io.Build.VERSION_CODES.O
+        print("CODES: ", cod)
+       
+    except:
+        print("NO   msg_service.start")
+
+
     return service
+
+
 
 if __name__ == '__main__':
     start_service()
