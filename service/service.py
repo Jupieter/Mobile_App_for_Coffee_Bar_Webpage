@@ -14,7 +14,7 @@ an = AndroidNotification()
 # PythonService.mService.setAutoRestartService(True)
 # print("No Job Service")
 
-
+sleep(2.4)
 try:
     ofi = open('max_coffee_id.txt', 'x')
     f = open('max_coffee_id.txt', 'w')
