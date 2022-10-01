@@ -15,7 +15,7 @@ def start_service():
     try:
         msg_service.start(mActivity)
     except:
-        print("NO   startService")
+        print("NO   msg_service.start")
     return service
     try:
         import android
