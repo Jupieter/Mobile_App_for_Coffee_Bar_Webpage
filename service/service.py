@@ -9,10 +9,10 @@ from jnius import autoclass
 from  service.notification_android import AndroidNotification
 
 an = AndroidNotification()
-PythonService = autoclass('org.kivy.android.PythonService')
-print("PythonService")
-PythonService.mService.setAutoRestartService(True)
-print("No Job Service")
+# PythonService = autoclass('org.kivy.android.PythonService')
+# print("PythonService")
+# PythonService.mService.setAutoRestartService(True)
+# print("No Job Service")
 
 
 try:

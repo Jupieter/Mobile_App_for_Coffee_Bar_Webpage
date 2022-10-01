@@ -17,11 +17,6 @@ def start_service():
     except:
         print("NO   msg_service.start")
     return service
-    try:
-        import android
-        android.start_service(title='MsgPushService.java')
-    except:
-        print("NO   android.start_service")
 
 if __name__ == '__main__':
     start_service()
