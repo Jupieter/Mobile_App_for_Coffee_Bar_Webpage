@@ -13,6 +13,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from datetime import time, datetime
 import requests
 import sqlite3
+from login import LogInCard
 
 
 presentation = Builder.load_file('kv/first_coffee.kv')
@@ -44,18 +45,18 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		 
 	
 	def switch_scr2(self):
-        # get a reference to the top right label only by walking through the widget tree
+		'''get a reference to the top right label only by walking through the widget tree'''
 		scr1 = MDApp.get_running_app().id_scr_1
 		print(scr1)
 		# scr1.icon = 'account-check'
 
 	
-	def load_token(self, *args):
-		conn = sqlite3.connect('coffe_app.db')
-		active_tok = conn.execute("SELECT act_token from act_tokens")
-		for row in active_tok:
-			active_token = row[0]
-		return active_token
+	# def load_token(self, *args):
+	# 	conn = sqlite3.connect('coffe_app.db')
+	# 	active_tok = conn.execute("SELECT act_token from act_tokens")
+	# 	for row in active_tok:
+	# 		active_token = row[0]
+	# 	return active_token
 
 	def load_data(self, *args):
 		try:
@@ -124,13 +125,14 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		datas = None
 		sends = {"coffee_selected": self.first_id}
 		print(self.first_id)
-		active_token = self.load_token()
+		log_card = LogInCard()
+		active_token, hd_token = log_card.load_token()
 		print('LOG Token', active_token)
 		if active_token == "Empty":
 			store = ["First Log in!"]
 		if active_token != "Empty":
-			token_str = 'Token ' + active_token
-			hd_token = {'Authorization':token_str}
+			# token_str = 'Token ' + active_token
+			# hd_token = {'Authorization':token_str}
 			print(sends)
 			store = requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_friends/', headers=hd_token, data=sends).json()
 		item_s = []

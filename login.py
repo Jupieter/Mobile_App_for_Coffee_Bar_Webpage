@@ -112,7 +112,9 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		active_tk = conn.execute("SELECT act_token from act_tokens")
 		for row in active_tk:
 			active_token = row[0]
-		return active_token
+		token_str = 'Token ' + active_token
+		hd_token = {'Authorization':token_str}
+		return active_token, hd_token 
 
 	def load_user(self, *args):
 		conn = sqlite3.connect('coffe_app.db')

@@ -12,6 +12,7 @@ import time
 import json
 from login import LogInCard
 
+
 Builder.load_file('kv/coffee_make.kv')
 
 class MyTimePicker(MDTimePicker):
@@ -129,9 +130,9 @@ class CoffeWare(MDCard):
 	def load_data_clk(self, *args):
 		print('coffe make data')
 		log_card = LogInCard()
-		active_token = log_card.load_token()
-		token_str = 'Token ' + active_token
-		hd_token = {'Authorization':token_str}
+		active_token, hd_token= log_card.load_token()
+		# token_str = 'Token ' + active_token
+		# hd_token = {'Authorization':token_str}
 		if active_token == 'Empty':
 			print('token print',self.ids.coffe_ware_label.parent)
 		else:	
@@ -247,11 +248,14 @@ class CoffeWare(MDCard):
 		}
 		print(sends)
 		try:
-			requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', data=sends)
-			print('sleep              sleep')
-			self.ids.coffe_message_label.text = "New coffee brewing time saved."
-			self.button_able()
-			self.btn_text_reset()
+			log_card = LogInCard()
+			active_token, hd_token= log_card.load_token()
+			if active_token != "Empty":
+				print('LOG ware_save Token', active_token)
+				requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', headers=hd_token, data=sends)
+				self.ids.coffe_message_label.text = "New coffee brewing time saved."
+				self.button_able()
+				self.btn_text_reset()
 		except:
 			self.ids.coffe_message_label.text = "It seems, there is no internet"
 	

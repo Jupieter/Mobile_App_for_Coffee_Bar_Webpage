@@ -14,7 +14,7 @@ an = AndroidNotification()
 # PythonService.mService.setAutoRestartService(True)
 # print("No Job Service")
 
-sleep(2.4)
+
 try:
     ofi = open('max_coffee_id.txt', 'x')
     f = open('max_coffee_id.txt', 'w')
@@ -51,6 +51,7 @@ def load_data():
 
 # Timer not here in this python file is in JobSheduler
 
+
 max_id, dt = load_data()
 print("Coffeebar  service running.....", dt)
 old_id = open_file()
@@ -61,3 +62,4 @@ if max_id > old_id:
         an.notify(title='New Coffee', message = dt,  toast=False, app_icon='image/coffe_icon1.png')
     except:
         print("No work the notification")
+sleep(2.4)
