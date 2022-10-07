@@ -11,11 +11,16 @@
     id: order_grid
     cols: 1
     padding: 10, 10
-    spacing: 10, 10
+    spacing: 30, 30
     size_hint_y: None
     # minimum_width: root.width * 0.86
     height: self.minimum_height
     # width: self.minimum_width
+    Widget:
+        id: order_start_widget
+        size_hint: None, None
+        size: root.width , "200dp"
+        pos_hint: {'center_x': .5, "top": 1}
     MDCard:
         id: order_card
         on_pre_enter: 
@@ -23,7 +28,7 @@
         size: root.width * 0.96, ord_card_height
         #   size_x: root.width , self.height 
         size_y: 600
-        size_hint_x: 0.8
+        # size_hint_x: 0.8
         pos_hint_x: {"center_x": 0.5}
         elevation: 25
         padding: 0.05 * self.height

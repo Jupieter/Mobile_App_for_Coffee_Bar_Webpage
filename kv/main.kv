@@ -82,31 +82,25 @@ MDScreen:
             icon: 'coffee'
             badge_icon: "numeric-5"    
             MDLabel:
-                id: scr2_title
-                markup: True
-                size: root.width * 0.86, root.height * 0.18
-                pos: self.width * 0.01  , self.height * 0.39
-                font_size: 0.025 * root.height
-                halign: "left"
-                text: "Coffee: 0      Milk: 0     Sugar: 0\n Flavour: 0 "
-            MDLabel:
                 id: scr2_message_lbl
                 markup: True
-                size: root.width * 0.86, root.height * 0.07
-                pos: self.width * 0.01  , self.height * 0.33
-                font_size: 0.018 * root.height
+                size: root.width * 0.86, root.height * 0.2
+                pos: self.width * 0.01  , self.height * 0.39
+                font_size: 0.025 * root.height
                 halign: "center"
-                text: "message "
+                text: "Order a coffee! "
+
                 ScrollView:
                     id: order_scroll 
                     # pos_hint: {"center_x": 1,"t op": 0.83}
-                    size: root.width , root.height * 0.75
+                    size: root.width , root.height * 0.8
                     size_hint: None, None
                     # width: root.width * 0.96
                     # size_hint_x: 0.9
                     do_scroll_x: False # True 
                     do_scroll_y: True
                     scroll_y: 1
+                    
                     # effect_cls: "ScrollEffect"
 
         MDBottomNavigationItemSc3:

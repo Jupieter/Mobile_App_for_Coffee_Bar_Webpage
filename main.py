@@ -206,7 +206,7 @@ class CoffeeBarApp(MDApp):
         log.act_token_db('Empty', 'Empty')
         self.root.ids.screen1.add_widget(FirstCoffe())
         self.root.ids.order_scroll.add_widget(CoffeOrder())
-        # self.root.ids["order_scroll"].scroll_y = RouletteScrollEffect(anchor=20, interval=40)
+        self.root.ids["order_scroll"].effect_y = RouletteScrollEffect(anchor=0, interval=430)
         self.root.ids.screen3.add_widget(CoffeWare())
         self.root.ids.screen4.add_widget(LogInCard())
         self.id_scr_1 = self.root.ids.screen1
