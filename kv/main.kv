@@ -75,43 +75,30 @@ MDScreen:
             icon: 'home'
             badge_icon: "numeric-10"
 
-        MDBottomNavigationItem:
+        MDBottomNavigationItemSc2:
             id: screen2
             name: 'screen 2'
             text: 'Order'
             icon: 'coffee'
-            badge_icon: "numeric-5"
-            MDBoxLayout:
-                orientation: "vertical"
-                MDLabel:
-                    text: 'Order Coffe'
-                    halign: 'center'
-                MDRoundFlatButton:
-                    id: print
-                    text: "Test 1"
-                    font_size: 0.2 * self.height
-                    size_hint: 0.5, 0.5
-                    pos_hint: {"center_x": 0.5} 
-                    disabled: False
-                    on_press: app.button_pressed()
-                MDRoundFlatButton:
-                    id: print
-                    text: "Test 2 "
-                    font_size: 0.2 * self.height
-                    size_hint: 0.5, 0.5
-                    pos_hint: {"center_x": 0.5} 
-                    disabled: False
-                    on_press: app.button2_pressed()
-                MDRoundFlatButton:
-                    id: print
-                    text: "Test 3 "
-                    font_size: 0.2 * self.height
-                    size_hint: 0.5, 0.5
-                    pos_hint: {"center_x": 0.5} 
-                    disabled: False
-                    on_press: app.button3_pressed()
-
-
+            badge_icon: "numeric-5"    
+            MDLabel:
+                id: scr2_title
+                markup: True
+                size: root.width * 0.86, root.height * 0.20
+                pos: self.width * 0.01  , self.height * 0.39
+                font_size: 0.025 * root.height
+                halign: "left"
+                text: "Coffee: 0      Milk: 0    Sugar: 0  \n Flavour: 0 "
+                ScrollView:
+                    id: order_scroll 
+                    # pos_hint: {"center_x": 1,"t op": 0.83}
+                    size: root.width , root.height * 0.8
+                    # width: root.width * 0.96
+                    # size_hint_x: 0.9
+                    do_scroll_x: False # True 
+                    do_scroll_y: True
+                    scroll_y: 1
+                    # effect_cls: "ScrollEffect"
 
         MDBottomNavigationItemSc3:
             id: screen3
@@ -130,6 +117,7 @@ MDScreen:
             text: 'Account'
             icon: 'account-cancel'
            
+
     MDNavigationLayout:
         id: nav_lay
 

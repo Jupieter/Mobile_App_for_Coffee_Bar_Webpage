@@ -35,6 +35,8 @@ from coffe_make import CoffeWare
 print("CoffeWare")
 from first_coffee import FirstCoffe
 print("FirstCoffe")
+from order import CoffeOrder
+print("CoffeOrder")
 print("afer inports")
 
 active_token = 'Semmi'
@@ -51,21 +53,61 @@ class MDBottomNavigationItemSc1(MDBottomNavigationItem):
         super(MDBottomNavigationItemSc1, self).__init__(**kwargs)
 
 
-class MDBottomNavigationItemSc3(MDBottomNavigationItem):
-	
-    def __init__(self, **kwargs):
-        super(MDBottomNavigationItemSc3, self).__init__(**kwargs)
-        print('MD scr3')
-        self.app = MDApp.get_running_app()
-    
-    def on_enter(self, *args):
-        print("*  on_enter  *")
-        self.app.root.ids.screen3.add_widget(CoffeWare())
-    
-    def on_leave(self, *args):
-        print("*  on_leave  *")
-        self.app.root.ids.screen3.remove_widget(CoffeWare())
+class MDBottomNavigationItemSc2(MDBottomNavigationItem):
 
+    def __init__(self, **kwargs):
+        super(MDBottomNavigationItemSc2, self).__init__(**kwargs)
+        print('MD scr3')
+        # self.app = MDApp.get_running_app()
+
+    # def on_enter(self, *args):
+    #     print("*  on_enter  CoffeOrder*")
+    #     self.app.root.ids.order_grid.add_widget(CoffeOrder())
+    #     self.app.root.ids.order_grid.add_widget(MilkOrder())
+    # 
+    # def on_leave(self, *args):
+    #     print("*  on_leave  CoffeOrder*")
+    #     main_app = CoffeeBarApp()
+    #     grid_ch = self.app.root.ids.order_grid
+    #     print(grid_ch)
+    #     ch = []
+    #     for child in grid_ch.children:
+    #         print(child)
+    #         ch.append(child)
+    #     for dt in ch:
+    #         grid_ch.remove_widget(dt)
+    #     ch = []
+ 
+
+class MDBottomNavigationItemSc3(MDBottomNavigationItem):
+    pass
+	
+    # def __init__(self, **kwargs):
+    #     super(MDBottomNavigationItemSc3, self).__init__(**kwargs)
+    #     print('MD scr3')
+    #     self.app = MDApp.get_running_app()
+    # 
+    # def on_enter(self, *args):
+    #     print("*  on_enter  *")
+    #     self.theme_cls.theme_style = "Light"
+    #     self.theme_cls.primary_palette = "Brown"  # "Purple", "Red"
+    #     self.app.root.ids.screen3.add_widget(CoffeWare())
+    # 
+    # def on_leave(self, *args):
+    #     print("*  on_leave  *")
+    #     self.app.root.ids.screen3.remove_widget(CoffeWare())
+    #     grid = self.app.root.ids.screen3
+    #     print(grid)
+    #     ch = []
+    #     for child in grid.children:
+    #         print(child)
+    #         ch.append(child)
+    #     for dt in ch:
+    #         grid.remove_widget(dt)
+    #     ch = []
+    #     grid_e = self.app.root.ids.screen3
+    #     print("grid_e: ", grid_e.children)
+# 
 
 class ContentNavigationDrawer(MDBoxLayout):
     pass
@@ -85,9 +127,16 @@ class DrawerList(ThemableBehavior, MDList):
 
 
 class CoffeeBarApp(MDApp):
+    def __init__(self, **kwargs):
+        print("--init--")
+        super(CoffeeBarApp, self).__init__(**kwargs)
+        
     counter = NumericProperty(0)
     id_scr_1 = ObjectProperty()
+    id_scr_2 = ObjectProperty()
     id_scr_4 = ObjectProperty()
+    
+
 
     def screen_make():
         print('Coffe Make switch')
@@ -154,9 +203,11 @@ class CoffeeBarApp(MDApp):
         log = LogInCard()
         log.act_token_db('Empty', 'Empty')
         self.root.ids.screen1.add_widget(FirstCoffe())
-        # self.root.ids.screen3.add_widget(CoffeWare())
+        self.root.ids.order_scroll.add_widget(CoffeOrder())
+        self.root.ids.screen3.add_widget(CoffeWare())
         self.root.ids.screen4.add_widget(LogInCard())
         self.id_scr_1 = self.root.ids.screen1
+        self.id_scr_2 = self.root.ids.screen2
         self.id_scr_4 = self.root.ids.screen4
         main_rt = self.root
         print('main login:', main_rt)
