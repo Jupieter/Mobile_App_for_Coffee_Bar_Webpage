@@ -13,4 +13,6 @@ db.sqlite3
 *.bat
 *.db
 *.spec
+roulette.py
+roulettescroll.py
 

@@ -37,6 +37,8 @@ from first_coffee import FirstCoffe
 print("FirstCoffe")
 from order import CoffeOrder
 print("CoffeOrder")
+from kivy.uix.scrollview import ScrollView
+from roulettescroll import RouletteScrollEffect
 print("afer inports")
 
 active_token = 'Semmi'
@@ -133,7 +135,7 @@ class CoffeeBarApp(MDApp):
         
     counter = NumericProperty(0)
     id_scr_1 = ObjectProperty()
-    id_scr_2 = ObjectProperty()
+    scr_2_mess_lbl = ObjectProperty()
     id_scr_4 = ObjectProperty()
     
 
@@ -204,10 +206,11 @@ class CoffeeBarApp(MDApp):
         log.act_token_db('Empty', 'Empty')
         self.root.ids.screen1.add_widget(FirstCoffe())
         self.root.ids.order_scroll.add_widget(CoffeOrder())
+        # self.root.ids["order_scroll"].scroll_y = RouletteScrollEffect(anchor=20, interval=40)
         self.root.ids.screen3.add_widget(CoffeWare())
         self.root.ids.screen4.add_widget(LogInCard())
         self.id_scr_1 = self.root.ids.screen1
-        self.id_scr_2 = self.root.ids.screen2
+        self.scr_2_mess_lbl = self.root.ids.scr2_message_lbl
         self.id_scr_4 = self.root.ids.screen4
         main_rt = self.root
         print('main login:', main_rt)
