@@ -57,17 +57,17 @@
             size_hint: (0.9,  1 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, 'top': 1}
             value: 0
-            cols: 3
+            cols: 2
             padding: 0.01 * self.height
             spacing: 0.1 * self.height
 
-            DoseButton:
-                id: order_cofffee_0
-                size_hint: (1, 1)
-                font_size: g_ord_btn_txt * self.height
-                text: "0.0"
-                value: 0.5
-                on_press: root.oreder_press_dose(self, "order_coffee_dose_grid") 
+            # DoseButton:
+            #     id: order_cofffee_0
+            #     size_hint: (1, 1)
+            #     font_size: g_ord_btn_txt * self.height
+            #     text: "0.0"
+            #     value: 0.5
+            #     on_press: root.oreder_press_dose(self, "order_coffee_dose_grid") 
             DoseButton:
                 id: order_cofffee_1
                 size_hint: (1, 1)
@@ -130,17 +130,17 @@
             size_hint: (0.9,  1 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, 'top': 1}
             value: 0
-            cols: 3
+            cols: 2
             padding: 0.01 * self.height
             spacing: 0.1 * self.height
 
-            DoseButton:
-                id: order_milk_0
-                size_hint: (1, 1)
-                font_size: g_ord_btn_txt * self.height
-                text: "0.0"
-                value: 0
-                on_press: root.oreder_press_dose(self, "order_milk_dose_grid") 
+            # DoseButton:
+            #     id: order_milk_0
+            #     size_hint: (1, 1)
+            #     font_size: g_ord_btn_txt * self.height
+            #     text: "0.0"
+            #     value: 0
+            #     on_press: root.oreder_press_dose(self, "order_milk_dose_grid") 
             DoseButton:
                 id: order_milk_1
                 size_hint: (1, 1)
@@ -203,17 +203,17 @@
             size_hint: (0.9,  1 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, 'top': 1}
             value: 0
-            cols: 3
+            cols: 2
             padding: 0.01 * self.height
             spacing: 0.1 * self.height
 
-            DoseButton:
-                id: order_sugar_0
-                size_hint: (1, 1)
-                font_size: g_ord_btn_txt * self.height
-                text: "0.0"
-                value: 0
-                on_press: root.oreder_press_dose(self, "order_sugar_dose_grid") 
+            # DoseButton:
+            #     id: order_sugar_0
+            #     size_hint: (1, 1)
+            #     font_size: g_ord_btn_txt * self.height
+            #     text: "0.0"
+            #     value: 0
+            #     on_press: root.oreder_press_dose(self, "order_sugar_dose_grid") 
             DoseButton:
                 id: order_sugar_1
                 size_hint: (1, 1)
@@ -276,17 +276,17 @@
             size_hint: (0.9,  1 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, 'top': 1}
             value: 0
-            cols: 3
+            cols: 2
             padding: 0.01 * self.height
             spacing: 0.1 * self.height
 
-            DoseButton:
-                id: order_flavour_0
-                size_hint: (1, 1)
-                font_size: g_ord_btn_txt * self.height
-                text: "0.0"
-                value: 0
-                on_press: root.oreder_press_dose(self, "order_flavour_dose_grid") 
+            # DoseButton:
+            #     id: order_flavour_0
+            #     size_hint: (1, 1)
+            #     font_size: g_ord_btn_txt * self.height
+            #     text: "0.0"
+            #     value: 0
+            #     on_press: root.oreder_press_dose(self, "order_flavour_dose_grid") 
             DoseButton:
                 id: order_flavour_1
                 size_hint: (1, 1)
@@ -330,13 +330,13 @@
         radius: 20
         orientation: 'vertical'
         line_color: (0.2, 0.2, 0.2, 0.8)
-        MDLabel:
-            id: order_flavour_label
-            size_hint: (0.9, 1 * save_height)
-            pos_hint: {'center_x': .5, "top": 1}
-            font_size: self.height * save_lbl_txt
-            text: "Coffee: "
-            halign: 'left'
+        # MDLabel:
+        #     id: order_flavour_label
+        #     size_hint: (0.9, 1 * save_height)
+        #     pos_hint: {'center_x': .5, "top": 1}
+        #     font_size: self.height * save_lbl_txt
+        #     text: "Coffee: "
+        #     halign: 'left'
         MDLabel:
             id: order_flavour_label
             size_hint: (0.9, 1 * save_height)
