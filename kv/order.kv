@@ -38,22 +38,22 @@
         line_color: (0.2, 0.2, 0.2, 0.8)
 
         MDLabel:
-            id: order_cofffee_label
+            id: order_label_0
             size_hint: (0.9, 1 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: self.height * ord_lbl_txt
             text: "COFFEE ORDER"
             halign: 'center'
         MDFillRoundFlatButton:
-            id: order_cofffee_btn
+            id: order_btn_0
             size_hint: (0.9, 0.6 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
             text: "Choice Coffee"
             value: 0
-            on_press: root.btn_text_reset("order_coffee_dose_grid") 
+            on_press: root.ware_ordr_btn(0) 
         MDGridLayout:
-            id: order_coffee_dose_grid
+            id: dose_grid_0
             size_hint: (0.9,  1 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, 'top': 1}
             value: 0
@@ -67,108 +67,35 @@
             #     font_size: g_ord_btn_txt * self.height
             #     text: "0.0"
             #     value: 0.5
-            #     on_press: root.oreder_press_dose(self, "order_coffee_dose_grid") 
+            #     on_press: root.oreder_press_dose(self, "dose_grid_0") 
             DoseButton:
                 id: order_cofffee_1
                 size_hint: (1, 1)
                 font_size: g_ord_btn_txt * self.height
                 text: "0.5"
                 value: 0.5
-                on_press: root.oreder_press_dose(self, "order_coffee_dose_grid") 
+                on_press: root.oreder_press_dose(self, "dose_grid_0") 
             DoseButton:
                 id: order_cofffee_2
                 size_hint: (1, 1)
                 font_size: g_ord_btn_txt * self.height
                 text: "1.0"
                 value: 1
-                on_press: root.oreder_press_dose(self, "order_coffee_dose_grid")
+                on_press: root.oreder_press_dose(self, "dose_grid_0")
             DoseButton:
                 id: order_cofffee_3
                 size_hint: (1, 1)
                 font_size: g_ord_btn_txt * self.height
                 text: "1.5"
                 value: 1.5
-                on_press: root.oreder_press_dose(self, "order_coffee_dose_grid")
+                on_press: root.oreder_press_dose(self, "dose_grid_0")
             DoseButton:
                 id: order_cofffee_4
                 size_hint: (1, 1)
                 font_size: g_ord_btn_txt * self.height
                 text: "2.0"
                 value: 2
-                on_press: root.oreder_press_dose(self, "order_coffee_dose_grid")
-
-# ----------------------------------------------------   M I L K ------------------------------------------    
-
-    MDCard:     
-        id: milk_card
-        on_pre_enter: 
-        size_hint: None, None
-        size: root.width * 0.96, ord_card_height
-        pos_hint: {"center_x": 0.5, "top": 0.85}
-        elevation: 25
-        padding: 0.05 * self.height
-        spacing:  0.04 * self.height
-        radius: 20
-        orientation: 'vertical'
-        line_color: (0.2, 0.2, 0.2, 0.8)
-        MDLabel:
-            id: order_milk_label
-            size_hint: (0.9, 1 * ord_sz_hint_height)
-            pos_hint: {'center_x': .5, "top": 1}
-            font_size: self.height * ord_lbl_txt
-            text: "Milk ORDER"
-            halign: 'center'
-        MDFillRoundFlatButton:
-            id: order_milk_btn
-            size_hint: (0.9, 0.6 * ord_sz_hint_height)
-            pos_hint: {'center_x': .5, "top": 1}
-            font_size: ord_btn_txt * self.height
-            text: "Choice Milk"
-            value: 0
-        MDGridLayout:
-            id: order_milk_dose_grid
-            size_hint: (0.9,  1 * ord_sz_hint_height)
-            pos_hint: {'center_x': .5, 'top': 1}
-            value: 0
-            cols: 2
-            padding: 0.01 * self.height
-            spacing: 0.1 * self.height
-
-            # DoseButton:
-            #     id: order_milk_0
-            #     size_hint: (1, 1)
-            #     font_size: g_ord_btn_txt * self.height
-            #     text: "0.0"
-            #     value: 0
-            #     on_press: root.oreder_press_dose(self, "order_milk_dose_grid") 
-            DoseButton:
-                id: order_milk_1
-                size_hint: (1, 1)
-                font_size: g_ord_btn_txt * self.height
-                text: "0.5"
-                value: 0.5
-                on_press: root.oreder_press_dose(self, "order_milk_dose_grid") 
-            DoseButton:
-                id: order_milk_2
-                size_hint: (1, 1)
-                font_size: g_ord_btn_txt * self.height
-                text: "1.0"
-                value: 1
-                on_press: root.oreder_press_dose(self, "order_milk_dose_grid") 
-            DoseButton:
-                id: order_milk_3
-                size_hint: (1, 1)
-                font_size: g_ord_btn_txt * self.height
-                text: "1.5"
-                value: 1.5
-                on_press: root.oreder_press_dose(self, "order_milk_dose_grid") 
-            DoseButton:
-                id: order_milk_4
-                size_hint: (1, 1)
-                font_size: g_ord_btn_txt * self.height
-                text: "2.0"
-                value: 2
-                on_press: root.oreder_press_dose(self, "order_milk_dose_grid") 
+                on_press: root.oreder_press_dose(self, "dose_grid_0")
 
 # ----------------------------------------------------   S U G A R ------------------------------------------    
 
@@ -192,14 +119,15 @@
             text: "SUGAR ORDER"
             halign: 'center'
         MDFillRoundFlatButton:
-            id: order_sugar_btn
+            id: order_btn_1
             size_hint: (0.9, 0.6 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
             text: "Choice Sugar"
             value: 0
+            on_press: root.ware_ordr_btn(1) 
         MDGridLayout:
-            id: order_sugar_dose_grid
+            id: dose_grid_1
             size_hint: (0.9,  1 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, 'top': 1}
             value: 0
@@ -213,35 +141,109 @@
             #     font_size: g_ord_btn_txt * self.height
             #     text: "0.0"
             #     value: 0
-            #     on_press: root.oreder_press_dose(self, "order_sugar_dose_grid") 
+            #     on_press: root.oreder_press_dose(self, "dose_grid_1") 
             DoseButton:
                 id: order_sugar_1
                 size_hint: (1, 1)
                 font_size: g_ord_btn_txt * self.height
                 text: "0.5"
                 value: 0.5
-                on_press: root.oreder_press_dose(self, "order_sugar_dose_grid") 
+                on_press: root.oreder_press_dose(self, "dose_grid_1") 
             DoseButton:
                 id: order_sugar_2
                 size_hint: (1, 1)
                 font_size: g_ord_btn_txt * self.height
                 text: "1.0"
                 value: 1
-                on_press: root.oreder_press_dose(self, "order_sugar_dose_grid") 
+                on_press: root.oreder_press_dose(self, "dose_grid_1") 
             DoseButton:
                 id: order_sugar_3
                 size_hint: (1, 1)
                 font_size: g_ord_btn_txt * self.height
                 text: "1.5"
                 value: 1.5
-                on_press: root.oreder_press_dose(self, "order_sugar_dose_grid") 
+                on_press: root.oreder_press_dose(self, "dose_grid_1") 
             DoseButton:
                 id: order_sugar_4
                 size_hint: (1, 1)
                 font_size: g_ord_btn_txt * self.height
                 text: "2.0"
                 value: 2
-                on_press: root.oreder_press_dose(self, "order_sugar_dose_grid")   
+                on_press: root.oreder_press_dose(self, "dose_grid_1")   
+# ----------------------------------------------------   M I L K ------------------------------------------    
+
+    MDCard:     
+        id: milk_card
+        on_pre_enter: 
+        size_hint: None, None
+        size: root.width * 0.96, ord_card_height
+        pos_hint: {"center_x": 0.5, "top": 0.85}
+        elevation: 25
+        padding: 0.05 * self.height
+        spacing:  0.04 * self.height
+        radius: 20
+        orientation: 'vertical'
+        line_color: (0.2, 0.2, 0.2, 0.8)
+        MDLabel:
+            id: order_milk_label
+            size_hint: (0.9, 1 * ord_sz_hint_height)
+            pos_hint: {'center_x': .5, "top": 1}
+            font_size: self.height * ord_lbl_txt
+            text: "Milk ORDER"
+            halign: 'center'
+        MDFillRoundFlatButton:
+            id: order_btn_2
+            size_hint: (0.9, 0.6 * ord_sz_hint_height)
+            pos_hint: {'center_x': .5, "top": 1}
+            font_size: ord_btn_txt * self.height
+            text: "Choice Milk"
+            value: 0
+            on_press: root.ware_ordr_btn(2) 
+        MDGridLayout:
+            id: dose_grid_2
+            size_hint: (0.9,  1 * ord_sz_hint_height)
+            pos_hint: {'center_x': .5, 'top': 1}
+            value: 0
+            cols: 2
+            padding: 0.01 * self.height
+            spacing: 0.1 * self.height
+
+            # DoseButton:
+            #     id: order_milk_0
+            #     size_hint: (1, 1)
+            #     font_size: g_ord_btn_txt * self.height
+            #     text: "0.0"
+            #     value: 0
+            #     on_press: root.oreder_press_dose(self, "dose_grid_2") 
+            DoseButton:
+                id: order_milk_1
+                size_hint: (1, 1)
+                font_size: g_ord_btn_txt * self.height
+                text: "0.5"
+                value: 0.5
+                on_press: root.oreder_press_dose(self, "dose_grid_2") 
+            DoseButton:
+                id: order_milk_2
+                size_hint: (1, 1)
+                font_size: g_ord_btn_txt * self.height
+                text: "1.0"
+                value: 1
+                on_press: root.oreder_press_dose(self, "dose_grid_2") 
+            DoseButton:
+                id: order_milk_3
+                size_hint: (1, 1)
+                font_size: g_ord_btn_txt * self.height
+                text: "1.5"
+                value: 1.5
+                on_press: root.oreder_press_dose(self, "dose_grid_2") 
+            DoseButton:
+                id: order_milk_4
+                size_hint: (1, 1)
+                font_size: g_ord_btn_txt * self.height
+                text: "2.0"
+                value: 2
+                on_press: root.oreder_press_dose(self, "dose_grid_2") 
+
 
 # ----------------------------------------------------   F L A V O U R ------------------------------------------    
 
@@ -265,14 +267,15 @@
             text: "FLAVOUR ORDER"
             halign: 'center'
         MDFillRoundFlatButton:
-            id: order_flavour_btn
+            id: order_btn_3
             size_hint: (0.9, 0.6 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
             text: "Choice Flavour"
             value: 0
+            on_press: root.ware_ordr_btn(3) 
         MDGridLayout:
-            id: order_flavour_dose_grid
+            id: dose_grid_3
             size_hint: (0.9,  1 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, 'top': 1}
             value: 0
@@ -286,35 +289,35 @@
             #     font_size: g_ord_btn_txt * self.height
             #     text: "0.0"
             #     value: 0
-            #     on_press: root.oreder_press_dose(self, "order_flavour_dose_grid") 
+            #     on_press: root.oreder_press_dose(self, "dose_grid_3") 
             DoseButton:
                 id: order_flavour_1
                 size_hint: (1, 1)
                 font_size: g_ord_btn_txt * self.height
                 text: "0.5"
                 value: 0.5
-                on_press: root.oreder_press_dose(self, "order_flavour_dose_grid") 
+                on_press: root.oreder_press_dose(self, "dose_grid_3") 
             DoseButton:
                 id: order_flavour_2
                 size_hint: (1, 1)
                 font_size: g_ord_btn_txt * self.height
                 text: "1.0"
                 value: 1
-                on_press: root.oreder_press_dose(self, "order_flavour_dose_grid") 
+                on_press: root.oreder_press_dose(self, "dose_grid_3") 
             DoseButton:
                 id: order_flavour_3
                 size_hint: (1, 1)
                 font_size: g_ord_btn_txt * self.height
                 text: "1.5"
                 value: 1.5
-                on_press: root.oreder_press_dose(self, "order_flavour_dose_grid") 
+                on_press: root.oreder_press_dose(self, "dose_grid_3") 
             DoseButton:
                 id: order_flavour_4
                 size_hint: (1, 1)
                 font_size: g_ord_btn_txt * self.height
                 text: "2.0"
                 value: 2
-                on_press: root.oreder_press_dose(self, "order_flavour_dose_grid")   
+                on_press: root.oreder_press_dose(self, "dose_grid_3")   
 
 # ----------------------------------------------------   S A V E  ------------------------------------------                  
 

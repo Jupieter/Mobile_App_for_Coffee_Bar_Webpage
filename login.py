@@ -124,7 +124,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		return active_user
 
 	def act_token_db(self, act_token, act_expiry):
-		print(act_token)
+		print("act_token_db:   ", act_token)
 		conn = sqlite3.connect('coffe_app.db')	
 		cur = conn.cursor()
 		sql = """UPDATE act_tokens 

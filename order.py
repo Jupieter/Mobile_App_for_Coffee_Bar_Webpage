@@ -1,18 +1,79 @@
 from kivy.lang import Builder
+from kivy.clock import Clock
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.card import MDCard
 from kivymd.uix.gridlayout import MDGridLayout
 from login import LogInCard
+from coffe_make import CoffeWare
+import requests
+import json
 
 Builder.load_file('kv/order.kv')
 
 class CoffeOrder(MDGridLayout):
 	print('CoffeOrder 0')
+	ordered = [[],[],[],[]]
+	ware_step_lst = [0,0,0,0]
 	
 	def __init__(self, **kwargs):
 		super(CoffeOrder, self).__init__(**kwargs)
 		self.app = MDApp.get_running_app()
+		# Clock.schedule_once(self.load_data_ware, 0)
+	
+	def ware_ordr_btn(self, btn_id, *args):
+		''' carussel button => selected coffee raw material'''
+		# print("self.ordered", self.ordered)
+		w_order = self.ordered[btn_id]
+		if w_order != []:
+			btn_text = "order_btn_" + str(btn_id)
+			tuple_len = len(w_order)
+			# print("Have Ware: ", btn_text, "len: ", w_order)
+			self.ware_step_lst[btn_id] += 1
+			if self.ware_step_lst[btn_id] > tuple_len:
+				self.ware_step_lst[btn_id] = 1
+			w_step = self.ware_step_lst[btn_id]-1
+			ware = json.loads(w_order[w_step])
+			w_id = ware['w_id']
+			w_name = ware['w_name']   # .replace('Coffee','')
+			w_name.replace(',','')
+			w_dose = ware['w_dose']
+			print("w_step", w_step, w_id, w_name, w_dose)
+			texte = str(w_id) + " " + w_name + "  " + str(w_dose) +" dose"
+			print(texte, btn_text)
+			self.ids[btn_text].text = texte
+			self.ids[btn_text].md_bg_color=(0, 0.5, 0, 1)
+			self.ids[btn_text].value = w_id
+			# Clock.schedule_once(self.button_able, 0)
+		else:
+			self.ids.coffe_message_label.text = "Something went wrong. No ware data"
+	
+	def load_data_ware(self, *args):
+		print('coffe order data')
+		cw = CoffeWare()
+		log_card = LogInCard()
+		active_token, hd_token= log_card.load_token()
+		if active_token == 'Empty':
+			print('token print active_token: ',active_token)
+		try:
+			coffe = requests.get('http://127.0.0.1:8000/c_app/act_ware/').json()
+			# print('store coffe: ', coffe)
+			# coffee = cw.ware_json(coffe)			
+			self.ordered[0] = coffe # self.ware_json(coffe)
+			# print(self.coffee)
+			wares = requests.get('http://127.0.0.1:8000/c_app/order_tastes/').json()
+			print("-----------------wares----------------------")
+			print('store ware: ', self.ordered[1], wares[1])
+			self.ordered[1] = wares[0]	# sugar
+			self.ordered[2] = wares[1]	# milk
+			self.ordered[3] = wares[2]	# flavour
+			print('store ware: ', self.ordered)	
+			# return self.ordered
+		except:
+			# self.ids.coffe_message_label.text = "New coffee brewing time saved."
+			print("-----------------problem----------------------")
+			print("Problem with internet conection")
+
 
 	def oreder_press_dose(self, act_choice, dose_grid):
 		'''One Choice button selection function'''
@@ -38,7 +99,7 @@ class CoffeOrder(MDGridLayout):
 			dose_but.md_bg_color = self.app.theme_cls.primary_color
 		# self.button_able(dose_grid)
 	
-	def button_able(self, dose_grid, *args):
+	def button_able(self, btn_id, dose_grid, *args):
 		'''buttun disabled if not authenticated 
 			disabled TimePicker if Date not selected
 			disabled SAVE button if all option isn't selected.

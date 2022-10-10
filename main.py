@@ -62,23 +62,14 @@ class MDBottomNavigationItemSc2(MDBottomNavigationItem):
         print('MD scr3')
         # self.app = MDApp.get_running_app()
 
-    # def on_enter(self, *args):
-    #     print("*  on_enter  CoffeOrder*")
-    #     self.app.root.ids.order_grid.add_widget(CoffeOrder())
-    #     self.app.root.ids.order_grid.add_widget(MilkOrder())
+    def on_enter(self, *args):
+        print("*  on_enter  CoffeOrder*")
+        co = CoffeOrder()
+        co.load_data_ware()
+   
     # 
     # def on_leave(self, *args):
-    #     print("*  on_leave  CoffeOrder*")
-    #     main_app = CoffeeBarApp()
-    #     grid_ch = self.app.root.ids.order_grid
-    #     print(grid_ch)
-    #     ch = []
-    #     for child in grid_ch.children:
-    #         print(child)
-    #         ch.append(child)
-    #     for dt in ch:
-    #         grid_ch.remove_widget(dt)
-    #     ch = []
+
  
 
 class MDBottomNavigationItemSc3(MDBottomNavigationItem):
