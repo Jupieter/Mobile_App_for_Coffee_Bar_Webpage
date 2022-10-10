@@ -44,6 +44,7 @@ class CoffeOrder(MDGridLayout):
 			self.ids[btn_text].text = texte
 			self.ids[btn_text].md_bg_color=(0, 0.5, 0, 1)
 			self.ids[btn_text].value = w_id
+			self.button_able(btn_id,w_id)
 			# Clock.schedule_once(self.button_able, 0)
 		else:
 			self.ids.coffe_message_label.text = "Something went wrong. No ware data"
@@ -56,17 +57,10 @@ class CoffeOrder(MDGridLayout):
 		if active_token == 'Empty':
 			print('token print active_token: ',active_token)
 		try:
-			coffe = requests.get('http://127.0.0.1:8000/c_app/act_ware/').json()
-			# print('store coffe: ', coffe)
-			# coffee = cw.ware_json(coffe)			
-			self.ordered[0] = coffe # self.ware_json(coffe)
-			# print(self.coffee)
 			wares = requests.get('http://127.0.0.1:8000/c_app/order_tastes/').json()
 			print("-----------------wares----------------------")
-			print('store ware: ', self.ordered[1], wares[1])
-			self.ordered[1] = wares[0]	# sugar
-			self.ordered[2] = wares[1]	# milk
-			self.ordered[3] = wares[2]	# flavour
+			for i in range(4):
+				self.ordered[i] = wares[i]	
 			print('store ware: ', self.ordered)	
 			# return self.ordered
 		except:
@@ -99,7 +93,7 @@ class CoffeOrder(MDGridLayout):
 			dose_but.md_bg_color = self.app.theme_cls.primary_color
 		# self.button_able(dose_grid)
 	
-	def button_able(self, btn_id, dose_grid, *args):
+	def button_able(self, btn_id, w_id, *args):
 		'''buttun disabled if not authenticated 
 			disabled TimePicker if Date not selected
 			disabled SAVE button if all option isn't selected.
@@ -108,13 +102,14 @@ class CoffeOrder(MDGridLayout):
 		active_token, token_auth = log_card.load_token()
 		# active_user, act_pkey, act_staff = log_card.read_user()
 		scr2 = MDApp.get_running_app().scr_2_mess_lbl
+		dose_grid = "dose_grid_" + str(btn_id)
 		print(scr2, active_token)
-		if active_token == 'Empty':
+		if active_token == 'Empty' and w_id == 0:
 			able = True
-			scr2.text = "Isn't valid login with staff status"
+			# scr2.text = "Isn't valid login with staff status"
 		else:
 			able = False
-			scr2.text = "Set the parameters:"
+			# scr2.text = "Set the parameters:"
 		print('able',able)
 		for button1 in self.ids[dose_grid].children:
 			button1.disabled = able
