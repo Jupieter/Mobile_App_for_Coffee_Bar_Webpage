@@ -199,7 +199,7 @@ class CoffeWare(MDCard):
 			disabled SAVE button if all option isn't selected.
 		'''
 		log_card = LogInCard()
-		active_token = log_card.load_token()
+		active_token, hd_token = log_card.load_token()
 		active_user, act_pkey, act_staff = log_card.read_user()
 
 		print(active_token)

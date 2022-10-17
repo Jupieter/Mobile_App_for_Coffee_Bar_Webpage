@@ -27,6 +27,8 @@ class CoffeOrder(MDGridLayout):
 		w_order = self.ordered[btn_id]
 		if w_order != []:
 			btn_text = "order_btn_" + str(btn_id)
+			lbl_text = "order_end_label_A_" + str(btn_id)
+			grd_text = "dose_grid_" + str(btn_id)
 			tuple_len = len(w_order)
 			# print("Have Ware: ", btn_text, "len: ", w_order)
 			self.ware_step_lst[btn_id] += 1
@@ -39,15 +41,18 @@ class CoffeOrder(MDGridLayout):
 			w_name.replace(',','')
 			w_dose = ware['w_dose']
 			print("w_step", w_step, w_id, w_name, w_dose)
-			texte = str(w_id) + " " + w_name + "  " + str(w_dose) +" dose"
+			texte = str(w_id) + " " + w_name + "\n  " + str(w_dose) +" dose"
 			print(texte, btn_text)
 			self.ids[btn_text].text = texte
 			self.ids[btn_text].md_bg_color=(0, 0.5, 0, 1)
 			self.ids[btn_text].value = w_id
-			self.button_able(btn_id,w_id)
+			# SAVE Card text: 
+			dose = self.ids[grd_text].value 
+			self.ids[lbl_text].text = texte
+			self.button_able(btn_id, w_id)
 			# Clock.schedule_once(self.button_able, 0)
 		else:
-			self.ids.coffe_message_label.text = "Something went wrong. No ware data"
+			self.ids.order_label_0.text = "Something went wrong. No ware data"
 	
 	def load_data_ware(self, *args):
 		print('coffe order data')
@@ -64,23 +69,29 @@ class CoffeOrder(MDGridLayout):
 			print('store ware: ', self.ordered)	
 			# return self.ordered
 		except:
-			# self.ids.coffe_message_label.text = "New coffee brewing time saved."
+			# self.ids.order_label_0.text = "New coffee brewing time saved."
 			print("-----------------problem----------------------")
 			print("Problem with internet conection")
 
 
-	def oreder_press_dose(self, act_choice, dose_grid):
+	def oreder_press_dose(self, act_choice, btn_id):
 		'''One Choice button selection function'''
+		dose_grid = "dose_grid_" + str(btn_id)
+		print(dose_grid)
+		lbl_text = "order_end_label_B_" + str(btn_id)
+		print(lbl_text)
 		for dose_but in self.ids[dose_grid].children:
 			# print(dose_but)
 			# print(dose_but.text, dose_but.text_color)
 			dose_but.selected = False
 			dose_but.text_color=[0, 0, 0, 0.3]
 			dose_but.md_bg_color = [0.5, 0.5, 0.5, 1]
-			act_choice.text_color=(1, 1, 1, 1)
-			act_choice.md_bg_color=(0, 0.5, 0, 1)
+		act_choice.text_color=(1, 1, 1, 1)
+		act_choice.md_bg_color=(0, 0.5, 0, 1)
 		print('One Choice button selection function', act_choice.value)
 		self.ids[dose_grid].value = act_choice.value
+		self.ids[lbl_text].text = str(act_choice.value) + "  ordered dose"
+		# lbl_text = act_choice.value + " dose"
 
 	def btn_text_reset(self, dose_grid):
 		print("RESET", self.ids)

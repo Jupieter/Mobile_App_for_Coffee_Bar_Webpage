@@ -67,7 +67,7 @@
                 disabled: True
                 text: "0.5"
                 value: 0.5
-                on_press: root.oreder_press_dose(self, "dose_grid_0") 
+                on_press: root.oreder_press_dose(self, "0") 
             DoseButton:
                 id: order_cofffee_2
                 size_hint: (1, 1)
@@ -75,7 +75,7 @@
                 disabled: True
                 text: "1.0"
                 value: 1
-                on_press: root.oreder_press_dose(self, "dose_grid_0")
+                on_press: root.oreder_press_dose(self, "0")
             DoseButton:
                 id: order_cofffee_3
                 size_hint: (1, 1)
@@ -83,7 +83,7 @@
                 disabled: True
                 text: "1.5"
                 value: 1.5
-                on_press: root.oreder_press_dose(self, "dose_grid_0")
+                on_press: root.oreder_press_dose(self, "0")
             DoseButton:
                 id: order_cofffee_4
                 size_hint: (1, 1)
@@ -91,7 +91,7 @@
                 disabled: True
                 text: "2.0"
                 value: 2
-                on_press: root.oreder_press_dose(self, "dose_grid_0")
+                on_press: root.oreder_press_dose(self, "0")
 
 # ----------------------------------------------------   S U G A R ------------------------------------------    
 
@@ -137,7 +137,7 @@
                 disabled: True
                 text: "0.5"
                 value: 0.5
-                on_press: root.oreder_press_dose(self, "dose_grid_1") 
+                on_press: root.oreder_press_dose(self, "1") 
             DoseButton:
                 id: order_sugar_2
                 size_hint: (1, 1)
@@ -145,7 +145,7 @@
                 disabled: True
                 text: "1.0"
                 value: 1
-                on_press: root.oreder_press_dose(self, "dose_grid_1") 
+                on_press: root.oreder_press_dose(self, "1") 
             DoseButton:
                 id: order_sugar_3
                 size_hint: (1, 1)
@@ -153,7 +153,7 @@
                 disabled: True
                 text: "1.5"
                 value: 1.5
-                on_press: root.oreder_press_dose(self, "dose_grid_1") 
+                on_press: root.oreder_press_dose(self, "1") 
             DoseButton:
                 id: order_sugar_4
                 size_hint: (1, 1)
@@ -161,7 +161,7 @@
                 disabled: True
                 text: "2.0"
                 value: 2
-                on_press: root.oreder_press_dose(self, "dose_grid_1")   
+                on_press: root.oreder_press_dose(self, "1")   
 # ----------------------------------------------------   M I L K ------------------------------------------    
 
     MDCard:     
@@ -206,7 +206,7 @@
                 disabled: True
                 text: "0.5"
                 value: 0.5
-                on_press: root.oreder_press_dose(self, "dose_grid_2") 
+                on_press: root.oreder_press_dose(self, "2") 
             DoseButton:
                 id: order_milk_2
                 size_hint: (1, 1)
@@ -214,7 +214,7 @@
                 disabled: True
                 text: "1.0"
                 value: 1
-                on_press: root.oreder_press_dose(self, "dose_grid_2") 
+                on_press: root.oreder_press_dose(self, "2") 
             DoseButton:
                 id: order_milk_3
                 size_hint: (1, 1)
@@ -222,7 +222,7 @@
                 disabled: True
                 text: "1.5"
                 value: 1.5
-                on_press: root.oreder_press_dose(self, "dose_grid_2") 
+                on_press: root.oreder_press_dose(self, "2") 
             DoseButton:
                 id: order_milk_4
                 size_hint: (1, 1)
@@ -230,7 +230,7 @@
                 disabled: True
                 text: "2.0"
                 value: 2
-                on_press: root.oreder_press_dose(self, "dose_grid_2") 
+                on_press: root.oreder_press_dose(self, "2") 
 
 
 # ----------------------------------------------------   F L A V O U R ------------------------------------------    
@@ -277,7 +277,7 @@
                 disabled: True
                 text: "0.5"
                 value: 0.5
-                on_press: root.oreder_press_dose(self, "dose_grid_3") 
+                on_press: root.oreder_press_dose(self, "3") 
             DoseButton:
                 id: order_flavour_2
                 size_hint: (1, 1)
@@ -285,7 +285,7 @@
                 disabled: True
                 text: "1.0"
                 value: 1
-                on_press: root.oreder_press_dose(self, "dose_grid_3") 
+                on_press: root.oreder_press_dose(self, "3") 
             DoseButton:
                 id: order_flavour_3
                 size_hint: (1, 1)
@@ -293,7 +293,7 @@
                 disabled: True
                 text: "1.5"
                 value: 1.5
-                on_press: root.oreder_press_dose(self, "dose_grid_3") 
+                on_press: root.oreder_press_dose(self, "3") 
             DoseButton:
                 id: order_flavour_4
                 size_hint: (1, 1)
@@ -301,7 +301,7 @@
                 disabled: True
                 text: "2.0"
                 value: 2
-                on_press: root.oreder_press_dose(self, "dose_grid_3")   
+                on_press: root.oreder_press_dose(self, "3")   
 
 # ----------------------------------------------------   S A V E  ------------------------------------------                  
 
@@ -317,29 +317,72 @@
         radius: 20
         orientation: 'vertical'
         line_color: (0.2, 0.2, 0.2, 0.8)
-        MDLabel:
-            id: order_flavour_label
-            size_hint: (0.9, 1 * save_height)
-            pos_hint: {'center_x': .5, "top": 1}
-            font_size: self.height * save_lbl_txt
-            text: "Milk:   "
-            halign: 'left'
-        MDLabel:
-            id: order_flavour_label
-            size_hint: (0.9, 1 * save_height)
-            pos_hint: {'center_x': .5, "top": 1}
-            font_size: self.height * save_lbl_txt
-            text: "Sugar:  "
-            halign: 'left'
-        MDLabel:
-            id: order_flavour_label
-            size_hint: (0.9, 1 * save_height)
-            pos_hint: {'center_x': .5, "top": 1}
-            font_size: self.height * save_lbl_txt
-            text: "Flavour:"
-            halign: 'left'
+        MDGridLayout:
+            id: dose_grid_3
+            size_hint: (0.9,  1 * save_height)
+            pos_hint: {'center_x': .5, 'top': 1}
+            value: 0
+            cols: 2
+            padding: 0.01 * self.height
+            spacing: 0.1 * self.height
+            MDLabel:
+                id: order_end_label_A_0
+                size_hint: (0.9, 1 * save_height)
+                pos_hint: {'center_x': .5, "top": 1}
+                font_size: self.height * save_lbl_txt
+                text: "Coffee:  "
+                halign: 'left'
+            MDLabel:
+                id: order_end_label_B_0
+                size_hint: (0.9, 1 * save_height)
+                pos_hint: {'center_x': .5, "top": 1}
+                font_size: self.height * save_lbl_txt
+                text: "Coffee:  "
+                halign: 'left'
+            MDLabel:
+                id: order_end_label_A_1
+                size_hint: (0.9, 1 * save_height)
+                pos_hint: {'center_x': .5, "top": 1}
+                font_size: self.height * save_lbl_txt
+                text: "Sugar:  "
+                halign: 'left'
+            MDLabel:
+                id: order_end_label_B_1
+                size_hint: (0.9, 1 * save_height)
+                pos_hint: {'center_x': .5, "top": 1}
+                font_size: self.height * save_lbl_txt
+                text: "Sugar:  "
+                halign: 'left'
+            MDLabel:
+                id: order_end_label_A_2
+                size_hint: (0.9, 1 * save_height)
+                pos_hint: {'center_x': .5, "top": 1}
+                font_size: self.height * save_lbl_txt
+                text: "Milk:   "
+                halign: 'left'
+            MDLabel:
+                id: order_end_label_B_2
+                size_hint: (0.9, 1 * save_height)
+                pos_hint: {'center_x': .5, "top": 1}
+                font_size: self.height * save_lbl_txt
+                text: "Milk:   "
+                halign: 'left'
+            MDLabel:
+                id: order_end_label_A_3
+                size_hint: (0.9, 1 * save_height)
+                pos_hint: {'center_x': .5, "top": 1}
+                font_size: self.height * save_lbl_txt
+                text: "Flavour:"
+                halign: 'left'
+            MDLabel:
+                id: order_end_label_B_3
+                size_hint: (0.9, 1 * save_height)
+                pos_hint: {'center_x': .5, "top": 1}
+                font_size: self.height * save_lbl_txt
+                text: "Flavour:"
+                halign: 'left'
         MDFillRoundFlatButton:
-            id: order_flavour_btn
+            id: order_save_btn
             size_hint: (0.9, 2 * save_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
