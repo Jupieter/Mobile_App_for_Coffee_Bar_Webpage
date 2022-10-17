@@ -109,6 +109,7 @@ class CoffeOrder(MDGridLayout):
 			disabled TimePicker if Date not selected
 			disabled SAVE button if all option isn't selected.
 		'''
+		print("btn_id, w_id", btn_id, w_id)
 		log_card = LogInCard()
 		active_token, token_auth = log_card.load_token()
 		# active_user, act_pkey, act_staff = log_card.read_user()
@@ -122,5 +123,6 @@ class CoffeOrder(MDGridLayout):
 			able = False
 			# scr2.text = "Set the parameters:"
 		print('able',able)
+		print('able 2 :', self.ids[dose_grid].children)
 		for button1 in self.ids[dose_grid].children:
 			button1.disabled = able
