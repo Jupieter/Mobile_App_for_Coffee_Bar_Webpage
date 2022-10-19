@@ -12,12 +12,11 @@ import json
 Builder.load_file('kv/order.kv')
 
 class CoffeOrder(MDGridLayout):
-	print('CoffeOrder 0')
-	ordered = [[],[],[],[]]
-	ware_step_lst = [0,0,0,0]
 	
 	def __init__(self, **kwargs):
 		super(CoffeOrder, self).__init__(**kwargs)
+		self.ordered = [[],[],[],[]]
+		self.ware_step_lst = [0,0,0,0]
 		self.app = MDApp.get_running_app()
 		self.scr2 = self.app.root.ids.scr2_message_lbl
 		# print(self.scr2)
@@ -29,6 +28,8 @@ class CoffeOrder(MDGridLayout):
 	def ware_ordr_btn(self, btn_id, *args):
 		''' carussel button => selected coffee raw material'''
 		# print("self.ordered", self.ordered)
+		if btn_id == 0:
+			Clock.schedule_once(self.ware_btn_able, 0)
 		w_order = self.ordered[btn_id]
 		if w_order != []:
 			btn_text = "order_btn_" + str(btn_id)
@@ -57,8 +58,6 @@ class CoffeOrder(MDGridLayout):
 			self.dose_button_able(btn_id, w_id)
 			print("self.ids[dose_grid].value:  ", self.ids[grd_text].value)
 			self.mess_text1  = texte
-			if btn_id == 0:
-				Clock.schedule_once(self.ware_btn_able, 0)
 		else:
 			self.mess_text1  = "Something went wrong. No ware data"	
 		Clock.schedule_once(self.fresh_ord_mess, 0)
@@ -71,13 +70,14 @@ class CoffeOrder(MDGridLayout):
 		print(dose_grid)
 		# print(lbl_text)
 		for dose_but in self.ids[dose_grid].children:
-			# print(dose_but)
-			dose_but.selected = False
+			print(dose_but)
+			# dose_but.selected = False
 			dose_but.text_color=[0, 0, 0, 0.3]
 			dose_but.md_bg_color = [0.4, 0.4, 0.4, 1]
-			print(dose_but.text, dose_but.text_color, "bg: ", dose_but.md_bg_color)
 		act_choice.md_bg_color=(0, 0.5, 0, 1)
 		act_choice.text_color=(1, 1, 1, 1)
+		for dose_but in self.ids[dose_grid].children:
+			print(dose_but.text, dose_but.text_color, "bg: ", dose_but.md_bg_color)
 		print('One Choice button selection function', act_choice.value)
 		self.ids[dose_grid].value = act_choice.value
 
@@ -116,6 +116,7 @@ class CoffeOrder(MDGridLayout):
 
 		for button1 in self.ids[dose_grid].children:
 			button1.disabled = able2
+			button1.selected = False
 	
 	def ware_btn_able(self, *args):
 		'''buttun disabled if not authenticated '''
@@ -127,9 +128,6 @@ class CoffeOrder(MDGridLayout):
 		else:
 			able1 = False
 			self.mess_text1 = "Order a Coffee with tastes"
-		print("Id of order")
-		for i in self.ids:
-			print(i)
 		print('able1: ', able1)
 
 		for i in range(1,4,1):
@@ -152,7 +150,8 @@ class CoffeOrder(MDGridLayout):
 	def load_data_ware(self, *args):
 		print('coffe order data')
 		try:
-			wares = requests.get('http://127.0.0.1:8000/c_app/order_tastes/').json()
+			wares = requests.get('http://coffeeanteportas.herokuapp.com/c_app/order_tastes/').json()
+			# wares = requests.get('http://127.0.0.1:8000/c_app/order_tastes/').json()
 			print("-----------------wares----------------------")
 			for i in range(4):
 				self.ordered[i] = wares[i]	

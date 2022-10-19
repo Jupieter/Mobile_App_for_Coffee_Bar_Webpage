@@ -40,23 +40,6 @@
         text: "message"
         halign: 'center'
 
-    MDFillRoundFlatButton:
-        id: date_btn
-        size_hint: (0.9, sz_hint_hight)
-        pos_hint: {'center_x': .5, "top": 1}
-        font_size: btn_txt * self.height
-        text: "Coffee Date"
-        value: 0
-        on_release: root.show_date_picker()
-
-    MDFillRoundFlatButton:
-        id: time_btn
-        size_hint: (0.9, sz_hint_hight)
-        pos_hint: {'center_x': .5, "top": 1}
-        font_size: btn_txt * self.height
-        text: "Coffee Time"
-        value: 0
-        on_release: root.show_time_picker()
     
     MDFillRoundFlatButton:
         id: ware_btn
@@ -81,6 +64,7 @@
             size_hint: (1, 1)
             font_size: g_btn_txt * self.height
             text: "2"
+            disabled: True
             value: 2
             on_press: coffee_ware_card.press_dose(self) # self.press_dose(self)
         DoseButton:
@@ -88,6 +72,7 @@
             size_hint: (1, 1)
             font_size: g_btn_txt * self.height
             text: "4"
+            disabled: True
             value: 4
             on_press: coffee_ware_card.press_dose(self)
         DoseButton:
@@ -95,6 +80,7 @@
             size_hint: (1, 1)
             font_size: g_btn_txt * self.height
             text: "6"
+            disabled: True
             value: 6
             on_press: coffee_ware_card.press_dose(self)
         DoseButton:
@@ -102,8 +88,28 @@
             size_hint: (1, 1)
             font_size: g_btn_txt * self.height
             text: "8"
+            disabled: True
             value: 8
             on_press: coffee_ware_card.press_dose(self)
+    MDFillRoundFlatButton:
+        id: date_btn
+        size_hint: (0.9, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+        font_size: btn_txt * self.height
+        text: "Coffee Date"
+        disabled: True
+        value: 0
+        on_release: root.show_date_picker()
+
+    MDFillRoundFlatButton:
+        id: time_btn
+        size_hint: (0.9, sz_hint_hight)
+        pos_hint: {'center_x': .5, "top": 1}
+        font_size: btn_txt * self.height
+        text: "Coffee Time"
+        disabled: True
+        value: 0
+        on_release: root.show_time_picker()
     
     MDFillRoundFlatButton:
         id: ware_save
@@ -111,6 +117,7 @@
         pos_hint: {'center_x': .5, "top": 1}
         font_size: btn_txt * self.height
         text: "SAVE"
+        disabled: True
         value: 0
         on_release: root.ware_save()
     

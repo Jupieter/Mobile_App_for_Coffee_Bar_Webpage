@@ -8,7 +8,6 @@ from kivy.properties import BooleanProperty
 from kivy.uix.screenmanager import ScreenManager
 from datetime import time, datetime, timedelta
 import requests
-import time
 import json
 from login import LogInCard
 
@@ -57,16 +56,18 @@ class DoseButton(MDFillRoundFlatButton):
 		sm = ScreenManager
 		self.sm = sm
 		
+		
 
 class CoffeWare(MDCard):
-	print('CoffeWare 0')
-	
 
 	def __init__(self, **kwargs):
 		super(CoffeWare, self).__init__(**kwargs)
 		self.stor = None
 		self.ware_step = 0
 		self.dt_obj = None
+		log_card = LogInCard()
+		self.active_token = log_card.load_token()
+		active_user, self.act_pkey, self.act_staff = log_card.read_user()
 		Clock.schedule_once(self.load_data, 0)
 		self.message = ""
 		Clock.schedule_once(self.button_able, 0) 
@@ -133,20 +134,22 @@ class CoffeWare(MDCard):
 		active_token = log_card.load_token()
 		token_str = 'Token ' + active_token
 		hd_token = {'Authorization':token_str}
+		print(hd_token)
 		if active_token == 'Empty':
-			print('Token is Empty',self.ids.coffe_ware_label.parent)
+			self.mess_text2 = "Isn't valid login with staff status"
 		else:	
 			print('Token have, Data Request')
 			try:
 				store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/act_ware/', headers=hd_token).json()
 				print('store', store)			
 				self.stor = self.ware_json(store)
-				# print(self.stor)
+				print("self.stor json:        ",self.stor)
 				return self.stor
 			except:
-				self.ids.coffe_message_label.text = "Problem with internet conection."
+				self.mess_text2 = "Problem with internet conection."
 				print("Problem with internet conection")
 		# self.button_able()
+		# Clock.schedule_once(self.button_able, 3)
 		# Clock.schedule_once(self.button_able, 0)
 
 	
@@ -160,6 +163,8 @@ class CoffeWare(MDCard):
 	
 	def ware_button(self, *args):
 		''' carussel button => selected coffee raw material'''
+		# log_card = LogInCard()
+		# self.active_token = log_card.load_token()
 		print("self.stor", self.stor)
 		if self.stor != None:
 			tuple_len = len(self.stor)
@@ -178,8 +183,13 @@ class CoffeWare(MDCard):
 			self.ids.ware_btn.value = id
 			Clock.schedule_once(self.button_able, 0)
 		else:
-			self.ids.coffe_message_label.text = "Something went wrong. No ware data"
-		
+			print(self.active_token)
+			if self.active_token == 'Empty':
+				self.mess_text2 = "Isn't valid login with staff status"
+			else:
+				self.mess_text2 = "Something went wrong. No ware data"
+			Clock.schedule_once(self.fresh_make_mess, 3)
+			Clock.schedule_once(self.fresh_make_mess, 0)
 
 	def press_dose(self, act_choice):
 		'''One Choice button selection function'''
@@ -200,25 +210,24 @@ class CoffeWare(MDCard):
 			disabled TimePicker if Date not selected
 			disabled SAVE button if all option isn't selected.
 		'''
-		log_card = LogInCard()
-		active_token = log_card.load_token()
-		active_user, act_pkey, act_staff = log_card.read_user()
 
-		print("CALLED: button_able", active_token)
-		if  act_staff == False:
+
+
+		print("CALLED: button_able", self.active_token)
+		if  self.act_staff == False:
 			able = True
-			self.ids.coffe_message_label.text = "You have not staff status"
-		elif active_token == 'Empty':
+			self.mess_text2 = "You have not staff status"
+		elif self.active_token == 'Empty':
 			able = True
-			self.ids.coffe_message_label.text = "Isn't valid login with staff status"
+			self.mess_text2 = "Isn't valid login with staff status"
 		else:
 			able = False
-			self.ids.coffe_message_label.text = "Set the parameters:"
-		print('able',able)
-		prnt = self.ids.coffe_ware_label.parent
-		for button1 in self.ids.make_grid.children:
-			button1.disabled = able
-		self.ids.ware_btn.disabled = able
+			self.mess_text2 = "Set the parameters:"
+		# First coffee selection after the dose
+		if self.ids.ware_btn.value != 0:
+			for button1 in self.ids.make_grid.children:
+				button1.disabled = able
+		# Time button after date button
 		self.ids.date_btn.disabled = able
 		if self.ids.date_btn.text == 'Coffee Date':
 			self.ids.time_btn.disabled = True
@@ -232,39 +241,41 @@ class CoffeWare(MDCard):
 			self.ids.ware_save.disabled = True 
 		else:
 			self.ids.ware_save.disabled = False
-		print("Id of make")
-		for i in self.ids:
-			print(i)
+		Clock.schedule_once(self.fresh_make_mess, 3)
+		Clock.schedule_once(self.fresh_make_mess, 0)
 		print('END able of Make page')
 		
 	def ware_save(self, *args):
 		ware = self.ids.ware_btn.value
 		dose = self.ids.make_grid.value
-		log_card = LogInCard()
-		active_user, act_pkey, act_staff = log_card.read_user()
+		# log_card = LogInCard()
+		# active_user, act_pkey, act_staff = log_card.read_user()
 		if self.dt_obj:
 			make_date = self.dt_obj.isoformat()
 			print('SAVE', 'self.dt_obj',  make_date, type(make_date))
 		sends = {
-			"c_make_user": act_pkey,
+			"c_make_user": self.act_pkey,
 			"c_make_date": make_date,
 			"c_make_ware": ware,
 			"c_make_dose": dose
 		}
 		print(sends)
 		try:
-			log_card = LogInCard()
-			active_token = log_card.load_token()
-			token_str = 'Token ' + active_token
+			# log_card = LogInCard()
+			# active_token = log_card.load_token()
+			token_str = 'Token ' + self.active_token
 			hd_token = {'Authorization':token_str}
-			if active_token != "Empty":
-				print('LOG ware_save Token', active_token)
+			if self.active_token != "Empty":
+				print('LOG ware_save Token', self.active_token)
 				requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', headers=hd_token, data=sends)
-				self.ids.coffe_message_label.text = "New coffee brewing time saved."
+				self.mess_text2 = "New coffee brewing time saved."
 				self.button_able()
 				self.btn_text_reset()
+			Clock.schedule_once(self.fresh_make_mess, 3)
 		except:
-			self.ids.coffe_message_label.text = "It seems, there is no internet"
+			self.mess_text2 = "It seems, there is no internet"
+			Clock.schedule_once(self.fresh_make_mess, 3)
+		Clock.schedule_once(self.fresh_make_mess, 0)
 	
 	def btn_text_reset(self):
 		print("RESET", self.ids)
@@ -282,5 +293,10 @@ class CoffeWare(MDCard):
 			print(dose_but.text, dose_but.text_color)
 			dose_but.text_color=[1, 1, 1, 0.6]
 			dose_but.md_bg_color = app.theme_cls.primary_color
+			dose_but.disabled = True
 		self.button_able()
-		
+
+	def fresh_make_mess(self, *args, **kwargs):
+		print(self.mess_text2)
+		self.ids.coffe_message_label.text = self.mess_text2
+		self.mess_text2 = ""

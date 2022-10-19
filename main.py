@@ -27,7 +27,7 @@ print("8")
 from kivymd.theming import ThemableBehavior
 print("9")
 from kivy.lang import Builder
-from kivy.clock import Clock
+# from kivy.clock import Clock
 print("10")
 
 from login import LogInCard
@@ -52,24 +52,30 @@ class ItemDrawer(OneLineIconListItem):
 
 
 class MDBottomNavigationItemSc1(MDBottomNavigationItem):
+    
     def __init__(self, **kwargs):
         super(MDBottomNavigationItemSc1, self).__init__(**kwargs)
-
+        self.app = MDApp.get_running_app()
+    
+    def on_pre_enter(self, *args):
+        print("* Coffe MAIN              on_enter  *")
+        # self.app.root.ids.screen3.remove_widget(CoffeWare())
+        # self.app.root.ids.order_scroll.remove_widget(CoffeOrder())
 
 class MDBottomNavigationItemSc2(MDBottomNavigationItem):
 
     def __init__(self, **kwargs):
         super(MDBottomNavigationItemSc2, self).__init__(**kwargs)
         print('MD scr2')
-        # self.app = MDApp.get_running_app()
-
-    def on_enter(self, *args):
-        print("*  on_enter                     CoffeOrder*")
-        co = CoffeOrder()
-        # co.load_data_ware()
-   
-    # 
-    # def on_leave(self, *args):
+        self.app = MDApp.get_running_app()
+	
+    def on_pre_enter(self, *args):
+        print("* Coffe Order              on_enter  *")
+        # self.app.root.ids.order_scroll.add_widget(CoffeOrder())
+        
+    def on_leave(self, *args):
+        print("*  Coffe Order             on_leave  *")
+        # self.app.root.ids.order_scroll.remove_widget(CoffeOrder())
 
  
 
@@ -78,13 +84,15 @@ class MDBottomNavigationItemSc3(MDBottomNavigationItem):
     def __init__(self, **kwargs):
         super(MDBottomNavigationItemSc3, self).__init__(**kwargs)
         print('MD scr3')
+        self.app = MDApp.get_running_app()
 	
-    def on_enter(self, *args):
-        print("* CoffeMaker              on_enter  *")
-        co = CoffeWare()
-        # co.__init__()
-        # Clock.schedule_once(co.button_able, 0)
+    def on_pre_enter(self, *args):
+        print("* Coffe Maker              on_enter  *")
+        self.app.root.ids.screen3.add_widget(CoffeWare())
         
+    def on_leave(self, *args):
+        print("*  Coffe Maker             on_leave  *")
+        self.app.root.ids.screen3.remove_widget(CoffeWare())
 
 
 class ContentNavigationDrawer(MDBoxLayout):
@@ -181,10 +189,10 @@ class CoffeeBarApp(MDApp):
         log = LogInCard()
         log.act_token_db('Empty', 'Empty')
         self.root.ids.screen1.add_widget(FirstCoffe())
-        self.root.ids.order_scroll.add_widget(CoffeOrder())
-        # self.root.ids["order_scroll"].effect_y = RouletteScrollEffect(anchor=0, interval=430)
-        self.root.ids.screen3.add_widget(CoffeWare())
         self.root.ids.screen4.add_widget(LogInCard())
+        # self.root.ids["order_scroll"].effect_y = RouletteScrollEffect(anchor=0, interval=430)
+        # self.root.ids.screen3.add_widget(CoffeWare())
+        self.root.ids.order_scroll.add_widget(CoffeOrder())
         self.id_scr_1 = self.root.ids.screen1
         self.scr_2_mess_lbl = self.root.ids.scr2_message_lbl
         self.id_scr_4 = self.root.ids.screen4
