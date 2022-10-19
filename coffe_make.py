@@ -227,8 +227,13 @@ class CoffeWare(MDCard):
 		if self.ids.ware_btn.value != 0:
 			for button1 in self.ids.make_grid.children:
 				button1.disabled = able
+		# Date button after Dose selection button
+		if self.ids.make_grid.value == 0:
+			self.ids.date_btn.disabled = True
+		else:
+			self.ids.date_btn.disabled = False
+		
 		# Time button after date button
-		self.ids.date_btn.disabled = able
 		if self.ids.date_btn.text == 'Coffee Date':
 			self.ids.time_btn.disabled = True
 		else:
