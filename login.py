@@ -112,9 +112,9 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		active_tk = conn.execute("SELECT act_token from act_tokens")
 		for row in active_tk:
 			active_token = row[0]
-		token_str = 'Token ' + active_token
-		hd_token = {'Authorization':token_str}
-		return active_token, hd_token 
+		# token_str = 'Token ' + active_token
+		# hd_token = {'Authorization':token_str}
+		return active_token  #  hd_token 
 
 	def load_user(self, *args):
 		conn = sqlite3.connect('coffe_app.db')
@@ -155,10 +155,10 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		conn = sqlite3.connect('coffe_app.db')	
 		cur = conn.cursor()
 		sql = """SELECT act_user, act_pkey, act_staff FROM act_users WHERE id = 1"""
-		print(sql)
+		# print(sql)
 		data = (1)
 		users = cur.execute(sql)
-		print('user: ', users)
+		# print('users: ', users)
 		for row in users:
 			user = row[0]
 			pkey = row[1]
@@ -167,9 +167,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 				staff = True
 			else:
 				staff = False
-			print ("user = ", user)
-			print ("pkey = ", pkey)
-			print ("staff = ", staff)
+			print ("user = ", user, "pkey = ", pkey, "staff = ", staff)
 		conn.close()
 		return user, pkey, staff
 

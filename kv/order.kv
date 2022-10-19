@@ -46,12 +46,13 @@
             halign: 'center'
         MDFillRoundFlatButton:
             id: order_btn_0
+            # disabled: True
             size_hint: (0.9, 0.6 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
             text: "Choice Coffee"
             value: 0
-            on_press: root.ware_ordr_btn(0) 
+            on_press: root.ware_ordr_btn(0)  
         MDGridLayout:
             id: dose_grid_0
             size_hint: (0.9,  1 * ord_sz_hint_height)
@@ -108,7 +109,7 @@
         orientation: 'vertical'
         line_color: (0.2, 0.2, 0.2, 0.8)
         MDLabel:
-            id: order_cofffee_label
+            id: order_label_1
             size_hint: (0.9, 1 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: self.height * ord_lbl_txt
@@ -116,6 +117,7 @@
             halign: 'center'
         MDFillRoundFlatButton:
             id: order_btn_1
+            disabled: True
             size_hint: (0.9, 0.6 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
@@ -177,7 +179,7 @@
         orientation: 'vertical'
         line_color: (0.2, 0.2, 0.2, 0.8)
         MDLabel:
-            id: order_milk_label
+            id: order_label_2
             size_hint: (0.9, 1 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: self.height * ord_lbl_txt
@@ -236,7 +238,7 @@
 # ----------------------------------------------------   F L A V O U R ------------------------------------------    
 
     MDCard:     
-        id: sugar_card
+        id: flavour_card
         on_pre_enter: 
         size_hint: None, None
         size: root.width * 0.96, ord_card_height
@@ -248,7 +250,7 @@
         orientation: 'vertical'
         line_color: (0.2, 0.2, 0.2, 0.8)
         MDLabel:
-            id: order_flavour_label
+            id: order_label_3
             size_hint: (0.9, 1 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: self.height * ord_lbl_txt
@@ -256,6 +258,7 @@
             halign: 'center'
         MDFillRoundFlatButton:
             id: order_btn_3
+            disabled: True
             size_hint: (0.9, 0.6 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
@@ -383,11 +386,20 @@
                 halign: 'left'
         MDFillRoundFlatButton:
             id: order_save_btn
-            size_hint: (0.9, 2 * save_height)
+            size_hint: (0.9, 1 * save_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
             text: "S A V E"
             value: 0
+            on_press: root.fresh() 
+        MDFillRoundFlatButton:
+            id: order_test_btn
+            size_hint: (0.9, 1 * save_height)
+            pos_hint: {'center_x': .5, "top": 1}
+            font_size: ord_btn_txt * self.height
+            text: "T E S T"
+            value: 0
+            on_press: root.ware_btn_able()
 
 
 

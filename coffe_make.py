@@ -130,22 +130,24 @@ class CoffeWare(MDCard):
 	def load_data_clk(self, *args):
 		print('coffe make data')
 		log_card = LogInCard()
-		active_token, hd_token= log_card.load_token()
-		# token_str = 'Token ' + active_token
-		# hd_token = {'Authorization':token_str}
+		active_token = log_card.load_token()
+		token_str = 'Token ' + active_token
+		hd_token = {'Authorization':token_str}
 		if active_token == 'Empty':
-			print('token print',self.ids.coffe_ware_label.parent)
+			print('Token is Empty',self.ids.coffe_ware_label.parent)
 		else:	
-			print('Request')
+			print('Token have, Data Request')
 			try:
 				store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/act_ware/', headers=hd_token).json()
 				print('store', store)			
 				self.stor = self.ware_json(store)
-				print(self.stor)
+				# print(self.stor)
 				return self.stor
 			except:
-				self.ids.coffe_message_label.text = "New coffee brewing time saved."
+				self.ids.coffe_message_label.text = "Problem with internet conection."
 				print("Problem with internet conection")
+		# self.button_able()
+		# Clock.schedule_once(self.button_able, 0)
 
 	
 	def ware_json(self, store_d):
@@ -181,7 +183,7 @@ class CoffeWare(MDCard):
 
 	def press_dose(self, act_choice):
 		'''One Choice button selection function'''
-		for dose_but in self.ids.dose_grid.children:
+		for dose_but in self.ids.make_grid.children:
 			# print(dose_but)
 			print(dose_but.text, dose_but.text_color)
 			dose_but.selected = False
@@ -190,7 +192,7 @@ class CoffeWare(MDCard):
 			act_choice.text_color=(1, 1, 1, 1)
 			act_choice.md_bg_color=(0, 0.5, 0, 1)
 			print(act_choice.value)
-		self.ids.dose_grid.value = act_choice.value
+		self.ids.make_grid.value = act_choice.value
 		Clock.schedule_once(self.button_able, 0)
 	
 	def button_able(self, *args):
@@ -199,10 +201,10 @@ class CoffeWare(MDCard):
 			disabled SAVE button if all option isn't selected.
 		'''
 		log_card = LogInCard()
-		active_token, hd_token = log_card.load_token()
+		active_token = log_card.load_token()
 		active_user, act_pkey, act_staff = log_card.read_user()
 
-		print(active_token)
+		print("CALLED: button_able", active_token)
 		if  act_staff == False:
 			able = True
 			self.ids.coffe_message_label.text = "You have not staff status"
@@ -214,7 +216,7 @@ class CoffeWare(MDCard):
 			self.ids.coffe_message_label.text = "Set the parameters:"
 		print('able',able)
 		prnt = self.ids.coffe_ware_label.parent
-		for button1 in self.ids.dose_grid.children:
+		for button1 in self.ids.make_grid.children:
 			button1.disabled = able
 		self.ids.ware_btn.disabled = able
 		self.ids.date_btn.disabled = able
@@ -226,15 +228,18 @@ class CoffeWare(MDCard):
 		if (self.ids.ware_btn.value == 0 or
 			self.ids.date_btn.text == 'Coffee Date' or
 			self.ids.time_btn.text == 'Coffee Time' or
-			self.ids.dose_grid.value == 0):
+			self.ids.make_grid.value == 0):
 			self.ids.ware_save.disabled = True 
 		else:
 			self.ids.ware_save.disabled = False
-		print('END able')
+		print("Id of make")
+		for i in self.ids:
+			print(i)
+		print('END able of Make page')
 		
 	def ware_save(self, *args):
 		ware = self.ids.ware_btn.value
-		dose = self.ids.dose_grid.value
+		dose = self.ids.make_grid.value
 		log_card = LogInCard()
 		active_user, act_pkey, act_staff = log_card.read_user()
 		if self.dt_obj:
@@ -249,7 +254,9 @@ class CoffeWare(MDCard):
 		print(sends)
 		try:
 			log_card = LogInCard()
-			active_token, hd_token= log_card.load_token()
+			active_token = log_card.load_token()
+			token_str = 'Token ' + active_token
+			hd_token = {'Authorization':token_str}
 			if active_token != "Empty":
 				print('LOG ware_save Token', active_token)
 				requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', headers=hd_token, data=sends)
@@ -270,8 +277,8 @@ class CoffeWare(MDCard):
 		self.ids.date_btn.md_bg_color = app.theme_cls.primary_color
 		self.ids.time_btn.text = 'Coffee Time'
 		self.ids.time_btn.md_bg_color = app.theme_cls.primary_color
-		self.ids.dose_grid.value = 0
-		for dose_but in self.ids.dose_grid.children:
+		self.ids.make_grid.value = 0
+		for dose_but in self.ids.make_grid.children:
 			print(dose_but.text, dose_but.text_color)
 			dose_but.text_color=[1, 1, 1, 0.6]
 			dose_but.md_bg_color = app.theme_cls.primary_color

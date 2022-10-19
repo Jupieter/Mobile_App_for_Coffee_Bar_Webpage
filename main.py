@@ -27,6 +27,7 @@ print("8")
 from kivymd.theming import ThemableBehavior
 print("9")
 from kivy.lang import Builder
+from kivy.clock import Clock
 print("10")
 
 from login import LogInCard
@@ -59,13 +60,13 @@ class MDBottomNavigationItemSc2(MDBottomNavigationItem):
 
     def __init__(self, **kwargs):
         super(MDBottomNavigationItemSc2, self).__init__(**kwargs)
-        print('MD scr3')
+        print('MD scr2')
         # self.app = MDApp.get_running_app()
 
     def on_enter(self, *args):
-        print("*  on_enter  CoffeOrder*")
+        print("*  on_enter                     CoffeOrder*")
         co = CoffeOrder()
-        co.load_data_ware()
+        # co.load_data_ware()
    
     # 
     # def on_leave(self, *args):
@@ -73,34 +74,18 @@ class MDBottomNavigationItemSc2(MDBottomNavigationItem):
  
 
 class MDBottomNavigationItemSc3(MDBottomNavigationItem):
-    pass
+
+    def __init__(self, **kwargs):
+        super(MDBottomNavigationItemSc3, self).__init__(**kwargs)
+        print('MD scr3')
 	
-    # def __init__(self, **kwargs):
-    #     super(MDBottomNavigationItemSc3, self).__init__(**kwargs)
-    #     print('MD scr3')
-    #     self.app = MDApp.get_running_app()
-    # 
-    # def on_enter(self, *args):
-    #     print("*  on_enter  *")
-    #     self.theme_cls.theme_style = "Light"
-    #     self.theme_cls.primary_palette = "Brown"  # "Purple", "Red"
-    #     self.app.root.ids.screen3.add_widget(CoffeWare())
-    # 
-    # def on_leave(self, *args):
-    #     print("*  on_leave  *")
-    #     self.app.root.ids.screen3.remove_widget(CoffeWare())
-    #     grid = self.app.root.ids.screen3
-    #     print(grid)
-    #     ch = []
-    #     for child in grid.children:
-    #         print(child)
-    #         ch.append(child)
-    #     for dt in ch:
-    #         grid.remove_widget(dt)
-    #     ch = []
-    #     grid_e = self.app.root.ids.screen3
-    #     print("grid_e: ", grid_e.children)
-# 
+    def on_enter(self, *args):
+        print("* CoffeMaker              on_enter  *")
+        co = CoffeWare()
+        # co.__init__()
+        # Clock.schedule_once(co.button_able, 0)
+        
+
 
 class ContentNavigationDrawer(MDBoxLayout):
     pass

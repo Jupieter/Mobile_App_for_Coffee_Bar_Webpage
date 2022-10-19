@@ -5,7 +5,7 @@ from kivymd.uix.screen import MDScreen
 from kivymd.uix.card import MDCard
 from kivymd.uix.gridlayout import MDGridLayout
 from login import LogInCard
-from coffe_make import CoffeWare
+from time import sleep
 import requests
 import json
 
@@ -19,7 +19,12 @@ class CoffeOrder(MDGridLayout):
 	def __init__(self, **kwargs):
 		super(CoffeOrder, self).__init__(**kwargs)
 		self.app = MDApp.get_running_app()
-		# Clock.schedule_once(self.load_data_ware, 0)
+		self.scr2 = self.app.root.ids.scr2_message_lbl
+		# print(self.scr2)
+		self.mess_text1 = "O R D E R"
+		Clock.schedule_once(self.load_data_ware, 0)
+		Clock.schedule_once(self.ware_btn_able, 0)
+		# Clock.schedule_once(self.fresh_ord_mess, 0)
 	
 	def ware_ordr_btn(self, btn_id, *args):
 		''' carussel button => selected coffee raw material'''
@@ -49,18 +54,103 @@ class CoffeOrder(MDGridLayout):
 			# SAVE Card text: 
 			dose = self.ids[grd_text].value 
 			self.ids[lbl_text].text = texte
-			self.button_able(btn_id, w_id)
-			# Clock.schedule_once(self.button_able, 0)
+			self.dose_button_able(btn_id, w_id)
+			print("self.ids[dose_grid].value:  ", self.ids[grd_text].value)
+			self.mess_text1  = texte
+			if btn_id == 0:
+				Clock.schedule_once(self.ware_btn_able, 0)
 		else:
-			self.ids.order_label_0.text = "Something went wrong. No ware data"
+			self.mess_text1  = "Something went wrong. No ware data"	
+		Clock.schedule_once(self.fresh_ord_mess, 0)
+
+
+	def oreder_press_dose(self, act_choice, btn_id):
+		'''One Choice button selection function'''
+		dose_grid = "dose_grid_" + str(btn_id)
+		self.ids[dose_grid].value = 0
+		print(dose_grid)
+		# print(lbl_text)
+		for dose_but in self.ids[dose_grid].children:
+			# print(dose_but)
+			dose_but.selected = False
+			dose_but.text_color=[0, 0, 0, 0.3]
+			dose_but.md_bg_color = [0.4, 0.4, 0.4, 1]
+			print(dose_but.text, dose_but.text_color, "bg: ", dose_but.md_bg_color)
+		act_choice.md_bg_color=(0, 0.5, 0, 1)
+		act_choice.text_color=(1, 1, 1, 1)
+		print('One Choice button selection function', act_choice.value)
+		self.ids[dose_grid].value = act_choice.value
+
+		lbl_text = "order_end_label_B_" + str(btn_id)
+		self.ids[lbl_text].text = str(act_choice.value) + "  ordered dose"
+		print("self.ids[dose_grid].value:  ", self.ids[dose_grid].value)
+
+		order_label = "order_label_" + str(btn_id)
+		self.mess_text1  = self.ids[order_label].text + " : " + str(act_choice.value) + " dose"
+		Clock.schedule_once(self.fresh_ord_mess, 0)
+
+	def btn_text_reset(self, dose_grid):
+		print("RESET", self.ids)
+		# self.app = MDApp.get_running_app()
+#
+		self.ids[dose_grid].value = 0
+		for dose_but in self.ids[dose_grid].children:
+			print(dose_but.text, dose_but.text_color)
+			dose_but.text_color=[1, 1, 1, 0.6]
+			dose_but.md_bg_color = self.app.theme_cls.primary_color
+		
 	
+	def dose_button_able(self, btn_id, w_id, *args):
+		'''buttun disabled if not authenticated 
+			disabled SAVE button if all option isn't selected.
+		'''
+		print("btn_id, w_id", btn_id, w_id)
+		dose_grid = "dose_grid_" + str(btn_id)
+
+		if w_id == 0:
+			able2 = True
+		else:
+			able2 = False
+			# scr2.text = "Set the parameters:"
+		print('able2: ',able2)
+
+		for button1 in self.ids[dose_grid].children:
+			button1.disabled = able2
+	
+	def ware_btn_able(self, *args):
+		'''buttun disabled if not authenticated '''
+		log_card = LogInCard()
+		active_token = log_card.load_token()
+		if active_token == "Empty":
+			able1 = True
+			self.mess_text1 = "Isn't valid login"
+		else:
+			able1 = False
+			self.mess_text1 = "Order a Coffee with tastes"
+		print("Id of order")
+		for i in self.ids:
+			print(i)
+		print('able1: ', able1)
+
+		for i in range(1,4,1):
+			btn_id = "order_btn_" + str(i)
+			# print("btn_id: ", btn_id)
+			print('able1 next: ', able1)
+			self.ids[btn_id].disabled = able1
+			# print("btn: ", self.ids[btn_id].disabled)
+		Clock.schedule_once(self.fresh_ord_mess, 0)
+
+	def fresh(self, *args):
+		Clock.schedule_once(self.ware_btn_able, 0)
+		print("FRESH")
+		for i in range(1,4,1):
+			btn_id = "order_btn_" + str(i)
+			print("btn_id: ", btn_id, "btn: ", self.ids[btn_id].disabled)
+
+
+
 	def load_data_ware(self, *args):
 		print('coffe order data')
-		cw = CoffeWare()
-		log_card = LogInCard()
-		active_token, hd_token= log_card.load_token()
-		if active_token == 'Empty':
-			print('token print active_token: ',active_token)
 		try:
 			wares = requests.get('http://127.0.0.1:8000/c_app/order_tastes/').json()
 			print("-----------------wares----------------------")
@@ -72,57 +162,9 @@ class CoffeOrder(MDGridLayout):
 			# self.ids.order_label_0.text = "New coffee brewing time saved."
 			print("-----------------problem----------------------")
 			print("Problem with internet conection")
-
-
-	def oreder_press_dose(self, act_choice, btn_id):
-		'''One Choice button selection function'''
-		dose_grid = "dose_grid_" + str(btn_id)
-		print(dose_grid)
-		lbl_text = "order_end_label_B_" + str(btn_id)
-		print(lbl_text)
-		for dose_but in self.ids[dose_grid].children:
-			# print(dose_but)
-			# print(dose_but.text, dose_but.text_color)
-			dose_but.selected = False
-			dose_but.text_color=[0, 0, 0, 0.3]
-			dose_but.md_bg_color = [0.5, 0.5, 0.5, 1]
-		act_choice.text_color=(1, 1, 1, 1)
-		act_choice.md_bg_color=(0, 0.5, 0, 1)
-		print('One Choice button selection function', act_choice.value)
-		self.ids[dose_grid].value = act_choice.value
-		self.ids[lbl_text].text = str(act_choice.value) + "  ordered dose"
-		# lbl_text = act_choice.value + " dose"
-
-	def btn_text_reset(self, dose_grid):
-		print("RESET", self.ids)
-		# self.app = MDApp.get_running_app()
-#
-		self.ids[dose_grid].value = 0
-		for dose_but in self.ids[dose_grid].children:
-			print(dose_but.text, dose_but.text_color)
-			dose_but.text_color=[1, 1, 1, 0.6]
-			dose_but.md_bg_color = self.app.theme_cls.primary_color
-		# self.button_able(dose_grid)
+		# self.ware_btn_able(t_active)
+		# Clock.schedule_once(self.ware_btn_able, 0)
+		# Clock.schedule_once(self.fresh, 0)
 	
-	def button_able(self, btn_id, w_id, *args):
-		'''buttun disabled if not authenticated 
-			disabled TimePicker if Date not selected
-			disabled SAVE button if all option isn't selected.
-		'''
-		print("btn_id, w_id", btn_id, w_id)
-		log_card = LogInCard()
-		active_token, token_auth = log_card.load_token()
-		# active_user, act_pkey, act_staff = log_card.read_user()
-		scr2 = MDApp.get_running_app().scr_2_mess_lbl
-		dose_grid = "dose_grid_" + str(btn_id)
-		print(scr2, active_token)
-		if active_token == 'Empty' and w_id == 0:
-			able = True
-			# scr2.text = "Isn't valid login with staff status"
-		else:
-			able = False
-			# scr2.text = "Set the parameters:"
-		print('able',able)
-		print('able 2 :', self.ids[dose_grid].children)
-		for button1 in self.ids[dose_grid].children:
-			button1.disabled = able
+	def fresh_ord_mess(self, *args, **kwargs):
+		self.scr2.text = self.mess_text1
