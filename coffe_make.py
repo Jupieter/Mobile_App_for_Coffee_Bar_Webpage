@@ -181,7 +181,8 @@ class CoffeWare(MDCard):
 			self.ids.ware_btn.text = texte
 			self.ids.ware_btn.md_bg_color=(0, 0.5, 0, 1)
 			self.ids.ware_btn.value = id
-			Clock.schedule_once(self.button_able, 0)
+			self.button_able()
+			# Clock.schedule_once(self.button_able, 0)
 		else:
 			print(self.active_token)
 			if self.active_token == 'Empty':

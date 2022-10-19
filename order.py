@@ -19,6 +19,8 @@ class CoffeOrder(MDGridLayout):
 		self.ware_step_lst = [0,0,0,0]
 		self.app = MDApp.get_running_app()
 		self.scr2 = self.app.root.ids.scr2_message_lbl
+		self.log_card = LogInCard()
+		self.active_token = self.log_card.load_token()
 		# print(self.scr2)
 		self.mess_text1 = "O R D E R"
 		Clock.schedule_once(self.load_data_ware, 0)
@@ -28,10 +30,12 @@ class CoffeOrder(MDGridLayout):
 	def ware_ordr_btn(self, btn_id, *args):
 		''' carussel button => selected coffee raw material'''
 		# print("self.ordered", self.ordered)
-		if btn_id == 0:
-			Clock.schedule_once(self.ware_btn_able, 0)
 		w_order = self.ordered[btn_id]
-		if w_order != []:
+		self.active_token = self.log_card.load_token()
+		if self.active_token == "Empty":
+			self.mess_text1 = "Isn't valid login"
+			print(self.mess_text1 , "Empty")
+		elif w_order != [] and self.active_token != "Empty":
 			btn_text = "order_btn_" + str(btn_id)
 			lbl_text = "order_end_label_A_" + str(btn_id)
 			grd_text = "dose_grid_" + str(btn_id)
@@ -55,31 +59,47 @@ class CoffeOrder(MDGridLayout):
 			# SAVE Card text: 
 			dose = self.ids[grd_text].value 
 			self.ids[lbl_text].text = texte
+
 			self.dose_button_able(btn_id, w_id)
 			print("self.ids[dose_grid].value:  ", self.ids[grd_text].value)
 			self.mess_text1  = texte
 		else:
 			self.mess_text1  = "Something went wrong. No ware data"	
-		Clock.schedule_once(self.fresh_ord_mess, 0)
+		self.fresh_ord_mess()
+		# Clock.schedule_once(self.fresh_ord_mess, 0)
 
+	def ware_btn_able(self, *args):
+		'''buttun disabled if not authenticated '''
+		if self.active_token == "Empty":
+			able1 = True
+		else:
+			able1 = False
+		print('able1: ', able1)
+
+		for i in range(1,4,1):
+			btn_id = "order_btn_" + str(i)
+			print('able1 next: ', able1)
+			self.ids[btn_id].disabled = able1
+		self.fresh_ord_mess()
+		# Clock.schedule_once(self.fresh_ord_mess, 0)
 
 	def oreder_press_dose(self, act_choice, btn_id):
 		'''One Choice button selection function'''
 		dose_grid = "dose_grid_" + str(btn_id)
 		self.ids[dose_grid].value = 0
 		print(dose_grid)
-		# print(lbl_text)
 		for dose_but in self.ids[dose_grid].children:
-			print(dose_but)
-			# dose_but.selected = False
+			# dose_but.selected = True
 			dose_but.text_color=[0, 0, 0, 0.3]
 			dose_but.md_bg_color = [0.4, 0.4, 0.4, 1]
-		act_choice.md_bg_color=(0, 0.5, 0, 1)
-		act_choice.text_color=(1, 1, 1, 1)
-		for dose_but in self.ids[dose_grid].children:
+			act_choice.md_bg_color=(0, 0.5, 0, 1)
+			act_choice.text_color=(1, 1, 1, 1)
 			print(dose_but.text, dose_but.text_color, "bg: ", dose_but.md_bg_color)
-		print('One Choice button selection function', act_choice.value)
+
 		self.ids[dose_grid].value = act_choice.value
+		if btn_id == "0" and self.ids["dose_grid_0"].value != 0:
+			self.ware_btn_able()
+			# Clock.schedule_once(self.ware_btn_able, 0)
 
 		lbl_text = "order_end_label_B_" + str(btn_id)
 		self.ids[lbl_text].text = str(act_choice.value) + "  ordered dose"
@@ -87,8 +107,26 @@ class CoffeOrder(MDGridLayout):
 
 		order_label = "order_label_" + str(btn_id)
 		self.mess_text1  = self.ids[order_label].text + " : " + str(act_choice.value) + " dose"
-		Clock.schedule_once(self.fresh_ord_mess, 0)
+		self.fresh_ord_mess()
+		# Clock.schedule_once(self.fresh_ord_mess, 0)
 
+		
+	
+	def dose_button_able(self, btn_id, w_id, *args):
+		'''buttun disabled if not authenticated 
+			disabled SAVE button if all option isn't selected.
+		'''
+		print("btn_id, w_id", btn_id, w_id)
+		dose_grid = "dose_grid_" + str(btn_id)
+		if w_id == 0:
+			able2 = True
+		else:
+			able2 = False
+		print('able2: ',able2)
+		for button1 in self.ids[dose_grid].children:
+			button1.disabled = able2
+			# button1.selected = False
+	
 	def btn_text_reset(self, dose_grid):
 		print("RESET", self.ids)
 		# self.app = MDApp.get_running_app()
@@ -98,48 +136,8 @@ class CoffeOrder(MDGridLayout):
 			print(dose_but.text, dose_but.text_color)
 			dose_but.text_color=[1, 1, 1, 0.6]
 			dose_but.md_bg_color = self.app.theme_cls.primary_color
-		
-	
-	def dose_button_able(self, btn_id, w_id, *args):
-		'''buttun disabled if not authenticated 
-			disabled SAVE button if all option isn't selected.
-		'''
-		print("btn_id, w_id", btn_id, w_id)
-		dose_grid = "dose_grid_" + str(btn_id)
-
-		if w_id == 0:
-			able2 = True
-		else:
-			able2 = False
-			# scr2.text = "Set the parameters:"
-		print('able2: ',able2)
-
-		for button1 in self.ids[dose_grid].children:
-			button1.disabled = able2
-			button1.selected = False
-	
-	def ware_btn_able(self, *args):
-		'''buttun disabled if not authenticated '''
-		log_card = LogInCard()
-		active_token = log_card.load_token()
-		if active_token == "Empty":
-			able1 = True
-			self.mess_text1 = "Isn't valid login"
-		else:
-			able1 = False
-			self.mess_text1 = "Order a Coffee with tastes"
-		print('able1: ', able1)
-
-		for i in range(1,4,1):
-			btn_id = "order_btn_" + str(i)
-			# print("btn_id: ", btn_id)
-			print('able1 next: ', able1)
-			self.ids[btn_id].disabled = able1
-			# print("btn: ", self.ids[btn_id].disabled)
-		Clock.schedule_once(self.fresh_ord_mess, 0)
 
 	def fresh(self, *args):
-		Clock.schedule_once(self.ware_btn_able, 0)
 		print("FRESH")
 		for i in range(1,4,1):
 			btn_id = "order_btn_" + str(i)
@@ -156,11 +154,15 @@ class CoffeOrder(MDGridLayout):
 			for i in range(4):
 				self.ordered[i] = wares[i]	
 			print('store ware: ', self.ordered)	
+			self.mess_text1 = "Order a Coffee with tastes"
 			# return self.ordered
 		except:
 			# self.ids.order_label_0.text = "New coffee brewing time saved."
 			print("-----------------problem----------------------")
 			print("Problem with internet conection")
+			self.mess_text1  = "Something went wrong. No ware data"	
+		self.fresh_ord_mess()
+		# Clock.schedule_once(self.fresh_ord_mess, 0)
 		# self.ware_btn_able(t_active)
 		# Clock.schedule_once(self.ware_btn_able, 0)
 		# Clock.schedule_once(self.fresh, 0)
