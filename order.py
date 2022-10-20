@@ -60,7 +60,7 @@ class CoffeOrder(MDGridLayout):
 			dose = self.ids[grd_text].value 
 			self.ids[lbl_text].text = texte
 
-			self.dose_button_able(btn_id, w_id)
+			self.dose_button_able(btn_id, w_id, w_dose)
 			print("self.ids[dose_grid].value:  ", self.ids[grd_text].value)
 			self.mess_text1  = texte
 		else:
@@ -112,19 +112,23 @@ class CoffeOrder(MDGridLayout):
 
 		
 	
-	def dose_button_able(self, btn_id, w_id, *args):
+	def dose_button_able(self, btn_id, w_id, w_dose, *args):
 		'''buttun disabled if not authenticated 
 			disabled SAVE button if all option isn't selected.
 		'''
 		print("btn_id, w_id", btn_id, w_id)
 		dose_grid = "dose_grid_" + str(btn_id)
+		print("dose:          ", w_dose)
 		if w_id == 0:
 			able2 = True
 		else:
 			able2 = False
 		print('able2: ',able2)
 		for button1 in self.ids[dose_grid].children:
-			button1.disabled = able2
+			if button1.value <= w_dose:
+				button1.disabled = able2
+			else: 
+				button1.disabled = True
 			# button1.selected = False
 	
 	def btn_text_reset(self, dose_grid):
