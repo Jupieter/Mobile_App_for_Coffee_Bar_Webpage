@@ -13,8 +13,6 @@ import json
 Builder.load_file('kv/order.kv')
 
 class OrderMDFillRoundFlatButton(MDFillRoundFlatButton):
-	print('DoseButton 0')
-
 
 	def __init__(self, **kwargs):
 		super(OrderMDFillRoundFlatButton, self).__init__(**kwargs)
@@ -22,7 +20,6 @@ class OrderMDFillRoundFlatButton(MDFillRoundFlatButton):
 	
 	def on_disabled(self, instance, value):
 		pass
-		# print("OrderMDFillRoundFlatButton:   ", self)
 
 
 class CoffeOrder(MDGridLayout):
@@ -66,7 +63,7 @@ class CoffeOrder(MDGridLayout):
 			w_name = ware['w_name']   # .replace('Coffee','')
 			w_name.replace(',','')
 			w_dose = Decimal(ware['w_dose'])
-			print("w_step", w_step, w_id, w_name,'w_dose', w_dose, type(w_dose))
+			# print("w_step", w_step, w_id, w_name,'w_dose', w_dose, type(w_dose))
 			texte = str(w_id) + " " + w_name + "\n  " + str(w_dose) +" dose"
 			# print(texte, btn_text)
 			self.ids[btn_text].text = texte
@@ -196,8 +193,6 @@ class CoffeOrder(MDGridLayout):
 				requests.post('https://coffeeanteportas.herokuapp.com/c_app/order_save/', headers=hd_token, data=sends)
 				self.ids["order_save_btn"].md_bg_color=(0, 0.5, 0, 1)
 				self.mess_text2 = "New coffee order saved."
-				Clock.schedule_once(self.fresh_ord_mess, 0)
-				print(self.mess_text2)
 				Clock.schedule_once(self.go_home, 2)
 		except:
 			self.mess_text2 = "It seems, there is no internet"
