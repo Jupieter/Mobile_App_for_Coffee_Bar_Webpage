@@ -41,7 +41,6 @@ class MyTimePicker(MDTimePicker):
 			mode = "pm"
 		hour = str(hour)
 		minute = str(minute)
-		print(hour, minute, mode)
 		self._set_time_input(hour, minute)
 		self._set_dial_time(hour, minute)
 		self._set_am_pm(mode)
@@ -128,7 +127,6 @@ class CoffeWare(MDCard):
 	def load_data_clk(self, *args):
 		token_str = 'Token ' + self.active_token
 		hd_token = {'Authorization':token_str}
-		print(hd_token)
 		if self.active_token == 'Empty':
 			self.mess_text2 = "Isn't valid login with staff status"
 		else:	
@@ -137,7 +135,6 @@ class CoffeWare(MDCard):
 				store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/act_ware/', headers=hd_token).json()
 				# print('store', store)			
 				self.stor = self.ware_json(store)
-				# print("self.stor json:        ",self.stor)
 				return self.stor
 			except:
 				self.mess_text2 = "Problem with internet conection."
@@ -155,7 +152,6 @@ class CoffeWare(MDCard):
 
 	def ware_button(self, *args):
 		''' carussel button => selected coffee raw material'''
-		print("self.stor", self.stor)
 		if self.stor != None:
 			tuple_len = len(self.stor)
 			self.ware_step += 1
@@ -165,15 +161,12 @@ class CoffeWare(MDCard):
 			name = self.stor[self.ware_step-1]['w_name'].replace('Coffee','')
 			name.replace(',','')
 			dose = self.stor[self.ware_step-1]['w_dose']
-			print('self.ware_step',self.ware_step, id, name, dose)
 			texte = str(id) + " " + name + "" + str(dose) +" dose"
-			print(texte)
 			self.ids.ware_btn.text = texte
 			self.ids.ware_btn.md_bg_color=(0, 0.5, 0, 1)
 			self.ids.ware_btn.value = id
 			self.button_able()
 		else:
-			print(self.active_token)
 			if self.active_token == 'Empty':
 				self.mess_text2 = "Isn't valid login with staff status"
 			else:
@@ -185,14 +178,11 @@ class CoffeWare(MDCard):
 	def press_dose(self, act_choice):
 		'''One Choice button selection function'''
 		for dose_but in self.ids.make_grid.children:
-			print(dose_but.text)
 			dose_but.selected = False
 			dose_but.text_color = [0, 0, 0, 0.3]
 			dose_but.md_bg_color = [0.5, 0.5, 0.5, 1]
-			print(dose_but.text, dose_but.text_color)
 		act_choice.text_color = (1, 1, 1, 1)
 		act_choice.md_bg_color = (0, 0.5, 0, 1)
-		print(act_choice.value)
 		self.ids.make_grid.value = act_choice.value
 		self.button_able()
 	
@@ -214,7 +204,6 @@ class CoffeWare(MDCard):
 		# First coffee selection after the dose
 		if self.ids.ware_btn.value == 0:
 			able = True
-		print(able)
 		for button1 in self.ids.make_grid.children:
 			button1.disabled = able
 		# Date button after Dose selection button
@@ -246,14 +235,13 @@ class CoffeWare(MDCard):
 		dose = self.ids.make_grid.value
 		if self.dt_obj:
 			make_date = self.dt_obj.isoformat()
-			print('SAVE', 'self.dt_obj',  make_date, type(make_date))
 		sends = {
 			"c_make_user": self.act_pkey,
 			"c_make_date": make_date,
 			"c_make_ware": ware,
 			"c_make_dose": dose
 		}
-		print(sends)
+		# print(sends)
 		try:
 			token_str = 'Token ' + self.active_token
 			hd_token = {'Authorization':token_str}
@@ -272,7 +260,6 @@ class CoffeWare(MDCard):
 	
 
 	def fresh_make_mess(self, *args, **kwargs):
-		print(self.mess_text2)
 		self.ids.coffe_message_label.text = self.mess_text2
 		self.mess_text2 = ""
 
