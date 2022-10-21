@@ -72,11 +72,13 @@ class CoffeWare(MDCard):
 		self.message = ""
 		Clock.schedule_once(self.button_able, 0) 
 
+
 	def d_on_save(self, instance, value, date_range):
 		'''Date picker save function'''
 		self.ids.date_btn.text = str(value)
 		self.ids.date_btn.md_bg_color=(0, 0.5, 0, 1)
 		Clock.schedule_once(self.button_able, 0)
+
 
 	def show_date_picker(self):
 		'''Open date picker dialog.'''
@@ -94,6 +96,7 @@ class CoffeWare(MDCard):
     		)
 		date_dialog.bind(on_save=self.d_on_save)
 		date_dialog.open()
+
 
 	def t_on_save(self, instance, value):
 		'''Time picker save function'''
@@ -113,7 +116,8 @@ class CoffeWare(MDCard):
 		self.ids.time_btn.text = str(t_now)[0:8]
 		self.ids.time_btn.md_bg_color=(0, 0.5, 0, 1)
 		Clock.schedule_once(self.button_able, 0)
-		
+
+
 	def show_time_picker(self):
 		'''Open time picker dialog.'''	
 		time_dialog = MyTimePicker()
@@ -127,6 +131,7 @@ class CoffeWare(MDCard):
 	
 	def load_data(self, *args):
 		Clock.schedule_once(self.load_data_clk, 0)
+
 
 	def load_data_clk(self, *args):
 		print('coffe make data')
@@ -160,7 +165,8 @@ class CoffeWare(MDCard):
 			it = json.loads(item)
 			store.append(it)
 		return store
-	
+
+
 	def ware_button(self, *args):
 		''' carussel button => selected coffee raw material'''
 		# log_card = LogInCard()
@@ -192,27 +198,29 @@ class CoffeWare(MDCard):
 			Clock.schedule_once(self.fresh_make_mess, 3)
 			Clock.schedule_once(self.fresh_make_mess, 0)
 
+
 	def press_dose(self, act_choice):
 		'''One Choice button selection function'''
 		for dose_but in self.ids.make_grid.children:
-			# print(dose_but)
-			print(dose_but.text, dose_but.text_color)
+			print(dose_but.text)
 			dose_but.selected = False
-			dose_but.text_color=[0, 0, 0, 0.3]
+			dose_but.text_color = [0, 0, 0, 0.3]
 			dose_but.md_bg_color = [0.5, 0.5, 0.5, 1]
-			act_choice.text_color=(1, 1, 1, 1)
-			act_choice.md_bg_color=(0, 0.5, 0, 1)
-			print(act_choice.value)
+			print(dose_but.text, dose_but.text_color)
+		act_choice.text_color = (1, 1, 1, 1)
+		# act_choice.md_bg_color = self.theme_cls.primary_color
+		# act_choice.disabled = False
+		print(act_choice.value)
 		self.ids.make_grid.value = act_choice.value
-		Clock.schedule_once(self.button_able, 0)
+		self.button_able()
+
 	
+
 	def button_able(self, *args):
 		'''buttun disabled if not authenticated 
 			disabled TimePicker if Date not selected
 			disabled SAVE button if all option isn't selected.
 		'''
-
-
 
 		print("CALLED: button_able", self.active_token)
 		if  self.act_staff == False:
@@ -225,9 +233,13 @@ class CoffeWare(MDCard):
 			able = False
 			self.mess_text2 = "Set the parameters:"
 		# First coffee selection after the dose
-		if self.ids.ware_btn.value != 0:
-			for button1 in self.ids.make_grid.children:
-				button1.disabled = able
+		if self.ids.ware_btn.value == 0:
+			able = True
+		print(able)
+		for button1 in self.ids.make_grid.children:
+			button1.disabled = able
+			if button1.value == self.ids.make_grid.value:
+				button1.md_bg_color = (0, 0.5, 0, 1)
 		# Date button after Dose selection button
 		if self.ids.make_grid.value == 0:
 			self.ids.date_btn.disabled = True
@@ -251,11 +263,10 @@ class CoffeWare(MDCard):
 		Clock.schedule_once(self.fresh_make_mess, 0)
 		print('END able of Make page')
 		
+
 	def ware_save(self, *args):
 		ware = self.ids.ware_btn.value
 		dose = self.ids.make_grid.value
-		# log_card = LogInCard()
-		# active_user, act_pkey, act_staff = log_card.read_user()
 		if self.dt_obj:
 			make_date = self.dt_obj.isoformat()
 			print('SAVE', 'self.dt_obj',  make_date, type(make_date))

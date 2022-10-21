@@ -55,14 +55,12 @@ class CoffeOrder(MDGridLayout):
 			texte = str(w_id) + " " + w_name + "\n  " + str(w_dose) +" dose"
 			print(texte, btn_text)
 			self.ids[btn_text].text = texte
-			self.ids[btn_text].md_bg_color=(0, 0.5, 0, 1)
 			self.ids[btn_text].value = w_id
-			# SAVE Card text: 
-			# dose = self.ids[grd_text].value 
-			self.ids[lbl_text].text = texte
-
 			self.dose_button_able(btn_id, w_id, w_dose)
 			self.save_btn_able()
+			self.ids[btn_text].md_bg_color=(0, 0.5, 0, 1)
+			self.ids[lbl_text].text = texte
+
 			print("self.ids[dose_grid].value:  ", self.ids[grd_text].value)
 			self.mess_text1  = texte
 		else:
@@ -106,10 +104,9 @@ class CoffeOrder(MDGridLayout):
 			# dose_but.selected = True
 			dose_but.text_color=[0, 0, 0, 0.3]
 			dose_but.md_bg_color = [0.4, 0.4, 0.4, 1]
-			act_choice.md_bg_color=(0, 0.5, 0, 1)
-			act_choice.text_color=(1, 1, 1, 1)
 			print(dose_but.text, dose_but.text_color, "bg: ", dose_but.md_bg_color)
-
+		act_choice.md_bg_color=(0, 0.5, 0, 1)
+		act_choice.text_color=(1, 1, 1, 1)
 		self.ids[dose_grid].value = act_choice.value
 		if btn_id == "0" and self.ids["dose_grid_0"].value != 0:
 			self.ware_btn_able()
@@ -214,7 +211,7 @@ class CoffeOrder(MDGridLayout):
 		except:
 			self.mess_text2 = "It seems, there is no internet"
 			
-		Clock.schedule_once(self.fresh_ord_mess, 0)
+		self.fresh_ord_mess()
 	
 	def fresh_ord_mess(self, *args, **kwargs):
 		self.scr2.text = self.mess_text1

@@ -38,7 +38,6 @@ from first_coffee import FirstCoffe
 print("FirstCoffe")
 from order import CoffeOrder
 print("CoffeOrder")
-from kivy.uix.scrollview import ScrollView
 from roulettescroll import RouletteScrollEffect
 print("afer inports")
 
