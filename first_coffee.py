@@ -126,13 +126,13 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		sends = {"coffee_selected": self.first_id}
 		print(self.first_id)
 		log_card = LogInCard()
-		active_token, hd_token = log_card.load_token()
+		active_token = log_card.load_token()
 		print('LOG Token', active_token)
 		if active_token == "Empty":
 			store = ["First Log in!"]
 		if active_token != "Empty":
-			# token_str = 'Token ' + active_token
-			# hd_token = {'Authorization':token_str}
+			token_str = 'Token ' + active_token
+			hd_token = {'Authorization':token_str}
 			print(sends)
 			store = requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_friends/', headers=hd_token, data=sends).json()
 		item_s = []
