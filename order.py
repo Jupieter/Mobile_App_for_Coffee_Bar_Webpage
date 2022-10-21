@@ -58,10 +58,11 @@ class CoffeOrder(MDGridLayout):
 			self.ids[btn_text].md_bg_color=(0, 0.5, 0, 1)
 			self.ids[btn_text].value = w_id
 			# SAVE Card text: 
-			dose = self.ids[grd_text].value 
+			# dose = self.ids[grd_text].value 
 			self.ids[lbl_text].text = texte
 
 			self.dose_button_able(btn_id, w_id, w_dose)
+			self.save_btn_able()
 			print("self.ids[dose_grid].value:  ", self.ids[grd_text].value)
 			self.mess_text1  = texte
 		else:
@@ -82,6 +83,18 @@ class CoffeOrder(MDGridLayout):
 			print('able1 next: ', able1)
 			self.ids[btn_id].disabled = able1
 		self.fresh_ord_mess()
+
+	def save_btn_able(self, *args):
+		'''buttun disabled if not choice all  '''
+		if (self.ids["order_btn_0"].text ==  "Choice Coffee" or
+			self.ids["order_btn_1"].text ==  "Choice Sugar" or 
+			self.ids["order_btn_2"].text ==  "Choice Milk" or
+			self.ids["order_btn_3"].text ==  "Choice Flavour"):
+			self.ids["order_save_btn"].disabled = True
+		else:
+			self.ids["order_save_btn"].disabled =  False
+			self.mess_text2 = "You can save your order"
+			self.fresh_ord_mess()
 		# Clock.schedule_once(self.fresh_ord_mess, 0)
 
 	def oreder_press_dose(self, act_choice, btn_id):

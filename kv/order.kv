@@ -187,6 +187,7 @@
             halign: 'center'
         MDFillRoundFlatButton:
             id: order_btn_2
+            disabled: True
             size_hint: (0.9, 0.6 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
@@ -390,6 +391,7 @@
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
             text: "S A V E"
+            disabled: True
             value: 0
             on_press: root.order_save()
 
