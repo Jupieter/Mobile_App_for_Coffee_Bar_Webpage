@@ -1,3 +1,4 @@
+from re import S
 from kivy.lang import Builder
 from kivy.clock import Clock
 from kivymd.app import MDApp
@@ -5,6 +6,7 @@ from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.button import MDFillRoundFlatButton
 from login import LogInCard
 from decimal import Decimal
+from time import sleep
 import requests
 import json
 
@@ -19,7 +21,8 @@ class OrderMDFillRoundFlatButton(MDFillRoundFlatButton):
 		self.text_color=(1, 1, 1, 0.3)
 	
 	def on_disabled(self, instance, value):
-		print("OrderMDFillRoundFlatButton:   ", self)
+		pass
+		# print("OrderMDFillRoundFlatButton:   ", self)
 
 
 class CoffeOrder(MDGridLayout):
@@ -164,13 +167,10 @@ class CoffeOrder(MDGridLayout):
 			dose_but.text_color=[1, 1, 1, 0.6]
 			dose_but.md_bg_color = self.app.theme_cls.primary_color
 
-	def fresh(self, *args):
-		print("FRESH")
-		for i in range(1,4,1):
-			btn_id = "order_btn_" + str(i)
-			print("btn_id: ", btn_id, "btn: ", self.ids[btn_id].disabled)
 
-
+	def go_home(self, *args):
+		sm = self.app.root.ids.nav_bottom
+		sm.switch_tab('screen 1')
 
 	def load_data_ware(self, *args):
 		print('coffe order data')
@@ -205,6 +205,7 @@ class CoffeOrder(MDGridLayout):
 			"flavour_dose": self.ids.dose_grid_3.value,
 			"coffe_user": act_pkey
 		}
+		print("sends:     -----------------------------------------------------")
 		print(sends)
 		try:
 			# log_card = LogInCard()
@@ -214,16 +215,20 @@ class CoffeOrder(MDGridLayout):
 			if self.active_token != "Empty":
 				print('LOG ware_save Token', self.active_token)
 				# requests.post('http://127.0.0.1:8000/c_app/order_save/', headers=hd_token, data=sends)
-				requests.post('https://coffeeanteportas.herokuapp.com/c_app/order_save/', headers=hd_token, data=sends)
-				self.mess_text2 = "New coffee brewing time saved."
+				# requests.post('https://coffeeanteportas.herokuapp.com/c_app/order_save/', headers=hd_token, data=sends)
+				self.ids["order_save_btn"].md_bg_color=(0, 0.5, 0, 1)
+				self.mess_text2 = "New coffee order saved."
+				Clock.schedule_once(self.fresh_ord_mess, 0)
 				print(self.mess_text2)
 				# self.button_able()
 				# self.btn_text_reset()
-			
+				# sleep(1)
+				Clock.schedule_once(self.go_home, 3)
+				# self.go_home()
 		except:
 			self.mess_text2 = "It seems, there is no internet"
+			self.fresh_ord_mess()
 			
-		self.fresh_ord_mess()
 	
 	def fresh_ord_mess(self, *args, **kwargs):
 		self.scr2.text = self.mess_text1

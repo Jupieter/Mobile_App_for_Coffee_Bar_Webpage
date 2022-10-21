@@ -56,11 +56,10 @@ class DoseButton(MDFillRoundFlatButton):
 		super(DoseButton, self).__init__(**kwargs)
 		self.selected = False
 		self.text_color=(1, 1, 1, 0.3)
-		# sm = ScreenManager
-		# self.sm = sm
 	
 	def on_disabled(self, instance, value):
-		print("UHHHHH")
+		pass
+		# print("DoseButton:      ", self)
 		
 		
 

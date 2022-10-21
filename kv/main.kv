@@ -55,15 +55,10 @@ MDScreen:
     # Bottom menu
     id: mdscreen
     md_bg_color: app.theme_cls.primary_light
-    FitImage:
-        id: coffee
-        size_hint: (1, 1)
-        padding: 4
-        # size: (root.width, root.height)
-        source: "image/bean_bg.jpg"
 
     MDBottomNavigation:
         id: nav_bottom
+        name: "nav_bottom"
         panel_color: app.theme_cls.primary_color
         selected_color_background: "Custom"
         text_color_active: 0, 0, 0, 1
