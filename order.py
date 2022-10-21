@@ -166,10 +166,39 @@ class CoffeOrder(MDGridLayout):
 			print("Problem with internet conection")
 			self.mess_text1  = "Something went wrong. No ware data"	
 		self.fresh_ord_mess()
-		# Clock.schedule_once(self.fresh_ord_mess, 0)
-		# self.ware_btn_able(t_active)
-		# Clock.schedule_once(self.ware_btn_able, 0)
-		# Clock.schedule_once(self.fresh, 0)
+
+
+	def order_save(self, *args):
+		log_card = LogInCard()
+		active_user, act_pkey, act_staff = log_card.read_user()
+		sends = {
+			"coffee_selected": self.ids.order_btn_0.value,
+			"coffee_dose": self.ids.dose_grid_0.value,
+			"sugar_choice": self.ids.order_btn_1.value,
+			"sugar_dose": self.ids.dose_grid_1.value,
+			"milk_choice": self.ids.order_btn_2.value,
+			"milk_dose": self.ids.dose_grid_2.value,
+			"flavour_choice": self.ids.order_btn_3.value,
+			"flavour_dose": self.ids.dose_grid_3.value,
+			"coffe_user": act_pkey
+		}
+		print(sends)
+		# try:
+		# 	# log_card = LogInCard()
+		# 	# active_token = log_card.load_token()
+		# 	token_str = 'Token ' + self.active_token
+		# 	hd_token = {'Authorization':token_str}
+		# 	if self.active_token != "Empty":
+		# 		print('LOG ware_save Token', self.active_token)
+		# 		requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', headers=hd_token, data=sends)
+		# 		self.mess_text2 = "New coffee brewing time saved."
+		# 		self.button_able()
+		# 		self.btn_text_reset()
+		# 	Clock.schedule_once(self.fresh_ord_mess, 3)
+		# except:
+		# 	self.mess_text2 = "It seems, there is no internet"
+		# 	Clock.schedule_once(self.fresh_ord_mess, 3)
+		Clock.schedule_once(self.fresh_ord_mess, 0)
 	
 	def fresh_ord_mess(self, *args, **kwargs):
 		self.scr2.text = self.mess_text1

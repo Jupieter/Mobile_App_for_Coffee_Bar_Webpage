@@ -3,7 +3,7 @@
 #:set save_lbl_txt 0.5    # rapid change button text size, size_hint height everywhere
 #:set g_ord_btn_txt 0.35
 #:set ord_sz_hint_height 0.3
-#:set save_height 1
+#:set save_height 0.5
 #:set ord_card_height "400dp"
 
 
@@ -391,7 +391,7 @@
             font_size: ord_btn_txt * self.height
             text: "S A V E"
             value: 0
-            on_press: root.ware_btn_able()
+            on_press: root.order_save()
 
 
 
