@@ -71,11 +71,11 @@ class MDBottomNavigationItemSc2(MDBottomNavigationItem):
 	
     def on_pre_enter(self, *args):
         print("* Coffe Order              on_enter  *")
-        # self.app.root.ids.order_scroll.add_widget(CoffeOrder())
+        self.app.root.ids.order_scroll.add_widget(CoffeOrder())
         
     def on_leave(self, *args):
         print("*  Coffe Order             on_leave  *")
-        # self.app.root.ids.order_scroll.remove_widget(CoffeOrder())
+        self.app.root.ids.order_scroll.clear_widgets()
 
  
 
@@ -92,7 +92,7 @@ class MDBottomNavigationItemSc3(MDBottomNavigationItem):
         
     def on_leave(self, *args):
         print("*  Coffe Maker             on_leave  *")
-        self.app.root.ids.screen3.remove_widget(CoffeWare())
+        self.app.root.ids.screen3.clear_widgets()
 
 
 class ContentNavigationDrawer(MDBoxLayout):
@@ -192,7 +192,7 @@ class CoffeeBarApp(MDApp):
         self.root.ids.screen4.add_widget(LogInCard())
         # self.root.ids["order_scroll"].effect_y = RouletteScrollEffect(anchor=0, interval=430)
         # self.root.ids.screen3.add_widget(CoffeWare())
-        self.root.ids.order_scroll.add_widget(CoffeOrder())
+        # self.root.ids.order_scroll.add_widget(CoffeOrder())
         self.id_scr_1 = self.root.ids.screen1
         self.scr_2_mess_lbl = self.root.ids.scr2_message_lbl
         self.id_scr_4 = self.root.ids.screen4
