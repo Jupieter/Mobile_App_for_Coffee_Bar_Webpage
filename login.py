@@ -26,13 +26,10 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 
 	def log_out(self):
 		active_token = self.load_token()
-		print('LOG Token', active_token)
 		token_str = 'Token ' + active_token
 		hd_token = {'Authorization':token_str}
 		try:
 			store = requests.post('https://coffeeanteportas.herokuapp.com/c_app/logout/', headers=hd_token)
-			print(hd_token)
-			print(store)
 			self.btn_disable(False, False, True)
 			self.act_token_db('Empty', 'Empty')
 			self.ids.welcome_label.text =('LOG IN')
@@ -48,6 +45,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 			Clock.schedule_once(self.fresh_mess, 3)
 			print('No internet')
 		Clock.schedule_once(self.fresh_mess, 0)
+		return store
 		
 
 	def log_in(self):
@@ -57,30 +55,20 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		if user != "" or password != "" :
 			x = {"email": user, 'password':password}
 			sends = x
-			print(sends)
 			try:
 				store = requests.post('https://coffeeanteportas.herokuapp.com/c_app/login/', data=sends).json()
-				
-				print('login store: ', store)
 				keys = []
 				for key in store.keys():
-					print ('key', key)
 					keys.append(key)
-				print ('key: ', keys[0] )
 				if keys[0] == 'expiry':
-					# self.ids.login_message_label.text =(f'Logged: {user}.')
 					self.mess_text =(f'Logged: {user}.')
 					act_expiry = store['expiry']
 					act_token = store['token']
 					act_pkey = store['user_pk']
 					act_staff = store['is_staff']
-					print(act_expiry)
-					print(act_token)
-					print(act_pkey)
-					print(act_staff)
 					self.act_token_db(act_token, act_expiry)
 					password ='Emp'  # if don't store the password
-					print('come USER DB ')
+					# come USER DB 
 					self.act_user_db(user, password, act_pkey, act_staff)
 					self.btn_disable(True, True, False)
 					self.ids.welcome_label.text =('LOG OUT')
@@ -112,9 +100,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		active_tk = conn.execute("SELECT act_token from act_tokens")
 		for row in active_tk:
 			active_token = row[0]
-		# token_str = 'Token ' + active_token
-		# hd_token = {'Authorization':token_str}
-		return active_token  #  hd_token 
+		return active_token
 
 	def load_user(self, *args):
 		conn = sqlite3.connect('coffe_app.db')
@@ -124,7 +110,6 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		return active_user
 
 	def act_token_db(self, act_token, act_expiry):
-		print("act_token_db:   ", act_token)
 		conn = sqlite3.connect('coffe_app.db')	
 		cur = conn.cursor()
 		sql = """UPDATE act_tokens 
@@ -137,7 +122,6 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		conn.close()
 
 	def act_user_db(self, act_user, act_pass, act_pkey, act_staff):
-		print(act_user, act_pass, act_pkey, act_staff)
 		conn = sqlite3.connect('coffe_app.db')	
 		cur = conn.cursor()
 		sql = """UPDATE act_users 
@@ -155,10 +139,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		conn = sqlite3.connect('coffe_app.db')	
 		cur = conn.cursor()
 		sql = """SELECT act_user, act_pkey, act_staff FROM act_users WHERE id = 1"""
-		# print(sql)
-		data = (1)
 		users = cur.execute(sql)
-		# print('users: ', users)
 		for row in users:
 			user = row[0]
 			pkey = row[1]
@@ -167,13 +148,11 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 				staff = True
 			else:
 				staff = False
-			print ("user = ", user, "pkey = ", pkey, "staff = ", staff)
 		conn.close()
 		return user, pkey, staff
 
 
 	def clear(self):
-		print('Clear  !')
 		self.ids.user.text = ""		
 		self.ids.password.text = ""	
 		self.ids.welcome_label.text = "LOG IN"
