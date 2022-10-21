@@ -4,6 +4,7 @@ from kivy.clock import Clock
 from kivymd.app import MDApp
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.button import MDFillRoundFlatButton
+from kivy.uix.label import Label
 from login import LogInCard
 from decimal import Decimal
 from time import sleep
@@ -11,6 +12,7 @@ import requests
 import json
 
 Builder.load_file('kv/order.kv')
+
 
 class OrderMDFillRoundFlatButton(MDFillRoundFlatButton):
 
@@ -121,7 +123,7 @@ class CoffeOrder(MDGridLayout):
 			self.ware_btn_able()
 
 		lbl_text = "order_end_label_B_" + str(btn_id)
-		self.ids[lbl_text].text = str(act_choice.value) + "  ordered dose"
+		self.ids[lbl_text].text = "Dose: " + "{:.1f}".format(act_choice.value) # str(act_choice.value)  
 		# print("self.ids[dose_grid].value:  ", self.ids[dose_grid].value)
 		order_label = "order_label_" + str(btn_id)
 		self.mess_text1  = self.ids[order_label].text + " : " + str(act_choice.value) + " dose"

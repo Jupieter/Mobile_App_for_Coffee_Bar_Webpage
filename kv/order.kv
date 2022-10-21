@@ -313,7 +313,7 @@
         id: save_card
         on_pre_enter: 
         size_hint: None, None
-        size: root.width * 0.96, ord_card_height
+        size: root.width * 0.96, "800dp"
         pos_hint: {"center_x": 0.5, "top": 0.85}
         elevation: 25
         padding: 0.05 * self.height
@@ -323,71 +323,75 @@
         line_color: (0.2, 0.2, 0.2, 0.8)
         MDGridLayout:
             id: dose_grid_4
-            size_hint: (0.9,  1 * save_height)
+            size_hint: (0.96,  8 * save_height)
             pos_hint: {'center_x': .5, 'top': 1}
             value: 0
-            cols: 2
-            padding: 0.01 * self.height
-            spacing: 0.1 * self.height
+            cols: 1
+            padding: "10dp"
+            spacing: "10dp"
             MDLabel:
                 id: order_end_label_A_0
-                size_hint: (0.9, 1 * save_height)
+                size_hint: (1, 1 * save_height)
                 pos_hint: {'center_x': .5, "top": 1}
                 font_size: self.height * save_lbl_txt
                 text: "Coffee:  "
                 halign: 'left'
             MDLabel:
                 id: order_end_label_B_0
-                size_hint: (0.9, 1 * save_height)
+                size_hint: (1, 1 * save_height)
                 pos_hint: {'center_x': .5, "top": 1}
                 font_size: self.height * save_lbl_txt
-                text: "Coffee:  "
-                halign: 'left'
+                text: "Dose: 0.0"
+                halign: 'right'
+                underline: True
             MDLabel:
                 id: order_end_label_A_1
-                size_hint: (0.9, 1 * save_height)
+                size_hint: (1, 1 * save_height)
                 pos_hint: {'center_x': .5, "top": 1}
                 font_size: self.height * save_lbl_txt
                 text: "Sugar:  "
                 halign: 'left'
             MDLabel:
                 id: order_end_label_B_1
-                size_hint: (0.9, 1 * save_height)
+                size_hint: (1, 1 * save_height)
                 pos_hint: {'center_x': .5, "top": 1}
                 font_size: self.height * save_lbl_txt
-                text: "Sugar:  "
-                halign: 'left'
+                text: "Dose: 0.0"
+                halign: 'right'
+                underline: True
             MDLabel:
                 id: order_end_label_A_2
-                size_hint: (0.9, 1 * save_height)
+                size_hint: (1, 1 * save_height)
                 pos_hint: {'center_x': .5, "top": 1}
                 font_size: self.height * save_lbl_txt
                 text: "Milk:   "
                 halign: 'left'
             MDLabel:
                 id: order_end_label_B_2
-                size_hint: (0.9, 1 * save_height)
+                size_hint: (1, 1 * save_height)
                 pos_hint: {'center_x': .5, "top": 1}
                 font_size: self.height * save_lbl_txt
-                text: "Milk:   "
-                halign: 'left'
+                text: "Dose: 0.0"
+                halign: 'right'
+                underline: True
             MDLabel:
                 id: order_end_label_A_3
-                size_hint: (0.9, 1 * save_height)
+                size_hint: (1, 1 * save_height)
                 pos_hint: {'center_x': .5, "top": 1}
                 font_size: self.height * save_lbl_txt
                 text: "Flavour:"
                 halign: 'left'
             MDLabel:
                 id: order_end_label_B_3
-                size_hint: (0.9, 1 * save_height)
+                size_hint: (1, 1 * save_height)
                 pos_hint: {'center_x': .5, "top": 1}
                 font_size: self.height * save_lbl_txt
-                text: "Flavour:"
-                halign: 'left'
+                text: "Dose: 0.0"
+                halign: 'right'
+                underline: True
         OrderMDFillRoundFlatButton:
             id: order_save_btn
-            size_hint: (0.9, 1 * save_height)
+            size_hint: (0.9, 1.4 * save_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
             text: "S A V E"
