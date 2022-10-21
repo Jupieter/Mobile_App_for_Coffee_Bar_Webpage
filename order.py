@@ -5,7 +5,7 @@ from kivymd.uix.screen import MDScreen
 from kivymd.uix.card import MDCard
 from kivymd.uix.gridlayout import MDGridLayout
 from login import LogInCard
-from time import sleep
+from decimal import Decimal
 import requests
 import json
 
@@ -31,6 +31,7 @@ class CoffeOrder(MDGridLayout):
 		''' carussel button => selected coffee raw material'''
 		# print("self.ordered", self.ordered)
 		w_order = self.ordered[btn_id]
+		print("w_order:        ", w_order)
 		self.active_token = self.log_card.load_token()
 		if self.active_token == "Empty":
 			self.mess_text1 = "Isn't valid login"
@@ -49,8 +50,8 @@ class CoffeOrder(MDGridLayout):
 			w_id = ware['w_id']
 			w_name = ware['w_name']   # .replace('Coffee','')
 			w_name.replace(',','')
-			w_dose = ware['w_dose']
-			print("w_step", w_step, w_id, w_name, w_dose)
+			w_dose = Decimal(ware['w_dose'])
+			print("w_step", w_step, w_id, w_name,'w_dose', w_dose, type(w_dose))
 			texte = str(w_id) + " " + w_name + "\n  " + str(w_dose) +" dose"
 			print(texte, btn_text)
 			self.ids[btn_text].text = texte
@@ -119,16 +120,16 @@ class CoffeOrder(MDGridLayout):
 		print("btn_id, w_id", btn_id, w_id)
 		dose_grid = "dose_grid_" + str(btn_id)
 		print("dose:          ", w_dose)
-		if w_id == 0:
+		if w_dose == 0:
 			able2 = True
 		else:
 			able2 = False
 		print('able2: ',able2)
 		for button1 in self.ids[dose_grid].children:
-			if button1.value <= w_dose:
-				button1.disabled = able2
-			else: 
+			if button1.value > w_dose:
 				button1.disabled = True
+			else: 
+				button1.disabled = able2
 			# button1.selected = False
 	
 	def btn_text_reset(self, dose_grid):
@@ -174,30 +175,32 @@ class CoffeOrder(MDGridLayout):
 		sends = {
 			"coffee_selected": self.ids.order_btn_0.value,
 			"coffee_dose": self.ids.dose_grid_0.value,
-			"sugar_choice": self.ids.order_btn_1.value,
+			"sugar_choice": self.ids.order_btn_1.value if self.ids.order_btn_1.value != 0 else None,
 			"sugar_dose": self.ids.dose_grid_1.value,
-			"milk_choice": self.ids.order_btn_2.value,
+			"milk_choice": self.ids.order_btn_2.valueif if self.ids.order_btn_2.value != 0 else None,
 			"milk_dose": self.ids.dose_grid_2.value,
-			"flavour_choice": self.ids.order_btn_3.value,
+			"flavour_choice": self.ids.order_btn_3.value if self.ids.order_btn_3.value != 0 else None,
 			"flavour_dose": self.ids.dose_grid_3.value,
 			"coffe_user": act_pkey
 		}
 		print(sends)
-		# try:
-		# 	# log_card = LogInCard()
-		# 	# active_token = log_card.load_token()
-		# 	token_str = 'Token ' + self.active_token
-		# 	hd_token = {'Authorization':token_str}
-		# 	if self.active_token != "Empty":
-		# 		print('LOG ware_save Token', self.active_token)
-		# 		requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', headers=hd_token, data=sends)
-		# 		self.mess_text2 = "New coffee brewing time saved."
-		# 		self.button_able()
-		# 		self.btn_text_reset()
-		# 	Clock.schedule_once(self.fresh_ord_mess, 3)
-		# except:
-		# 	self.mess_text2 = "It seems, there is no internet"
-		# 	Clock.schedule_once(self.fresh_ord_mess, 3)
+		try:
+			# log_card = LogInCard()
+			# active_token = log_card.load_token()
+			token_str = 'Token ' + self.active_token
+			hd_token = {'Authorization':token_str}
+			if self.active_token != "Empty":
+				print('LOG ware_save Token', self.active_token)
+				# requests.post('http://127.0.0.1:8000/c_app/order_save/', headers=hd_token, data=sends)
+				requests.post('https://coffeeanteportas.herokuapp.com/c_app/order_save/', headers=hd_token, data=sends)
+				self.mess_text2 = "New coffee brewing time saved."
+				print(self.mess_text2)
+				# self.button_able()
+				# self.btn_text_reset()
+			
+		except:
+			self.mess_text2 = "It seems, there is no internet"
+			
 		Clock.schedule_once(self.fresh_ord_mess, 0)
 	
 	def fresh_ord_mess(self, *args, **kwargs):
