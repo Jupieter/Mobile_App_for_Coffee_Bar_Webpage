@@ -12,7 +12,10 @@ import json
 from login import LogInCard
 
 
+
+
 Builder.load_file('kv/coffee_make.kv')
+
 
 class MyTimePicker(MDTimePicker):
 	def __init__(self, **kwargs):
@@ -52,9 +55,12 @@ class DoseButton(MDFillRoundFlatButton):
 	def __init__(self, **kwargs):
 		super(DoseButton, self).__init__(**kwargs)
 		self.selected = False
-		self.text_color=(1, 1, 1, 0.6)
-		sm = ScreenManager
-		self.sm = sm
+		self.text_color=(1, 1, 1, 0.3)
+		# sm = ScreenManager
+		# self.sm = sm
+	
+	def on_disabled(self, instance, value):
+		print("UHHHHH")
 		
 		
 
@@ -208,7 +214,7 @@ class CoffeWare(MDCard):
 			dose_but.md_bg_color = [0.5, 0.5, 0.5, 1]
 			print(dose_but.text, dose_but.text_color)
 		act_choice.text_color = (1, 1, 1, 1)
-		# act_choice.md_bg_color = self.theme_cls.primary_color
+		act_choice.md_bg_color = (0, 0.5, 0, 1) # self.theme_cls.primary_color
 		# act_choice.disabled = False
 		print(act_choice.value)
 		self.ids.make_grid.value = act_choice.value
@@ -238,8 +244,6 @@ class CoffeWare(MDCard):
 		print(able)
 		for button1 in self.ids.make_grid.children:
 			button1.disabled = able
-			if button1.value == self.ids.make_grid.value:
-				button1.md_bg_color = (0, 0.5, 0, 1)
 		# Date button after Dose selection button
 		if self.ids.make_grid.value == 0:
 			self.ids.date_btn.disabled = True
