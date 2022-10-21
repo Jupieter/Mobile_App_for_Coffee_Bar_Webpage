@@ -24,7 +24,7 @@ class CoffeOrder(MDGridLayout):
 		# print(self.scr2)
 		self.mess_text1 = "O R D E R"
 		Clock.schedule_once(self.load_data_ware, 0)
-		Clock.schedule_once(self.ware_btn_able, 0)
+		# Clock.schedule_once(self.ware_btn_able, 0)
 		# Clock.schedule_once(self.fresh_ord_mess, 0)
 	
 	def ware_ordr_btn(self, btn_id, *args):
@@ -70,7 +70,7 @@ class CoffeOrder(MDGridLayout):
 
 	def ware_btn_able(self, *args):
 		'''buttun disabled if not authenticated '''
-		if self.active_token == "Empty":
+		if self.active_token == "Empty" or self.ids["order_btn_0"].value == 0:
 			able1 = True
 		else:
 			able1 = False
