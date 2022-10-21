@@ -2,12 +2,25 @@ from kivy.lang import Builder
 from kivy.clock import Clock
 from kivymd.app import MDApp
 from kivymd.uix.gridlayout import MDGridLayout
+from kivymd.uix.button import MDFillRoundFlatButton
 from login import LogInCard
 from decimal import Decimal
 import requests
 import json
 
 Builder.load_file('kv/order.kv')
+
+class OrderMDFillRoundFlatButton(MDFillRoundFlatButton):
+	print('DoseButton 0')
+
+
+	def __init__(self, **kwargs):
+		super(OrderMDFillRoundFlatButton, self).__init__(**kwargs)
+		self.text_color=(1, 1, 1, 0.3)
+	
+	def on_disabled(self, instance, value):
+		print("OrderMDFillRoundFlatButton:   ", self)
+
 
 class CoffeOrder(MDGridLayout):
 	
