@@ -4,9 +4,7 @@ from kivy.clock import Clock
 from kivymd.uix.card import MDCard
 from kivymd.uix.picker import MDTimePicker, MDDatePicker
 from kivymd.uix.button import MDFillRoundFlatButton
-from kivy.properties import BooleanProperty
-from kivy.uix.screenmanager import ScreenManager
-from datetime import time, datetime, timedelta
+from datetime import datetime, timedelta
 import requests
 import json
 from login import LogInCard
@@ -49,18 +47,13 @@ class MyTimePicker(MDTimePicker):
 		self._set_am_pm(mode)
 
 class DoseButton(MDFillRoundFlatButton):
-	print('DoseButton 0')
-	selected = BooleanProperty()
 
 	def __init__(self, **kwargs):
 		super(DoseButton, self).__init__(**kwargs)
-		self.selected = False
 		self.text_color=(1, 1, 1, 0.3)
 	
 	def on_disabled(self, instance, value):
 		pass
-		# print("DoseButton:      ", self)
-		
 		
 
 class CoffeWare(MDCard):
@@ -70,6 +63,7 @@ class CoffeWare(MDCard):
 		self.stor = None
 		self.ware_step = 0
 		self.dt_obj = None
+		self.app = MDApp.get_running_app()
 		log_card = LogInCard()
 		self.active_token = log_card.load_token()
 		active_user, self.act_pkey, self.act_staff = log_card.read_user()
@@ -91,10 +85,8 @@ class CoffeWare(MDCard):
 		end_t = act_t + timedelta(days = 5)
 		act_date = str(act_t)[0:10].replace("-", ":")
 		end_date =  str(end_t)[0:10].replace("-", ":")
-		print('act_t', act_date, end_date)
 		min_date = datetime.strptime(act_date, '%Y:%m:%d').date()
 		max_date = datetime.strptime(end_date, '%Y:%m:%d').date()
-		print(min_date, max_date)
 		date_dialog = MDDatePicker(
 			min_date=min_date,
 			max_date=max_date,
@@ -105,19 +97,15 @@ class CoffeWare(MDCard):
 
 	def t_on_save(self, instance, value):
 		'''Time picker save function'''
-		print('Set Time: ', value)
 		date = self.ids.date_btn.text
-		print('Set Date: ', date)
 		dt = str(date) + ' ' + str(value)
-		self.dt_obj =datetime.fromisoformat(dt)
+		self.dt_obj = datetime.fromisoformat(dt)
 		act_t = datetime.now()
-		print('act_t  /self.dt_obj: ', act_t, self.dt_obj)
 		if self.dt_obj < act_t:
 			self.dt_obj = act_t + timedelta(hours = 1)
 			t_now = self.dt_obj.time()
 		else:
 			t_now = value
-		print('t_now: ', t_now)
 		self.ids.time_btn.text = str(t_now)[0:8]
 		self.ids.time_btn.md_bg_color=(0, 0.5, 0, 1)
 		Clock.schedule_once(self.button_able, 0)
@@ -128,7 +116,6 @@ class CoffeWare(MDCard):
 		time_dialog = MyTimePicker()
 		act_t = datetime.now()
 		current_time = datetime.now().time()
-		print('act TIME:', act_t, '  :  ', act_t.time(), "current_time", current_time)
 		time_dialog.set_time(current_time)
 		time_dialog.bind(on_save=self.t_on_save)
 		time_dialog.open()
@@ -139,28 +126,22 @@ class CoffeWare(MDCard):
 
 
 	def load_data_clk(self, *args):
-		print('coffe make data')
-		log_card = LogInCard()
-		active_token = log_card.load_token()
-		token_str = 'Token ' + active_token
+		token_str = 'Token ' + self.active_token
 		hd_token = {'Authorization':token_str}
 		print(hd_token)
-		if active_token == 'Empty':
+		if self.active_token == 'Empty':
 			self.mess_text2 = "Isn't valid login with staff status"
 		else:	
 			print('Token have, Data Request')
 			try:
 				store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/act_ware/', headers=hd_token).json()
-				print('store', store)			
+				# print('store', store)			
 				self.stor = self.ware_json(store)
-				print("self.stor json:        ",self.stor)
+				# print("self.stor json:        ",self.stor)
 				return self.stor
 			except:
 				self.mess_text2 = "Problem with internet conection."
 				print("Problem with internet conection")
-		# self.button_able()
-		# Clock.schedule_once(self.button_able, 3)
-		# Clock.schedule_once(self.button_able, 0)
 
 	
 	def ware_json(self, store_d):
@@ -174,8 +155,6 @@ class CoffeWare(MDCard):
 
 	def ware_button(self, *args):
 		''' carussel button => selected coffee raw material'''
-		# log_card = LogInCard()
-		# self.active_token = log_card.load_token()
 		print("self.stor", self.stor)
 		if self.stor != None:
 			tuple_len = len(self.stor)
@@ -193,7 +172,6 @@ class CoffeWare(MDCard):
 			self.ids.ware_btn.md_bg_color=(0, 0.5, 0, 1)
 			self.ids.ware_btn.value = id
 			self.button_able()
-			# Clock.schedule_once(self.button_able, 0)
 		else:
 			print(self.active_token)
 			if self.active_token == 'Empty':
@@ -213,12 +191,10 @@ class CoffeWare(MDCard):
 			dose_but.md_bg_color = [0.5, 0.5, 0.5, 1]
 			print(dose_but.text, dose_but.text_color)
 		act_choice.text_color = (1, 1, 1, 1)
-		act_choice.md_bg_color = (0, 0.5, 0, 1) # self.theme_cls.primary_color
-		# act_choice.disabled = False
+		act_choice.md_bg_color = (0, 0.5, 0, 1)
 		print(act_choice.value)
 		self.ids.make_grid.value = act_choice.value
 		self.button_able()
-
 	
 
 	def button_able(self, *args):
@@ -226,8 +202,6 @@ class CoffeWare(MDCard):
 			disabled TimePicker if Date not selected
 			disabled SAVE button if all option isn't selected.
 		'''
-
-		print("CALLED: button_able", self.active_token)
 		if  self.act_staff == False:
 			able = True
 			self.mess_text2 = "You have not staff status"
@@ -281,42 +255,28 @@ class CoffeWare(MDCard):
 		}
 		print(sends)
 		try:
-			# log_card = LogInCard()
-			# active_token = log_card.load_token()
 			token_str = 'Token ' + self.active_token
 			hd_token = {'Authorization':token_str}
 			if self.active_token != "Empty":
 				print('LOG ware_save Token', self.active_token)
-				requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', headers=hd_token, data=sends)
+				# requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', headers=hd_token, data=sends)
+				self.ids.ware_save.text_color = (1, 1, 1, 1)
+				self.ids.ware_save.md_bg_color = (0, 0.5, 0, 1)
 				self.mess_text2 = "New coffee brewing time saved."
-				self.button_able()
-				self.btn_text_reset()
-			Clock.schedule_once(self.fresh_make_mess, 3)
+				Clock.schedule_once(self.fresh_make_mess, 0)
+				Clock.schedule_once(self.go_home, 2)
 		except:
 			self.mess_text2 = "It seems, there is no internet"
 			Clock.schedule_once(self.fresh_make_mess, 3)
-		Clock.schedule_once(self.fresh_make_mess, 0)
+			Clock.schedule_once(self.fresh_make_mess, 0)
 	
-	def btn_text_reset(self):
-		print("RESET", self.ids)
-		app = MDApp.get_running_app()
-
-		self.ids.ware_btn.text = "Opened Coffee"
-		self.ids.ware_btn.md_bg_color = app.theme_cls.primary_color
-		self.ids.ware_btn.value = 0
-		self.ids.date_btn.text = 'Coffee Date'
-		self.ids.date_btn.md_bg_color = app.theme_cls.primary_color
-		self.ids.time_btn.text = 'Coffee Time'
-		self.ids.time_btn.md_bg_color = app.theme_cls.primary_color
-		self.ids.make_grid.value = 0
-		for dose_but in self.ids.make_grid.children:
-			print(dose_but.text, dose_but.text_color)
-			dose_but.text_color=[1, 1, 1, 0.6]
-			dose_but.md_bg_color = app.theme_cls.primary_color
-			dose_but.disabled = True
-		self.button_able()
 
 	def fresh_make_mess(self, *args, **kwargs):
 		print(self.mess_text2)
 		self.ids.coffe_message_label.text = self.mess_text2
 		self.mess_text2 = ""
+
+
+	def go_home(self, *args):
+		sm = self.app.root.ids.nav_bottom
+		sm.switch_tab('screen 1')
