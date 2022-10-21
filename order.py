@@ -66,6 +66,7 @@ class CoffeOrder(MDGridLayout):
 			texte = str(w_id) + " " + w_name + "\n  " + str(w_dose) +" dose"
 			print(texte, btn_text)
 			self.ids[btn_text].text = texte
+			self.ids[btn_text].text_color=(1, 1, 1, 1)
 			self.ids[btn_text].value = w_id
 			self.dose_button_able(btn_id, w_id, w_dose)
 			self.save_btn_able()
