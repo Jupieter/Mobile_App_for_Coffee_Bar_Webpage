@@ -1,62 +1,50 @@
 from kivy.lang import Builder
 from kivy.clock import Clock
 from kivymd.app import MDApp
-from kivymd.uix.button import MDFillRoundFlatButton
 from kivymd.uix.card import MDCard
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.list import OneLineAvatarListItem
-from kivymd.uix.gridlayout import MDGridLayout
-from kivymd.uix.boxlayout import MDBoxLayout
-from kivy.properties import ObjectProperty, StringProperty
-from kivy.uix.screenmanager import ScreenManager, Screen
-
-from datetime import time, datetime
+from kivy.properties import  StringProperty
+from datetime import datetime
 import requests
-import sqlite3
 from login import LogInCard
 
 
 presentation = Builder.load_file('kv/first_coffee.kv')
-main_ids = ObjectProperty
+
+
+class MyDialog(MDDialog):
+	def __init__(self, **kwargs):
+		super(MyDialog, self).__init__(**kwargs)
 
 
 class Item(OneLineAvatarListItem):
-    divider = None
-    source = StringProperty()
+	source = StringProperty()
+	def __init__(self, **kwargs):
+		super(OneLineAvatarListItem, self).__init__(**kwargs)
+		app = MDApp.get_running_app()
+		self.sm = app.root.ids.nav_bottom
+
+	def on_press(self, **kwargs):
+		if self.text == "First Log in!":
+			self.sm.switch_tab('screen 4')
+		else:
+			self.sm.switch_tab('screen 2')
+		card = self.parent.parent.parent.parent
+		card.dismiss(force=True)
+
 
 class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
-	# print('LogInCard 0')
 	
 	def __init__(self, **kwargs):
 		super(FirstCoffe, self).__init__(**kwargs)
 		self.dt_obj = None
 		self.dialog = None
 		self.first_id = None
-		# print('fk_test', main_ids)
-		# sm = ScreenManager()
-		# y = sm.screens
-		# # print('fk sm :', y)
-		x = self.children[0]
-		# print('fk ids :', x)
-		magam = self
-		Clock.schedule_once(magam.load_data, 0)
-		Clock.schedule_interval(magam.load_data, 10) # data request
-		Clock.schedule_interval(magam.time_back, 1) # time counter sec
+		Clock.schedule_once(self.load_data, 0)
+		Clock.schedule_interval(self.load_data, 10) # data request
+		Clock.schedule_interval(self.time_back, 1) # time counter sec
 		 
-	
-	def switch_scr2(self):
-		'''get a reference to the top right label only by walking through the widget tree'''
-		scr1 = MDApp.get_running_app().id_scr_1
-		print(scr1)
-		# scr1.icon = 'account-check'
-
-	
-	# def load_token(self, *args):
-	# 	conn = sqlite3.connect('coffe_app.db')
-	# 	active_tok = conn.execute("SELECT act_token from act_tokens")
-	# 	for row in active_tok:
-	# 		active_token = row[0]
-	# 	return active_token
 
 	def load_data(self, *args):
 		try:
@@ -68,7 +56,6 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 				fc_date = 'No coffee today'
 				fc_hour = '--'
 				fc_min = '--'
-
 			else:
 				# print('Else coffee')
 				list_data = []
@@ -76,19 +63,13 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 					list_data.append({'text': item['c_make_date'], "pkey": item['id']})
 				first_coffe = list_data[0]['text']
 				self.first_id = list_data[0]['pkey']
-				print(first_coffe)
-				# self.data = first_coffe
-				# # print(self.dat			
+				print(first_coffe)		
 				fc_date = first_coffe[0:10]
-				# print(fc_date)
 				fc_hour = first_coffe[11:13]
 				fc_min = first_coffe[14:16]
-				# print(fc_hour,':',fc_min)
-
 				dt = first_coffe[0:10]+' ' + first_coffe[11:19]
 				self.dt_obj =datetime.fromisoformat(dt)
 				print('dt_obj', self.dt_obj)
-		
 		except:
 			store = []
 			fc_date = 'Problem with internet conection'
@@ -100,7 +81,7 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		
 	
 	def time_back(self, *args):
-		# counter without data request
+		'''counter without data request'''
 		if self.dt_obj:
 			act_t = datetime.now()
 			timedelta_obj = (self.dt_obj - act_t)
@@ -120,8 +101,9 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		self.ids.fk_min_to_label.text = (f'{to_min}')
 		self.ids.fk_sec_to_label.text = (f'{to_sec}')
 
+
 	def friends_dialog(self):
-		print("megnyomtam")
+		print("pressed")
 		datas = None
 		sends = {"coffee_selected": self.first_id}
 		print(self.first_id)
@@ -139,10 +121,11 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		for data in store:
 			z = Item(text=data, source="image/coffee-ante-porta-512.png")
 			item_s.append(z)
-		self.dialog = MDDialog(
+		self.dialog = MyDialog(
             title="Friends for the following coffee:",
             type="simple",
             items=item_s
         )
 		self.dialog.open()
+
 

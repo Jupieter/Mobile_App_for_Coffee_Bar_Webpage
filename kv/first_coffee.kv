@@ -2,9 +2,14 @@
 #   #:set sz_hint_hight 0.09 
 
 
+<MyDialog>
+    id: friend_dialog
+
 <Item>
+    id: ez   
     ImageLeftWidget:
         source: root.source
+        divider: None
 
 
 <FirstCoffe>
@@ -216,3 +221,12 @@
         id: fc_end_widget
         size_hint: (0.8, 0.3 * sz_hint_hight)
         pos_hint: {'center_x': .5, "top": 1}
+    
+    # Button:
+    #     type: 'large'
+    #     size_hint: (4 * sz_hint_hight, 4 * sz_hint_hight)
+    #     pos_hint: {'center_x': .5, "top": 1}
+    #     text: "TEST"
+    #     border: (25,25,25,25)
+    #     on_press: root.go_scr2()
+    #     padding_y: 6
