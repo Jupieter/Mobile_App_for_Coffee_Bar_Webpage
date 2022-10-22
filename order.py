@@ -44,7 +44,7 @@ class CoffeOrder(MDGridLayout):
 		if self.active_token == "Empty":
 			self.mess_text1 = "Isn't valid login. Log In First!"
 			Clock.schedule_once(self.fresh_ord_mess, 0)
-			Clock.schedule_once(self.go_scr4, 3)
+			Clock.schedule_once(self.go_scr4, 2)
 		elif w_order != [] and self.active_token != "Empty":
 			btn_text = "order_btn_" + str(btn_id)
 			lbl_text = "order_end_label_A_" + str(btn_id)

@@ -1,10 +1,12 @@
 #:set ord_btn_txt 0.25    # rapid change button text size, size_hint height everywhere
 #:set save_height 0.16
-#:set ord_lbl_txt 0.15    # rapid change button text size, size_hint height everywhere
-#:set save_lbl_txt 0.5    # rapid change button text size, size_hint height everywhere
+#:set ord_lbl_txt 0.15    
+#:set save_lbl_txt 0.5   
 #:set g_ord_btn_txt 0.35
 #:set ord_sz_hint_height 0.3
 #:set ord_card_height "270dp"
+#:set pad 0.08
+#:set sps 0.07
 
 
 <CoffeOrder>
@@ -22,8 +24,8 @@
         size_y: 600
         pos_hint_x: {"center_x": 0.5}
         elevation: 25
-        padding: 0.08 * self.height
-        spacing:  0.07 * self.height
+        padding: pad * self.height
+        spacing:  sps * self.height
         radius: 20
         orientation: 'vertical'
         line_color: (0.2, 0.2, 0.2, 0.8)
@@ -85,8 +87,8 @@
         size: root.width * 0.96, ord_card_height
         pos_hint: {"center_x": 0.5, "top": 0.85}
         elevation: 25
-        padding: 0.05 * self.height
-        spacing:  0.04 * self.height
+        padding: pad * self.height
+        spacing:  sps * self.height
         radius: 20
         orientation: 'vertical'
         line_color: (0.2, 0.2, 0.2, 0.8)
@@ -101,7 +103,7 @@
             on_press: root.ware_ordr_btn(1) 
         MDGridLayout:
             id: dose_grid_1
-            size_hint: (0.9,  1 * ord_sz_hint_height)
+            size_hint: (1,  1 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, 'top': 1}
             value: 0
             cols: 2
@@ -148,8 +150,8 @@
         size: root.width * 0.96, ord_card_height
         pos_hint: {"center_x": 0.5, "top": 0.85}
         elevation: 25
-        padding: 0.05 * self.height
-        spacing:  0.04 * self.height
+        padding: pad * self.height
+        spacing:  sps * self.height
         radius: 20
         orientation: 'vertical'
         line_color: (0.2, 0.2, 0.2, 0.8)
@@ -164,7 +166,7 @@
             on_press: root.ware_ordr_btn(2) 
         MDGridLayout:
             id: dose_grid_2
-            size_hint: (0.9,  1 * ord_sz_hint_height)
+            size_hint: (1,  1 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, 'top': 1}
             value: 0
             cols: 2
@@ -213,8 +215,8 @@
         size: root.width * 0.96, ord_card_height
         pos_hint: {"center_x": 0.5, "top": 0.85}
         elevation: 25
-        padding: 0.05 * self.height
-        spacing:  0.04 * self.height
+        padding: pad * self.height
+        spacing:  sps * self.height
         radius: 20
         orientation: 'vertical'
         line_color: (0.2, 0.2, 0.2, 0.8)
@@ -229,7 +231,7 @@
             on_press: root.ware_ordr_btn(3) 
         MDGridLayout:
             id: dose_grid_3
-            size_hint: (0.9,  1 * ord_sz_hint_height)
+            size_hint: (1,  1 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, 'top': 1}
             value: 0
             cols: 2
@@ -277,14 +279,14 @@
         size: root.width * 0.96, "600dp"
         pos_hint: {"center_x": 0.5, "top": 0.85}
         elevation: 25
-        padding: 0.05 * self.height
-        spacing:  0.04 * self.height
+        padding: pad * self.height
+        spacing:  sps * self.height
         radius: 20
         orientation: 'vertical'
         line_color: (0.2, 0.2, 0.2, 0.8)
         MDGridLayout:
             id: dose_grid_4
-            size_hint: (0.96,  8 * save_height)
+            size_hint: (1,  8 * save_height)
             pos_hint: {'center_x': .5, 'top': 1}
             value: 0
             cols: 1
@@ -352,7 +354,7 @@
                 underline: True
         OrderMDFillRoundFlatButton:
             id: order_save_btn
-            size_hint: (0.9, 1.4 * save_height)
+            size_hint: (1, 1.4 * save_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
             text: "S A V E"
