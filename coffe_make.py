@@ -169,10 +169,12 @@ class CoffeWare(MDCard):
 		else:
 			if self.active_token == 'Empty':
 				self.mess_text2 = "Isn't valid login with staff status"
+				Clock.schedule_once(self.fresh_make_mess, 0)
+				Clock.schedule_once(self.go_scr4, 2)
 			else:
 				self.mess_text2 = "Something went wrong. No ware data"
-			Clock.schedule_once(self.fresh_make_mess, 3)
-			Clock.schedule_once(self.fresh_make_mess, 0)
+				Clock.schedule_once(self.fresh_make_mess, 2)
+				Clock.schedule_once(self.fresh_make_mess, 0)
 
 
 	def press_dose(self, act_choice):
@@ -267,3 +269,8 @@ class CoffeWare(MDCard):
 	def go_home(self, *args):
 		sm = self.app.root.ids.nav_bottom
 		sm.switch_tab('screen 1')
+
+
+	def go_scr4(self, *args):
+		sm = self.app.root.ids.nav_bottom
+		sm.switch_tab('screen 4')

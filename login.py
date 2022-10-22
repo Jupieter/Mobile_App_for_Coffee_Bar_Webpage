@@ -76,7 +76,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 					self.ids.password.text = ""	
 					scr4.icon = 'account-check'
 					Clock.schedule_once(self.fresh_mess, 0)
-					Clock.schedule_once(self.go_home, 3)
+					# Clock.schedule_once(self.go_home, 3)
 					print('END LOG') 
 				else:
 					self.mess_text = 'Wrong email or password!'

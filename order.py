@@ -85,7 +85,8 @@ class CoffeOrder(MDGridLayout):
 		for i in range(1,4,1):
 			btn_id = "order_btn_" + str(i)
 			self.ids[btn_id].disabled = able1
-		self.fresh_ord_mess()
+		Clock.schedule_once(self.fresh_ord_mess, 3)
+		Clock.schedule_once(self.fresh_ord_mess, 0)
 
 
 	def save_btn_able(self, *args):
@@ -98,7 +99,8 @@ class CoffeOrder(MDGridLayout):
 		else:
 			self.ids["order_save_btn"].disabled =  False
 			self.mess_text2 = "You can save your order"
-			self.fresh_ord_mess()
+			Clock.schedule_once(self.fresh_ord_mess, 3)
+			Clock.schedule_once(self.fresh_ord_mess, 0)
 
 	def oreder_press_dose(self, act_choice, btn_id):
 		'''One Choice button selection function'''
@@ -117,7 +119,8 @@ class CoffeOrder(MDGridLayout):
 		self.ids[lbl_text].text = "Dose: " + "{:.1f}".format(act_choice.value) 
 		order_label = "order_label_" + str(btn_id)
 		self.mess_text1  = self.ids[order_label].text + " : " + str(act_choice.value) + " dose"
-		self.fresh_ord_mess()		
+		Clock.schedule_once(self.fresh_ord_mess, 3)
+		Clock.schedule_once(self.fresh_ord_mess, 0)		
 
 
 	def dose_button_able(self, btn_id, w_id, w_dose, *args):
@@ -153,7 +156,8 @@ class CoffeOrder(MDGridLayout):
 			print("-----------------problem----------------------")
 			print("Problem with internet conection")
 			self.mess_text1  = "Something went wrong. No ware data"	
-		self.fresh_ord_mess()
+		Clock.schedule_once(self.fresh_ord_mess, 3)
+		Clock.schedule_once(self.fresh_ord_mess, 0)
 
 
 	def order_save(self, *args):
@@ -180,14 +184,17 @@ class CoffeOrder(MDGridLayout):
 				requests.post('https://coffeeanteportas.herokuapp.com/c_app/order_save/', headers=hd_token, data=sends)
 				self.ids["order_save_btn"].md_bg_color=(0, 0.5, 0, 1)
 				self.mess_text2 = "New coffee order saved."
+				Clock.schedule_once(self.fresh_ord_mess, 0)
 				Clock.schedule_once(self.go_home, 2)
 		except:
 			self.mess_text2 = "It seems, there is no internet"
-			self.fresh_ord_mess()
+			Clock.schedule_once(self.fresh_ord_mess, 3)
+			Clock.schedule_once(self.fresh_ord_mess, 0)
 	
 	
 	def fresh_ord_mess(self, *args, **kwargs):
 		self.scr2.text = self.mess_text1
+		self.mess_text2 = ""
 
 
 	def go_home(self, *args):
