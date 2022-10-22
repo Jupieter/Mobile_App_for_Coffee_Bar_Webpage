@@ -18,6 +18,7 @@ class OrderMDFillRoundFlatButton(MDFillRoundFlatButton):
 		self.text_color=(1, 1, 1, 0.3)
 	
 	def on_disabled(self, instance, value):
+		'''musted to overwrite it because It overwrites the green marked button to primary_color '''
 		pass
 
 
@@ -32,22 +33,16 @@ class CoffeOrder(MDGridLayout):
 		self.log_card = LogInCard()
 		self.active_token = self.log_card.load_token()
 		self.active_user, self.act_pkey, self.act_staff = self.log_card.read_user()
-		# print(self.scr2)
 		self.mess_text1 = "O R D E R"
 		Clock.schedule_once(self.load_data_ware, 0)
-		# Clock.schedule_once(self.ware_btn_able, 0)
-		# Clock.schedule_once(self.fresh_ord_mess, 0)
 
 
 	def ware_ordr_btn(self, btn_id, *args):
 		''' carussel button => selected coffee raw material'''
-		# print("self.ordered", self.ordered)
 		w_order = self.ordered[btn_id]
-		# print("w_order:        ", w_order)
 		self.active_token = self.log_card.load_token()
 		if self.active_token == "Empty":
 			self.mess_text1 = "Isn't valid login"
-			# print(self.mess_text1 , "Empty")
 		elif w_order != [] and self.active_token != "Empty":
 			btn_text = "order_btn_" + str(btn_id)
 			lbl_text = "order_end_label_A_" + str(btn_id)
@@ -59,12 +54,11 @@ class CoffeOrder(MDGridLayout):
 			w_step = self.ware_step_lst[btn_id]-1
 			ware = json.loads(w_order[w_step])
 			w_id = ware['w_id']
-			w_name = ware['w_name']   # .replace('Coffee','')
+			w_name = ware['w_name']
 			w_name.replace(',','')
 			w_dose = Decimal(ware['w_dose'])
-			# print("w_step", w_step, w_id, w_name,'w_dose', w_dose, type(w_dose))
-			texte = str(w_id) + " " + w_name + "\n  " + str(w_dose) +" dose"
-			# print(texte, btn_text)
+			texte = w_name + " | " + str(w_dose) +" dose"
+
 			self.ids[btn_text].text = texte
 			self.ids[btn_text].text_color=(1, 1, 1, 1)
 			self.ids[btn_text].value = w_id
@@ -72,8 +66,6 @@ class CoffeOrder(MDGridLayout):
 			self.save_btn_able()
 			self.ids[btn_text].md_bg_color=(0, 0.5, 0, 1)
 			self.ids[lbl_text].text = texte
-
-			# print("self.ids[dose_grid].value:  ", self.ids[grd_text].value)
 			self.mess_text1  = texte
 		else:
 			self.mess_text1  = "Something went wrong. No ware data"	
@@ -108,20 +100,17 @@ class CoffeOrder(MDGridLayout):
 		'''One Choice button selection function'''
 		dose_grid = "dose_grid_" + str(btn_id)
 		self.ids[dose_grid].value = 0
-		# print(dose_grid)
 		for dose_but in self.ids[dose_grid].children:
 			dose_but.text_color=[0, 0, 0, 0.3]
 			dose_but.md_bg_color = [0.4, 0.4, 0.4, 1]
-			# print(dose_but.text, dose_but.text_color, "bg: ", dose_but.md_bg_color)
 		act_choice.md_bg_color=(0, 0.5, 0, 1)
 		act_choice.text_color=(1, 1, 1, 1)
 		self.ids[dose_grid].value = act_choice.value
 		if btn_id == "0" and self.ids["dose_grid_0"].value != 0:
 			self.ware_btn_able()
-
+		# messages: 
 		lbl_text = "order_end_label_B_" + str(btn_id)
-		self.ids[lbl_text].text = "Dose: " + "{:.1f}".format(act_choice.value) # str(act_choice.value)  
-		# print("self.ids[dose_grid].value:  ", self.ids[dose_grid].value)
+		self.ids[lbl_text].text = "Dose: " + "{:.1f}".format(act_choice.value) 
 		order_label = "order_label_" + str(btn_id)
 		self.mess_text1  = self.ids[order_label].text + " : " + str(act_choice.value) + " dose"
 		self.fresh_ord_mess()		
