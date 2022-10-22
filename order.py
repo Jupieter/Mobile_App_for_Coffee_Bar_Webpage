@@ -1,4 +1,3 @@
-from re import S
 from kivy.lang import Builder
 from kivy.clock import Clock
 from kivymd.app import MDApp
