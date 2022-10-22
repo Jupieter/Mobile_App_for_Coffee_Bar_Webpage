@@ -3,10 +3,8 @@ from kivy.clock import Clock
 from kivymd.app import MDApp
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.button import MDFillRoundFlatButton
-from kivy.uix.label import Label
 from login import LogInCard
 from decimal import Decimal
-from time import sleep
 import requests
 import json
 
