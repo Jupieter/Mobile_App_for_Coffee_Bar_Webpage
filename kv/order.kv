@@ -1,4 +1,4 @@
-#:set ord_btn_txt 0.25    # rapid change button text size, size_hint height everywhere
+#:set ord_btn_txt 0.22    # rapid change button text size, size_hint height everywhere
 #:set save_height 0.16
 #:set ord_lbl_txt 0.15    
 #:set save_lbl_txt 0.5   
@@ -35,6 +35,7 @@
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
             text: "Choice Coffee"
+            halign: 'center'
             value: 0
             on_press: root.ware_ordr_btn(0)  
         MDGridLayout:
