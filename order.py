@@ -43,7 +43,7 @@ class CoffeOrder(MDGridLayout):
 		self.active_token = self.log_card.load_token()
 		if self.active_token == "Empty":
 			self.mess_text1 = "Isn't valid login. Log In First!"
-			Clock.schedule_once(self.fresh_ord_mess, 0)
+			Clock.schedule_once(self.fresh_ord_mess, 1.5)
 			Clock.schedule_once(self.go_scr4, 2)
 		elif w_order != [] and self.active_token != "Empty":
 			btn_text = "order_btn_" + str(btn_id)
@@ -66,10 +66,13 @@ class CoffeOrder(MDGridLayout):
 			self.ids[btn_text].md_bg_color=(0, 0.5, 0, 1)
 			self.ids[btn_text].value = w_id
 			# able the next buttons
-			self.dose_button_able(btn_id, w_id, w_dose)
-			self.save_btn_able()
 			self.ids[lbl_text].text = texte
 			self.mess_text1  = texte
+			self.dose_button_able(btn_id, w_id, w_dose)
+			Clock.schedule_once(self.fresh_ord_mess, 2)
+			Clock.schedule_once(self.fresh_ord_mess, 0)
+			Clock.schedule_once(self.save_btn_able, 1)
+			# self.save_btn_able()
 		else:
 			self.mess_text1  = "Something went wrong. No ware data"	
 			Clock.schedule_once(self.fresh_ord_mess, 3)
@@ -85,8 +88,6 @@ class CoffeOrder(MDGridLayout):
 		for i in range(1,4,1):
 			btn_id = "order_btn_" + str(i)
 			self.ids[btn_id].disabled = able1
-		Clock.schedule_once(self.fresh_ord_mess, 3)
-		Clock.schedule_once(self.fresh_ord_mess, 0)
 
 
 	def save_btn_able(self, *args):
@@ -98,7 +99,7 @@ class CoffeOrder(MDGridLayout):
 			self.ids["order_save_btn"].disabled = True
 		else:
 			self.ids["order_save_btn"].disabled =  False
-			self.mess_text2 = "You can save your order"
+			self.mess_text1 = "You can save your order"
 			Clock.schedule_once(self.fresh_ord_mess, 3)
 			Clock.schedule_once(self.fresh_ord_mess, 0)
 
@@ -119,7 +120,7 @@ class CoffeOrder(MDGridLayout):
 		self.ids[lbl_text].text = "Dose: " + "{:.1f}".format(act_choice.value) 
 		order_label = ["COFFEE", "SUGAR", "MILK", "FLAVOUR"]
 		self.mess_text1  = order_label[int(btn_id)] + " ORDER : " + str(act_choice.value) + " dose"
-		Clock.schedule_once(self.fresh_ord_mess, 3)
+		Clock.schedule_once(self.fresh_ord_mess, 1.5)
 		Clock.schedule_once(self.fresh_ord_mess, 0)		
 
 
@@ -156,7 +157,7 @@ class CoffeOrder(MDGridLayout):
 			print("-----------------problem----------------------")
 			print("Problem with internet conection")
 			self.mess_text1  = "Something went wrong. No ware data"	
-		Clock.schedule_once(self.fresh_ord_mess, 3)
+		Clock.schedule_once(self.fresh_ord_mess, 2)
 		Clock.schedule_once(self.fresh_ord_mess, 0)
 
 
@@ -183,18 +184,18 @@ class CoffeOrder(MDGridLayout):
 				# requests.post('http://127.0.0.1:8000/c_app/order_save/', headers=hd_token, data=sends)
 				requests.post('https://coffeeanteportas.herokuapp.com/c_app/order_save/', headers=hd_token, data=sends)
 				self.ids["order_save_btn"].md_bg_color=(0, 0.5, 0, 1)
-				self.mess_text2 = "New coffee order saved."
+				self.mess_text1 = "New coffee order saved."
 				Clock.schedule_once(self.fresh_ord_mess, 0)
 				Clock.schedule_once(self.go_home, 2)
 		except:
-			self.mess_text2 = "It seems, there is no internet"
-			Clock.schedule_once(self.fresh_ord_mess, 3)
+			self.mess_text1 = "It seems, there is no internet"
+			Clock.schedule_once(self.fresh_ord_mess, 2)
 			Clock.schedule_once(self.fresh_ord_mess, 0)
 	
 	
 	def fresh_ord_mess(self, *args, **kwargs):
 		self.scr2.text = self.mess_text1
-		self.mess_text2 = ""
+		self.mess_text1 = "Order Page"
 
 
 	def go_home(self, *args):
