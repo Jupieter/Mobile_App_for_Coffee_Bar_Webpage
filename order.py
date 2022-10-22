@@ -117,8 +117,8 @@ class CoffeOrder(MDGridLayout):
 		# messages: 
 		lbl_text = "order_end_label_B_" + str(btn_id)
 		self.ids[lbl_text].text = "Dose: " + "{:.1f}".format(act_choice.value) 
-		order_label = "order_label_" + str(btn_id)
-		self.mess_text1  = self.ids[order_label].text + " : " + str(act_choice.value) + " dose"
+		order_label = ["COFFEE", "SUGAR", "MILK", "FLAVOUR"]
+		self.mess_text1  = order_label[int(btn_id)] + " ORDER : " + str(act_choice.value) + " dose"
 		Clock.schedule_once(self.fresh_ord_mess, 3)
 		Clock.schedule_once(self.fresh_ord_mess, 0)		
 
