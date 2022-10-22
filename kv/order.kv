@@ -13,17 +13,13 @@
     padding: 10, 10
     spacing: 30, 30
     size_hint_y: None
-    # minimum_width: root.width * 0.86
     height: self.minimum_height
-    # width: self.minimum_width
     MDCard:
         id: order_card
         on_pre_enter: 
         size_hint: None, None
         size: root.width * 0.96, ord_card_height
-        #   size_x: root.width , self.height 
         size_y: 600
-        # size_hint_x: 0.8
         pos_hint_x: {"center_x": 0.5}
         elevation: 25
         padding: 0.08 * self.height
@@ -33,7 +29,6 @@
         line_color: (0.2, 0.2, 0.2, 0.8)
         OrderMDFillRoundFlatButton:
             id: order_btn_0
-            # disabled: True
             size_hint: (1, 0.6 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
@@ -98,7 +93,7 @@
         OrderMDFillRoundFlatButton:
             id: order_btn_1
             disabled: True
-            size_hint: (0.9, 0.6 * ord_sz_hint_height)
+            size_hint: (1, 0.6 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
             text: "Choice Sugar"
@@ -161,7 +156,7 @@
         OrderMDFillRoundFlatButton:
             id: order_btn_2
             disabled: True
-            size_hint: (0.9, 0.6 * ord_sz_hint_height)
+            size_hint: (1, 0.6 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
             text: "Choice Milk"
@@ -226,7 +221,7 @@
         OrderMDFillRoundFlatButton:
             id: order_btn_3
             disabled: True
-            size_hint: (0.9, 0.6 * ord_sz_hint_height)
+            size_hint: (1, 0.6 * ord_sz_hint_height)
             pos_hint: {'center_x': .5, "top": 1}
             font_size: ord_btn_txt * self.height
             text: "Choice Flavour"
