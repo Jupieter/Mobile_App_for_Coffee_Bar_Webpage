@@ -59,9 +59,14 @@ class MDBottomNavigationItemSc1(MDBottomNavigationItem):
     def on_pre_enter(self, *args):
         print("* Coffe MAIN              on_enter  *")
         FirstCoffe()
+        # self.app.root.ids.nav_bottom.acta = 'screen 1'
         # fc.load_data()
         # self.app.root.ids.screen3.remove_widget(CoffeWare())
         # self.app.root.ids.order_scroll.remove_widget(CoffeOrder())
+
+    def on_leave(self, *args):
+        print("*  Coffe Order             on_leave  *")
+        self.app.root.ids.nav_bottom.acta = 'screen 1'
         
 
 class MDBottomNavigationItemSc2(MDBottomNavigationItem):
@@ -77,6 +82,7 @@ class MDBottomNavigationItemSc2(MDBottomNavigationItem):
         
     def on_leave(self, *args):
         print("*  Coffe Order             on_leave  *")
+        self.app.root.ids.nav_bottom.acta = 'screen 2'
         self.app.root.ids.order_scroll.clear_widgets()
 
  
@@ -94,6 +100,7 @@ class MDBottomNavigationItemSc3(MDBottomNavigationItem):
         
     def on_leave(self, *args):
         print("*  Coffe Maker             on_leave  *")
+        self.app.root.ids.nav_bottom.acta = 'screen 3'
         self.app.root.ids.screen3.clear_widgets()
 
 

@@ -22,7 +22,8 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		self.mess_text = ""
 		ld_user = self.load_user()
 		self.ids.user.text = ld_user
-
+		self.app = MDApp.get_running_app()
+		
 
 	def log_out(self):
 		active_token = self.load_token()
@@ -76,7 +77,7 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 					self.ids.password.text = ""	
 					scr4.icon = 'account-check'
 					Clock.schedule_once(self.fresh_mess, 0)
-					# Clock.schedule_once(self.go_home, 3)
+					Clock.schedule_once(self.go_back, 1.5)
 					print('END LOG') 
 				else:
 					self.mess_text = 'Wrong email or password!'
@@ -163,9 +164,10 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		self.ids.login_message_label.text = self.mess_text
 		self.mess_text = ""
 	
-	def go_home(self, *args):
-		app = MDApp.get_running_app()
-		sm = app.root.ids.nav_bottom
-		sm.switch_tab('screen 1')
+	def go_back(self, *args):
+		last_scr = self.app.root.ids.nav_bottom.acta
+		print(last_scr)
+		sm = self.app.root.ids.nav_bottom
+		sm.switch_tab(last_scr)
 		
 
