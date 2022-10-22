@@ -42,7 +42,7 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 		self.dialog = None
 		self.first_id = None
 		Clock.schedule_once(self.load_data, 0)
-		Clock.schedule_interval(self.load_data, 15) # data request
+		Clock.schedule_interval(self.load_data, 60) # data request
 		Clock.schedule_interval(self.time_back, 1) # time counter sec
 		 
 

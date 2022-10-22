@@ -58,8 +58,11 @@ class MDBottomNavigationItemSc1(MDBottomNavigationItem):
     
     def on_pre_enter(self, *args):
         print("* Coffe MAIN              on_enter  *")
+        FirstCoffe()
+        # fc.load_data()
         # self.app.root.ids.screen3.remove_widget(CoffeWare())
         # self.app.root.ids.order_scroll.remove_widget(CoffeOrder())
+        
 
 class MDBottomNavigationItemSc2(MDBottomNavigationItem):
 
