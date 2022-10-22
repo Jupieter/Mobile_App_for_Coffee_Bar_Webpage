@@ -247,7 +247,7 @@ class CoffeWare(MDCard):
 			hd_token = {'Authorization':token_str}
 			if self.active_token != "Empty":
 				print('LOG ware_save Token', self.active_token)
-				# requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', headers=hd_token, data=sends)
+				requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', headers=hd_token, data=sends)
 				self.ids.ware_save.text_color = (1, 1, 1, 1)
 				self.ids.ware_save.md_bg_color = (0, 0.5, 0, 1)
 				self.mess_text2 = "New coffee brewing time saved."
