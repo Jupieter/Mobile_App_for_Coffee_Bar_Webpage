@@ -38,7 +38,7 @@ from first_coffee import FirstCoffe
 print("FirstCoffe")
 from order import CoffeOrder
 print("CoffeOrder")
-from roulettescroll import RouletteScrollEffect
+# from roulettescroll import RouletteScrollEffect
 print("afer inports")
 
 active_token = 'Semmi'
