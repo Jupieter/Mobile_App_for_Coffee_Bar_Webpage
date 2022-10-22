@@ -42,7 +42,9 @@ class CoffeOrder(MDGridLayout):
 		w_order = self.ordered[btn_id]
 		self.active_token = self.log_card.load_token()
 		if self.active_token == "Empty":
-			self.mess_text1 = "Isn't valid login"
+			self.mess_text1 = "Isn't valid login. Log In First!"
+			Clock.schedule_once(self.fresh_ord_mess, 0)
+			Clock.schedule_once(self.go_scr4, 3)
 		elif w_order != [] and self.active_token != "Empty":
 			btn_text = "order_btn_" + str(btn_id)
 			lbl_text = "order_end_label_A_" + str(btn_id)
@@ -70,7 +72,8 @@ class CoffeOrder(MDGridLayout):
 			self.mess_text1  = texte
 		else:
 			self.mess_text1  = "Something went wrong. No ware data"	
-		self.fresh_ord_mess()
+			Clock.schedule_once(self.fresh_ord_mess, 3)
+			Clock.schedule_once(self.fresh_ord_mess, 0)
 
 
 	def ware_btn_able(self, *args):
@@ -136,11 +139,6 @@ class CoffeOrder(MDGridLayout):
 				button1.disabled = able2
 
 
-	def go_home(self, *args):
-		sm = self.app.root.ids.nav_bottom
-		sm.switch_tab('screen 1')
-
-
 	def load_data_ware(self, *args):
 		print('coffe order data')
 		try:
@@ -190,3 +188,12 @@ class CoffeOrder(MDGridLayout):
 	
 	def fresh_ord_mess(self, *args, **kwargs):
 		self.scr2.text = self.mess_text1
+
+
+	def go_home(self, *args):
+		sm = self.app.root.ids.nav_bottom
+		sm.switch_tab('screen 1')
+
+	def go_scr4(self, *args):
+		sm = self.app.root.ids.nav_bottom
+		sm.switch_tab('screen 4')
