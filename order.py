@@ -38,7 +38,7 @@ class CoffeOrder(MDGridLayout):
 
 
 	def ware_ordr_btn(self, btn_id, *args):
-		''' carussel button => selected coffee raw material'''
+		''' carussel button => select material from requested db'''
 		w_order = self.ordered[btn_id]
 		self.active_token = self.log_card.load_token()
 		if self.active_token == "Empty":
@@ -47,24 +47,25 @@ class CoffeOrder(MDGridLayout):
 			btn_text = "order_btn_" + str(btn_id)
 			lbl_text = "order_end_label_A_" + str(btn_id)
 			tuple_len = len(w_order)
-			# print("Have Ware: ", btn_text, "len: ", w_order)
-			self.ware_step_lst[btn_id] += 1
+			# stepper
+			self.ware_step_lst[btn_id] += 1 				
 			if self.ware_step_lst[btn_id] > tuple_len:
 				self.ware_step_lst[btn_id] = 1
 			w_step = self.ware_step_lst[btn_id]-1
+			# ware type by button id number
 			ware = json.loads(w_order[w_step])
 			w_id = ware['w_id']
 			w_name = ware['w_name']
 			w_name.replace(',','')
 			w_dose = Decimal(ware['w_dose'])
 			texte = w_name + " | " + str(w_dose) +" dose"
-
 			self.ids[btn_text].text = texte
 			self.ids[btn_text].text_color=(1, 1, 1, 1)
+			self.ids[btn_text].md_bg_color=(0, 0.5, 0, 1)
 			self.ids[btn_text].value = w_id
+			# able the next buttons
 			self.dose_button_able(btn_id, w_id, w_dose)
 			self.save_btn_able()
-			self.ids[btn_text].md_bg_color=(0, 0.5, 0, 1)
 			self.ids[lbl_text].text = texte
 			self.mess_text1  = texte
 		else:
