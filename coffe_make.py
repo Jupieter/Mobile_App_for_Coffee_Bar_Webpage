@@ -49,7 +49,7 @@ class DoseButton(MDFillRoundFlatButton):
 
 	def __init__(self, **kwargs):
 		super(DoseButton, self).__init__(**kwargs)
-		self.text_color=(1, 1, 1, 0.3)
+		self.text_color=(1, 1, 1, 0.5)
 	
 	def on_disabled(self, instance, value):
 		pass
@@ -63,9 +63,9 @@ class CoffeWare(MDCard):
 		self.ware_step = 0
 		self.dt_obj = None
 		self.app = MDApp.get_running_app()
-		log_card = LogInCard()
-		self.active_token = log_card.load_token()
-		active_user, self.act_pkey, self.act_staff = log_card.read_user()
+		self.log_card = LogInCard()
+		self.active_token = self.log_card.load_token()
+		active_user, self.act_pkey, self.act_staff = self.log_card.read_user()
 		Clock.schedule_once(self.load_data, 0)
 		self.message = ""
 		Clock.schedule_once(self.button_able, 0) 
@@ -74,7 +74,8 @@ class CoffeWare(MDCard):
 	def d_on_save(self, instance, value, date_range):
 		'''Date picker save function'''
 		self.ids.date_btn.text = str(value)
-		self.ids.date_btn.md_bg_color=(0, 0.5, 0, 1)
+		self.ids.date_btn.text_color = self.log_card.my_color(5)
+		self.ids.date_btn.md_bg_color = self.log_card.my_color(2)
 		Clock.schedule_once(self.button_able, 0)
 
 
@@ -106,7 +107,8 @@ class CoffeWare(MDCard):
 		else:
 			t_now = value
 		self.ids.time_btn.text = str(t_now)[0:8]
-		self.ids.time_btn.md_bg_color=(0, 0.5, 0, 1)
+		self.ids.time_btn.text_color = self.log_card.my_color(5)
+		self.ids.time_btn.md_bg_color = self.log_card.my_color(2)
 		Clock.schedule_once(self.button_able, 0)
 
 
@@ -163,7 +165,8 @@ class CoffeWare(MDCard):
 			dose = self.stor[self.ware_step-1]['w_dose']
 			texte = str(id) + " " + name + "" + str(dose) +" dose"
 			self.ids.ware_btn.text = texte
-			self.ids.ware_btn.md_bg_color=(0, 0.5, 0, 1)
+			self.ids.ware_btn.text_color = self.log_card.my_color(5)
+			self.ids.ware_btn.md_bg_color = self.log_card.my_color(2)
 			self.ids.ware_btn.value = id
 			self.button_able()
 		else:
@@ -181,10 +184,10 @@ class CoffeWare(MDCard):
 		'''One Choice button selection function'''
 		for dose_but in self.ids.make_grid.children:
 			dose_but.selected = False
-			dose_but.text_color = [0, 0, 0, 0.3]
-			dose_but.md_bg_color = [0.5, 0.5, 0.5, 1]
-		act_choice.text_color = (1, 1, 1, 1)
-		act_choice.md_bg_color = (0, 0.5, 0, 1)
+			dose_but.text_color = self.log_card.my_color(3)
+			dose_but.md_bg_color = self.app.theme_cls.primary_dark
+		act_choice.text_color = self.log_card.my_color(5)
+		act_choice.md_bg_color = self.log_card.my_color(2)
 		self.ids.make_grid.value = act_choice.value
 		self.button_able()
 	
@@ -250,8 +253,8 @@ class CoffeWare(MDCard):
 			if self.active_token != "Empty":
 				print('LOG ware_save Token', self.active_token)
 				requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', headers=hd_token, data=sends)
-				self.ids.ware_save.text_color = (1, 1, 1, 1)
-				self.ids.ware_save.md_bg_color = (0, 0.5, 0, 1)
+				self.ids.ware_save.text_color = self.log_card.my_color(5)
+				self.ids.ware_save.md_bg_color = self.log_card.my_color(2)
 				self.mess_text2 = "New coffee brewing time saved."
 				Clock.schedule_once(self.fresh_make_mess, 0)
 				Clock.schedule_once(self.go_home, 2)
