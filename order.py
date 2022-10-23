@@ -183,7 +183,8 @@ class CoffeOrder(MDGridLayout):
 				print('LOG ware_save Token', self.active_token)
 				# requests.post('http://127.0.0.1:8000/c_app/order_save/', headers=hd_token, data=sends)
 				requests.post('https://coffeeanteportas.herokuapp.com/c_app/order_save/', headers=hd_token, data=sends)
-				self.ids["order_save_btn"].md_bg_color=(0, 0.5, 0, 1)
+				self.ids["order_save_btn"].text_color = self.log_card.my_color(5)
+				self.ids["order_save_btn"].md_bg_color = self.log_card.my_color(2)
 				self.mess_text1 = "New coffee order saved."
 				Clock.schedule_once(self.fresh_ord_mess, 0)
 				Clock.schedule_once(self.go_home, 2)
