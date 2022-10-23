@@ -195,7 +195,7 @@ class CoffeOrder(MDGridLayout):
 	
 	def fresh_ord_mess(self, *args, **kwargs):
 		self.scr2.text = self.mess_text1
-		self.mess_text1 = "Order Page"
+		self.mess_text1 = "Ordering"
 
 
 	def go_home(self, *args):
