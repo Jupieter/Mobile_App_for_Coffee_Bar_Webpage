@@ -62,8 +62,8 @@ class CoffeOrder(MDGridLayout):
 			w_dose = Decimal(ware['w_dose'])
 			texte = w_name + " | " + str(w_dose) +" dose"
 			self.ids[btn_text].text = texte
-			self.ids[btn_text].text_color=(1, 1, 1, 1)
-			self.ids[btn_text].md_bg_color=(0, 0.5, 0, 1)
+			self.ids[btn_text].text_color = self.log_card.my_color(5)
+			self.ids[btn_text].md_bg_color = self.log_card.my_color(2)
 			self.ids[btn_text].value = w_id
 			# able the next buttons
 			self.ids[lbl_text].text = texte
@@ -108,10 +108,10 @@ class CoffeOrder(MDGridLayout):
 		dose_grid = "dose_grid_" + str(btn_id)
 		self.ids[dose_grid].value = 0
 		for dose_but in self.ids[dose_grid].children:
-			dose_but.text_color=[0, 0, 0, 0.3]
-			dose_but.md_bg_color = [0.4, 0.4, 0.4, 1]
-		act_choice.md_bg_color=(0, 0.5, 0, 1)
-		act_choice.text_color=(1, 1, 1, 1)
+			dose_but.text_color = self.log_card.my_color(3)
+			dose_but.md_bg_color = self.app.theme_cls.primary_dark # [0.4, 0.4, 0.4, 1]
+		act_choice.text_color = self.log_card.my_color(5)
+		act_choice.md_bg_color = self.log_card.my_color(2) #(0, 0.5, 0, 1)
 		self.ids[dose_grid].value = act_choice.value
 		if btn_id == "0" and self.ids["dose_grid_0"].value != 0:
 			self.ware_btn_able()

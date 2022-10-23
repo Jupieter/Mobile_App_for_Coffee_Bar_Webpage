@@ -4,11 +4,8 @@ from kivymd.app import MDApp
 from kivymd.uix.card import MDCard
 from kivymd.uix.textfield import MDTextFieldRound
 from kivy.properties import ObjectProperty
-import time
-
 import requests
 import sqlite3
-
 
 
 Builder.load_file('kv/login.kv')
@@ -169,5 +166,20 @@ class LogInCard(MDCard): # the.boss@staff.com    Enter1   {'email': 'boss@staff.
 		print(last_scr)
 		sm = self.app.root.ids.nav_bottom
 		sm.switch_tab(last_scr)
-		
 
+	def my_color(self, color_choice):
+		'''https://www.schemecolor.com/cappuccino-brown.php'''
+		act_color = []
+		color_list = [
+		(101, 62, 54, 255),
+		(101, 62, 54, 255),
+		(170, 124, 90, 255),
+		(214, 175, 141, 255),
+		(234, 228, 229, 255),
+		(107, 68, 34, 255)
+		]
+		ch_color = color_list[color_choice]
+		for pc in ch_color:
+			num = int(pc/255*100)/100
+			act_color.append(num)
+		return act_color
