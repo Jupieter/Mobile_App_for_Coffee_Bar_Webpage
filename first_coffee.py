@@ -48,7 +48,8 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 
 	def load_data(self, *args):
 		try:
-			store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/todaytcoffee/').json()
+			store = requests.get('https://jupieter.pythonanywhere.com/c_app/todaytcoffee/').json()
+			#	store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/todaytcoffee/').json()
 			print('STORE',store)
 			if store == []:
 				# print('Empty coffee')
@@ -116,7 +117,8 @@ class FirstCoffe(MDCard): # the.boss@staff.com    Enter1
 			token_str = 'Token ' + active_token
 			hd_token = {'Authorization':token_str}
 			print(sends)
-			store = requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_friends/', headers=hd_token, data=sends).json()
+			store = requests.post('https://jupieter.pythonanywhere.com/c_app/coffe_friends/', headers=hd_token, data=sends).json()
+			#	store = requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_friends/', headers=hd_token, data=sends).json()
 		item_s = []
 		for data in store:
 			z = Item(text=data, source="image/coffee-ante-porta-512.png")
