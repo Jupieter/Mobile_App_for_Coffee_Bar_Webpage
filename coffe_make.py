@@ -134,7 +134,8 @@ class CoffeWare(MDCard):
 		else:	
 			print('Token have, Data Request')
 			try:
-				store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/act_ware/', headers=hd_token).json()
+				store = requests.get('https://jupieter.pythonanywhere.com/c_app/act_ware/', headers=hd_token).json()
+				#	store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/act_ware/', headers=hd_token).json()
 				# print('store', store)			
 				self.stor = self.ware_json(store)
 				return self.stor
@@ -252,7 +253,8 @@ class CoffeWare(MDCard):
 			hd_token = {'Authorization':token_str}
 			if self.active_token != "Empty":
 				print('LOG ware_save Token', self.active_token)
-				requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', headers=hd_token, data=sends)
+				requests.post('https://jupieter.pythonanywhere.com/c_app/coffe_make/', headers=hd_token, data=sends)
+				#	requests.post('https://coffeeanteportas.herokuapp.com/c_app/coffe_make/', headers=hd_token, data=sends)
 				self.ids.ware_save.text_color = self.log_card.my_color(5)
 				self.ids.ware_save.md_bg_color = self.log_card.my_color(2)
 				self.mess_text2 = "New coffee brewing time saved."

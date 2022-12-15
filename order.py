@@ -146,7 +146,8 @@ class CoffeOrder(MDGridLayout):
 	def load_data_ware(self, *args):
 		print('coffe order data')
 		try:
-			wares = requests.get('http://coffeeanteportas.herokuapp.com/c_app/order_tastes/').json()
+			wares = requests.get('http://jupieter.pythonanywhere.com/c_app/order_tastes/').json()
+			# wares = requests.get('http://coffeeanteportas.herokuapp.com/c_app/order_tastes/').json()
 			# wares = requests.get('http://127.0.0.1:8000/c_app/order_tastes/').json()
 			print("-----------------wares----------------------")
 			for i in range(4):
@@ -181,8 +182,9 @@ class CoffeOrder(MDGridLayout):
 			hd_token = {'Authorization':token_str}
 			if self.active_token != "Empty":
 				print('LOG ware_save Token', self.active_token)
+				requests.post('https://jupieter.pythonanywhere.com/c_app/order_save/', headers=hd_token, data=sends)
 				# requests.post('http://127.0.0.1:8000/c_app/order_save/', headers=hd_token, data=sends)
-				requests.post('https://coffeeanteportas.herokuapp.com/c_app/order_save/', headers=hd_token, data=sends)
+				# requests.post('https://coffeeanteportas.herokuapp.com/c_app/order_save/', headers=hd_token, data=sends)
 				self.ids["order_save_btn"].text_color = self.log_card.my_color(5)
 				self.ids["order_save_btn"].md_bg_color = self.log_card.my_color(2)
 				self.mess_text1 = "New coffee order saved."
