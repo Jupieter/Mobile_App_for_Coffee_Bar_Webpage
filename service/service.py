@@ -37,7 +37,8 @@ def write_file(old_id = 0):
 
 def load_data():
     try:
-        store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/coffee_notify/').json()
+        store = requests.get('https://jupieter.pythonanywhere.com/c_app/coffee_notify/').json()
+        # store = requests.get('https://coffeeanteportas.herokuapp.com/c_app/coffee_notify/').json()
         if store == []:
             dt = 'No coffee today'
         else:
